@@ -13,5 +13,15 @@
 
 <h1> Выши ставки ГОСПОДА</h1>
 
+{% for user, bets in bets_dict.items() %}
+<div class="col-md-3">
 
+{{user}} :
+    {% for bet in bets%}
+    {{bet.t1_pre}}:{{bet.t2_pre}}
+    {% endfor %}
+    ,
+</div>
+<br>
+{% endfor %}
 {% endblock %}

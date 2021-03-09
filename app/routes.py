@@ -43,8 +43,13 @@ def logout():
 @app.route('/bets')
 @login_required
 def bets():
-
-    return render_template('bets.html')
+    bets_dict = {}
+    user_list = User.query.all()
+    for user in user_list:
+        user_id = user.id
+        user_bets = Bets.query.filter_by(user_id=user_id).all()
+        bets_dict[user.fio] = user_bets
+    return render_template('bets.html', bets_dict= bets_dict)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
