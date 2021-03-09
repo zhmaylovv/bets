@@ -1,0 +1,39 @@
+{% extends  'base.html' %}
+
+
+{% block title %}
+    Матчи
+{% endblock %}
+
+{% block content_title %}
+    Список матчей
+{% endblock %}
+
+{% block content%}
+    {% if current_user.username == 'admin' %}
+    <a class="nav-item nav-link active" href="{{ url_for('matchadd') }}">Добавить матч <span class="sr-only">(current)</span></a>
+    {% for match in matchs %}
+
+<div><a class="nav-item nav-link active" href="{{ url_for('editmatchs', match_id = match.id) }}">
+    {{match.id}} {{match.team1}} - {{match.team2}}
+    {% if match.completed%}
+    <b>{{match.t1_res}} : {{match.t2_res}}</b> Матч завершен
+    {%else%} Начало {{match.timestamp}}
+    {% endif %}  </a></div>
+        {% endfor %}
+    {%else%}
+        {% for match in matchs %}
+<div><a class="nav-item nav-link active" href="{{ url_for('editbets', match_id = match.id) }}">{{match.id}} {{match.team1}} - {{match.team2}}
+    {% if match.completed%}
+    <b>{{match.t1_res}} : {{match.t2_res}}</b> Матч завершен
+    {%else%} Начало {{match.timestamp}}
+    {% endif %}  </a></div>
+        {% endfor %}
+
+    {% endif %}
+    <div class="col-md-3">
+
+        OLOLO
+    </div>
+
+{% endblock %}

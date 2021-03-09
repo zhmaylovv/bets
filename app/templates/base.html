@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %} | Flask app
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ url_for('index') }}">SBS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{{ url_for('bets') }}">Ставки <span class="sr-only">(current)</span></a>
+             <a class="nav-item nav-link active" href="{{ url_for('matchs') }}">Матчи <span class="sr-only">(current)</span></a>
+
+        {% if current_user.is_anonymous %}
+            <a class="nav-item nav-link active" href="{{ url_for('login') }}">login <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="{{ url_for('register') }}">Регистрация <span class="sr-only">(current)</span></a>
+        {% else %}
+
+            <a class="nav-item nav-link active" href="{{ url_for('logout') }}">logout <span class="sr-only">(current)</span></a>
+
+        {% endif %}
+
+
+
+
+
+        <a class="nav-item nav-link active" href="{{ url_for('user', username=current_user.username) }}" >{{ current_user.username }}</a>
+    </div>
+    </div>
+</nav>
+<h1>
+    {% block content_title %}
+    {% endblock %}
+
+</h1>
+    {% block content%}
+    {% endblock %}
+
+</body>
+</html>

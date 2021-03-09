@@ -1,0 +1,46 @@
+{% extends  'base.html' %}
+
+
+{% block title %}
+    Bets
+{% endblock %}
+
+{% block content_title %}
+    Список ставок
+{% endblock %}
+
+{% block content%}
+
+     <div class="col-md-2">
+        <form action="{{ url_for ('bets.index')}}" method="POST">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label(class= 'control-label') }}
+                    {{ field(class = 'form-control') }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-info">Показать мои ставки:</button>
+
+        </form>
+    </div>
+<br>
+
+    <div class="col-md-3">
+
+        {% for k in bdic %}
+            {{k}} : {{ bdic[k]['bets'][bname]}}
+        {% endfor %}
+    </div>
+
+
+
+</br>
+
+
+    <div class="cal-md-2">
+        <a href="/bets/create" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Сделать ставку</a>
+    </div>
+
+
+
+{% endblock %}

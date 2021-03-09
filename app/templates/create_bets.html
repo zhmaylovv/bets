@@ -1,0 +1,26 @@
+{% extends  'base.html' %}
+
+
+{% block title %}
+    Bets
+{% endblock %}
+
+{% block content_title %}
+    Список ставок
+{% endblock %}
+
+{% block content%}
+    <div class="col-md-2">
+        <form action="{{ url_for ('bets.create_bets')}}" method="POST">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label(class= 'control-label') }}
+                    {{ field(class = 'form-control') }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-info">Сделать ставку</button>
+
+        </form>
+    </div>
+
+{% endblock %}
