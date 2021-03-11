@@ -11,11 +11,53 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 
 
+def add_score_from_mlist (match_list, score_dict):
+    '''
+    score algorytm, from v0.1
+    :param match_list:
+                        match_list = {'game_id_here': {'result': [0, 0],
+                                                     'bets': {'player0': [0, 0],
+                                                            'player1': [0, 0],
+                                                            'player2': [0, 0],
+                                                            'player3': [0, 0]
+                                                            }
+
+                                                     }
+                  }
+    :return: score_dict = {player : score}
+    '''
+    for i in match_list:
+        for j in match_list[i]["bets"]:
+            res1, res2 = int(match_list[i]["result"][0]), int(match_list[i]["result"][1])
+            bet1, bet2 = int(match_list[i]["bets"][j][0]), int(match_list[i]["bets"][j][1])
+            if j not in score_dict:
+                score_dict[j] = 0
+
+            if res1 == res2:  # если ничья, 4 очка
+                if bet1 == res1 and bet2 == res2:
+                    score_dict[j] += 4
+                elif bet1 == bet2:
+                    score_dict[j] += 3
+            elif bet1 == res1 and bet2 == res2:  # 5 очков
+                score_dict[j] += 5
+            elif res1 > res2 and bet1 > bet2:
+                if res1 - res2 == bet1 - bet2:
+                    score_dict[j] += 3
+                else:
+                    score_dict[j] += 2
+            elif res1 < res2 and bet1 < bet2:
+                if res1 - res2 == bet1 - bet2:
+                    score_dict[j] += 3
+                else:
+                    score_dict[j] += 2
+
+    return score_dict
 
 
 @app.route('/')
 @app.route('/index')
 def index():
+    
     return render_template('index.html', name= 'FLAAAASK')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -105,7 +147,9 @@ def matchadd():
 
     return render_template('matchadd.html', form=form)
 
+
 @app.route('/matchs', methods=['GET', 'POST'])
+@login_required
 def matchs():
     matchs = Match.query.all()
     return render_template('matchs.html', matchs= matchs)
