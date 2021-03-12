@@ -12,4 +12,5 @@
     {{ post.author.username }} says: <b>{{ post.body }}</b>
     </p>
     {% endfor %}
+    <a class="nav-item nav-link active" href="{{ url_for('edituser', username=current_user.username) }}" >{{ "edit user info" }}</a>
 {% endblock %}

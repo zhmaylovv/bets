@@ -104,7 +104,7 @@ def register():
         user.set_password(form.password.data)
         f = form.photo.data
         filename = secure_filename(f.filename)
-        print(f.content_type)
+
         if form.photo.data.content_type.split('/')[0] != 'image':
             flash('Image only plz')
             return redirect(url_for('register'))
@@ -118,6 +118,32 @@ def register():
 
         return redirect(url_for('index'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/edituser/<username>', methods=['GET', 'POST'])
+@login_required
+def edituser(username):
+    form = RegistrationForm()
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [{'author': user, 'body': 'Test post #1'},
+            {'author': user, 'body': 'Test post #2'}]
+    avatar = avatar = User.avatar
+
+    if form.validate_on_submit():
+        user = User(username=username, email=form.email.data, fio=form.fio.data)
+        user.set_password(form.password.data)
+        f = form.photo.data
+        filename = secure_filename(f.filename)
+        if form.photo.data.content_type.split('/')[0] != 'image':
+            flash('Image only plz')
+            return redirect(url_for('edituser'))
+
+        f.save(os.path.join(os.getcwd() + '/venv/app/static', form.username.data + '.' + filename.split('.')[-1]))
+        user.avatar = (form.username.data + '.' + filename.split('.')[-1])
+        db.session.commit()
+        flash('Edit ok')
+
+        return redirect(url_for('index'))
+    return render_template('edituser.html', user=user, posts=posts, avatar= avatar, form=form)
 
 @app.route('/user/<username>')
 @login_required
