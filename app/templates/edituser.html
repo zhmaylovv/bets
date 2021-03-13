@@ -24,7 +24,7 @@
         <p>
             {{ form.fio.label }}<br>
             {{ form.fio(size=32) }}<br>
-            {% for error in form.username.errors %}
+            {% for error in form.fio.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>

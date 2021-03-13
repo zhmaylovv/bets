@@ -6,7 +6,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Match, Bets
 from werkzeug.urls import url_parse
 from app import db
-from app.forms import RegistrationForm, MatchEditForm, BetsEditForm
+from app.forms import RegistrationForm, MatchEditForm, BetsEditForm, EditUserForm
 from werkzeug.utils import secure_filename
 from datetime import datetime
 
@@ -122,23 +122,27 @@ def register():
 @app.route('/edituser/<username>', methods=['GET', 'POST'])
 @login_required
 def edituser(username):
-    form = RegistrationForm()
+    form = EditUserForm()
     user = User.query.filter_by(username=username).first_or_404()
     posts = [{'author': user, 'body': 'Test post #1'},
             {'author': user, 'body': 'Test post #2'}]
-    avatar = avatar = User.avatar
+    avatar = User.avatar
 
     if form.validate_on_submit():
-        user = User(username=username, email=form.email.data, fio=form.fio.data)
-        user.set_password(form.password.data)
-        f = form.photo.data
-        filename = secure_filename(f.filename)
-        if form.photo.data.content_type.split('/')[0] != 'image':
-            flash('Image only plz')
-            return redirect(url_for('edituser'))
-
-        f.save(os.path.join(os.getcwd() + '/venv/app/static', form.username.data + '.' + filename.split('.')[-1]))
-        user.avatar = (form.username.data + '.' + filename.split('.')[-1])
+        if form.password.data:
+            user.set_password=form.password.data
+        if form.email.data:
+            user.email=form.email.data
+        if form.fio.data:
+            user.fio=form.fio.data
+        if form.photo.data:
+            f = form.photo.data
+            filename = secure_filename(f.filename)
+            if form.photo.data.content_type.split('/')[0] != 'image':
+                flash('Image only plz')
+                return redirect(url_for('edituser'))
+            f.save(os.path.join(os.getcwd() + '/venv/app/static', username + '.' + filename.split('.')[-1]))
+            user.avatar = (username + '.' + filename.split('.')[-1])
         db.session.commit()
         flash('Edit ok')
 

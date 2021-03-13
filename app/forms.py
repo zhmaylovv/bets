@@ -39,6 +39,27 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different email address.')
 
 
+class EditUserForm(FlaskForm):
+
+    fio = StringField('Имя по котрое будет видно пользователям')
+    email = StringField('Email')
+    password = PasswordField('Password')
+    password2 = PasswordField('Repeat Password', validators=[EqualTo('password')])
+    photo = FileField('Выберите фото')
+
+    submit = SubmitField('Edit')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different username.')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different email address.')
+
+
 class MatchEditForm(FlaskForm):
 
     team1 = StringField('Комманда 1', validators=[DataRequired()])
