@@ -9,56 +9,15 @@ from app import db
 from app.forms import RegistrationForm, MatchEditForm, BetsEditForm, EditUserForm
 from werkzeug.utils import secure_filename
 from datetime import datetime
-
-
-def add_score_from_mlist (match_list, score_dict):
-    '''
-    score algorytm, from v0.1
-    :param match_list:
-                        match_list = {'game_id_here': {'result': [0, 0],
-                                                     'bets': {'player0': [0, 0],
-                                                            'player1': [0, 0],
-                                                            'player2': [0, 0],
-                                                            'player3': [0, 0]
-                                                            }
-
-                                                     }
-                  }
-    :return: score_dict = {player : score}
-    '''
-    for i in match_list:
-        for j in match_list[i]["bets"]:
-            res1, res2 = int(match_list[i]["result"][0]), int(match_list[i]["result"][1])
-            bet1, bet2 = int(match_list[i]["bets"][j][0]), int(match_list[i]["bets"][j][1])
-            if j not in score_dict:
-                score_dict[j] = 0
-
-            if res1 == res2:  # если ничья, 4 очка
-                if bet1 == res1 and bet2 == res2:
-                    score_dict[j] += 4
-                elif bet1 == bet2:
-                    score_dict[j] += 3
-            elif bet1 == res1 and bet2 == res2:  # 5 очков
-                score_dict[j] += 5
-            elif res1 > res2 and bet1 > bet2:
-                if res1 - res2 == bet1 - bet2:
-                    score_dict[j] += 3
-                else:
-                    score_dict[j] += 2
-            elif res1 < res2 and bet1 < bet2:
-                if res1 - res2 == bet1 - bet2:
-                    score_dict[j] += 3
-                else:
-                    score_dict[j] += 2
-
-    return score_dict
+from app.func import result_calc
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    
+    result_calc()
     return render_template('index.html', name= 'FLAAAASK')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -89,7 +48,7 @@ def bets():
     #дата, команды, результат, предсказание?
     #как хранить? КЭШ(с полным перерасчетом после закрытия каждого матча)? А сюда получаем только данные
     #сделать отдельный модуль для расчета всего бекенда и ипортировать сюда
-    #это был тяжелый лень, но коммит страйк прерывать не хочется... кто ты такой- что бы осуждать меня?
+
     bets_dict = {}
     user_list = User.query.all()
     for user in user_list:
