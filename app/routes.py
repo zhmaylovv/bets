@@ -46,6 +46,8 @@ def logout():
 def bets():
     #запрос в базу все user_id, по ним фильтр выводим res_scor, в модалку надо будет передавать следующие данные :
     #дата, команды, результат, предсказание?
+    #<span style="color:#dc8d32;" data-toggle="tooltip" data-placement="top"
+    #title="" data-original-title="Игра: Россия — Германия. Ставка: 1-1. Итог: 1-1 ">5</span>
     #как хранить? КЭШ(с полным перерасчетом после закрытия каждого матча)? А сюда получаем только данные
     #сделать отдельный модуль для расчета всего бекенда и ипортировать сюда
 
@@ -134,6 +136,7 @@ def matchadd():
     if form.validate_on_submit():
         match = Match(team1=form.team1.data, team2=form.team2.data, t1_res= form.t1_res.data,
                       t2_res=form.t2_res.data, timestamp=form.datetime.data)
+
         db.session.add(match)
         db.session.commit()
         flash('Матч добавлен')
@@ -166,10 +169,10 @@ def editmatchs(match_id):
             edit.timestamp = form.datetime.data
             edit.completed = form.completed.data
             print (form.completed.data)
-            ''' 
-            Вставить сюда код обработки завершенного матча...
-            
-            '''
+            if form.t2_res.data:
+                #если есть результат, то считаем результат по ставкам пользователей
+                #если ставки нет- делаем ее 0-0
+                #похоже это уже было тут ))))
 
 
             db.session.commit()
@@ -212,4 +215,3 @@ def editbets(match_id):
 
 
     return render_template('editbets.html', form=form, match=match, all_bet=all_bet, my_bet=my_bet, udic= udic)
-
