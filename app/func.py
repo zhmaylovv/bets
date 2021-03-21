@@ -3,21 +3,7 @@ from app import db
 
 
 def result_calc (match_id, ):
-    """
-    Перерасчет всех результатов
-        :param match_list:
-                            match_list = {'game_id_here': {'result': [0, 0],
-                                                         'bets': {'player0': [0, 0],
-                                                                'player1': [0, 0],
-                                                                'player2': [0, 0],
-                                                                'player3': [0, 0]
-                                                                }
 
-                                                         }
-                      }
-
-    :return: score_dict
-    """
     score_dict = []
     match= Match.query.filter_by(id=match_id).first_or_404()
     users = User.query.all()
