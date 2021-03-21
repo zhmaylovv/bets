@@ -15,7 +15,7 @@ from app.func import result_calc
 @app.route('/')
 @app.route('/index')
 def index():
-    result_calc()
+
     return render_template('index.html', name= 'FLAAAASK')
 
 
@@ -44,20 +44,32 @@ def logout():
 @app.route('/bets')
 @login_required
 def bets():
+    '''
     #запрос в базу все user_id, по ним фильтр выводим res_scor, в модалку надо будет передавать следующие данные :
     #дата, команды, результат, предсказание?
     #<span style="color:#dc8d32;" data-toggle="tooltip" data-placement="top"
     #title="" data-original-title="Игра: Россия — Германия. Ставка: 1-1. Итог: 1-1 ">5</span>
     #как хранить? КЭШ(с полным перерасчетом после закрытия каждого матча)? А сюда получаем только данные
     #сделать отдельный модуль для расчета всего бекенда и ипортировать сюда
+    <p title="Россия- Германия ставка: 5-0 результат: 5-0">5</p>
+    '''
 
-    bets_dict = {}
+    #собираем переменные:
     user_list = User.query.all()
+    match_list = Match.query.all()
+    bets_dict = {}
+    res_dict = {}
     for user in user_list:
         user_id = user.id
         user_bets = Bets.query.filter_by(user_id=user_id).all()
-        bets_dict[user.fio] = user_bets
-    return render_template('bets.html', bets_dict= bets_dict)
+        for bet in user_bets:
+            match = Match.query.filter_by(id=bet.match_id).first_or_404()
+            res_dict[bet.res_scor] = str(match.team1) + "-" + str(match.team2) + " ставка: " \
+                                     + str(bet.t1_pre) + "-" + str(bet.t2_pre) + " результат: " \
+                                     + str(match.t1_res) + "-" + str(match.t1_res)
+        bets_dict[user.username] = res_dict
+
+    return render_template( 'bets.html' ,bets_dict= bets_dict )
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -136,9 +148,16 @@ def matchadd():
     if form.validate_on_submit():
         match = Match(team1=form.team1.data, team2=form.team2.data, t1_res= form.t1_res.data,
                       t2_res=form.t2_res.data, timestamp=form.datetime.data)
-
         db.session.add(match)
         db.session.commit()
+
+        #добавили матч, нужно добавить всем ставки - 0-0
+        for user in User.query.all():
+            bet = Bets ( match_id=match.id ,user_id=user.id ,t1_pre=0 ,t2_pre=0,
+                        comment="Ставка сделана автоматически" )
+            db.session.add (bet)
+            db.session.commit ()
+
         flash('Матч добавлен')
         return redirect(url_for('matchs'))
 
@@ -169,14 +188,11 @@ def editmatchs(match_id):
             edit.timestamp = form.datetime.data
             edit.completed = form.completed.data
             print (form.completed.data)
-            if form.t2_res.data:
-                pass
-                #если есть результат, то считаем результат по ставкам пользователей
-                #если ставки нет- делаем ее 0-0
-                #похоже это уже было тут ))))
-
-
             db.session.commit()
+            #расчет всех ставок для этого матча
+            if form.completed.data:
+                result_calc(match_id)
+                pass
             return redirect(url_for('matchs'))
         return render_template('editmatch.html', form=form, edit=edit)
     else:

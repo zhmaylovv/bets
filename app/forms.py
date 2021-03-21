@@ -64,8 +64,8 @@ class MatchEditForm(FlaskForm):
 
     team1 = StringField('Комманда 1', validators=[DataRequired()])
     team2 = StringField('Комманда 2', validators=[DataRequired()])
-    t1_res = StringField('Результат Комманды 1', validators=[DataRequired()], default='0')
-    t2_res = StringField('Результат Комманды 2', validators=[DataRequired()], default='0')
+    t1_res = StringField('Результат Комманды 1')
+    t2_res = StringField('Результат Комманды 2')
     datetime = DateTimeField('Дата и время', validators=[DataRequired()], default= datetime.utcnow())
     completed = BooleanField('Матч завершен?')
 
