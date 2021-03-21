@@ -170,6 +170,7 @@ def editmatchs(match_id):
             edit.completed = form.completed.data
             print (form.completed.data)
             if form.t2_res.data:
+                pass
                 #если есть результат, то считаем результат по ставкам пользователей
                 #если ставки нет- делаем ее 0-0
                 #похоже это уже было тут ))))
