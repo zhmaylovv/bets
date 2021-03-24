@@ -6,8 +6,7 @@ def result_calc (match_id, ):
 
     score_dict = []
     match= Match.query.filter_by(id=match_id).first_or_404()
-    users = User.query.all()
-    bets = Bets.query.all()
+    bets = Bets.query.filter_by(match_id=match_id).all()
 
     for bet in bets:
         bet.res_scor = 0
@@ -38,7 +37,6 @@ def result_calc (match_id, ):
                 bet.res_scor += 3
             else:
                 bet.res_scor += 2
-
 
         db.session.commit ()
     pass

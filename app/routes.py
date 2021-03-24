@@ -59,15 +59,20 @@ def bets():
     match_list = Match.query.all()
     bets_dict = {}
     res_dict = {}
+    count = 0
     for user in user_list:
         user_id = user.id
         user_bets = Bets.query.filter_by(user_id=user_id).all()
         for bet in user_bets:
             match = Match.query.filter_by(id=bet.match_id).first_or_404()
-            res_dict[bet.res_scor] = str(match.team1) + "-" + str(match.team2) + " ставка: " \
+            if match.completed:
+                res_dict[bet.res_scor] = str(match.team1) + "-" + str(match.team2) + " ставка: " \
                                      + str(bet.t1_pre) + "-" + str(bet.t2_pre) + " результат: " \
-                                     + str(match.t1_res) + "-" + str(match.t1_res)
+                                     + str(match.t1_res) + "-" + str(match.t2_res)
+
         bets_dict[user.username] = res_dict
+
+        res_dict = {}
 
     return render_template( 'bets.html' ,bets_dict= bets_dict )
 
@@ -187,7 +192,6 @@ def editmatchs(match_id):
             edit.t1_res = form.t1_res.data
             edit.timestamp = form.datetime.data
             edit.completed = form.completed.data
-            print (form.completed.data)
             db.session.commit()
             #расчет всех ставок для этого матча
             if form.completed.data:
@@ -216,7 +220,6 @@ def editbets(match_id):
         if my_bet is None:
             my_bet = Bets(match_id= match_id, user_id= current_user.id, t1_pre=form.t1_pre.data, t2_pre=form.t2_pre.data,
                           comment=form.comment.data)
-            print(my_bet.match_id)
             db.session.add(my_bet)
             db.session.commit()
 
