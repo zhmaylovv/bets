@@ -128,7 +128,7 @@ function loadStyle(href, callback) {
   $(".radius-radio[data-radius='" + radius + "']").attr("checked", true);
   $("#switchDark").attr("checked", theme.indexOf("dark") > 0 ? true : false);
 
-  loadStyle("http://127.0.0.1:5000/static/css/" + theme, onStyleComplete);
+  loadStyle("https://starbets.herokuapp.com/static/css/" + theme, onStyleComplete);
   function onStyleComplete() {
     setTimeout(onStyleCompleteDelayed, 300);
   }
