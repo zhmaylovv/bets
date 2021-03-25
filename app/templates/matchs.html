@@ -29,9 +29,9 @@
                                             <th scope="col">Команда 1</th>
                                             <th scope="col">Команда 2</th>
                                             <th scope="col">Начало</th>
-                                            <th scope="col">Мой прогноз</th>
                                             <th scope="col">Резльтат</th>
                                             <th scope="col">Статус</th>
+                                            <th style="background-color: #dfeeff;" scope="col">Мой прогноз</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,11 +45,11 @@
                                             Админ! Где начало матча?
                                             {%else%} {{match.timestamp}}
                                             {% endif %}</td>
-                                            <td>{{match.t1_pre}} : {{match.t2_pre}}</td>
                                             <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
                                             <td>{% if match.completed%} Матч завершен!
                                             {%else%} <div class="glyph-icon simple-icon-control-play"></div>
                                             {% endif %}</td>
+                                            <td style="background-color: #dfeeff;">{{match.t1_pre}} : {{match.t2_pre}}</td>
                                             </tr>
                                         {% endfor %}
                                         {%else%}
@@ -61,11 +61,11 @@
                                             <td>{% if match.completed%}
                                             {%else%} {{match.timestamp}}
                                             {% endif %}</td>
-                                            <td>{{match.t1_pre}} : {{match.t2_pre}}</td>
                                             <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
                                             <td>{% if match.completed%} Матч завершен!
                                             {%else%} <div class="glyph-icon simple-icon-control-play"></div>
                                             {% endif %}</td>
+                                            <td style="background-color: #dfeeff;">{{match.t1_pre}} : {{match.t2_pre}}</td>
                                             </tr>
                                         {% endfor %}
                                         {% endif %}
