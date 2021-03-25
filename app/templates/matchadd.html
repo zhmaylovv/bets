@@ -2,15 +2,99 @@
 
 
 {% block title %}
-    Матчи
+    Добавление матча
 {% endblock %}
 
 {% block content_title %}
-    Список матчей
+    Добавление матча
 {% endblock %}
 
 {% block content%}
- <h1> Добавление матча </h1>
+
+<div class="row">
+<div class="col-lg-6 col-md-12 mb-4">
+<div class="card mb-4">
+            <div class="card-body">
+            <h5 class="mb-4">Добавить новый матч</h5>
+        <form>
+            <div class="form-group">
+                <label>Команда 1</label>
+                <select class="form-control select2-single select2-hidden-accessible" data-width="100%" tabindex="-1" aria-hidden="true">
+                    <option label="&nbsp;">&nbsp;</option>
+                    <option value="IT">🇮🇹 Италия</option>
+                    <option value="CH">🇸🇪 Швейцария</option>
+                    <option value="TR">🇹🇷 Турция</option>
+                    <option value="??">🏴󠁧󠁢󠁷󠁬󠁳󠁿 Уэльс</option>
+                    <option value="BE">🇧🇪 Бельгия</option>
+                    <option value="DK">🇩🇰 Дания</option>
+                    <option value="RU">🇷🇺 Россия</option>
+                    <option value="FI">🇫🇮 Финляндия</option>
+                    <option value="UA">🇺🇦 Украина</option>
+                    <option value="NL">🇳🇱 Нидерланды</option>
+                    <option value="AT">🇦🇹 Австрия</option>
+                    <option value="MK">🇲🇰 С.Македония</option>
+                    <option value="GB">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Англия</option>
+                    <option value="HR">🇭🇷 Хорватия</option>
+                    <option value="CZ">🇨🇿 Чехия</option>
+                    <option value="??">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Шотландия</option>
+                    <option value="ES">🇪🇸 Испания</option>
+                    <option value="PL">🇵🇱 Польша</option>
+                    <option value="SE">🇸🇪 Швеция</option>
+                    <option value="SK">🇸🇰 Словакия</option>
+                    <option value="DE">🇬🇬 Германия</option>
+                    <option value="PT">🇵🇹 Португалия</option>
+                    <option value="FR">🇫🇷 Франция</option>
+                    <option value="HU">🇭🇺 Венгрия</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Команда 2</label>
+                <select class="form-control select2-single select2-hidden-accessible" data-width="100%" tabindex="-1" aria-hidden="true">
+                    <option label="&nbsp;">&nbsp;</option>
+                    <option value="IT">🇮🇹 Италия</option>
+                    <option value="CH">🇸🇪 Швейцария</option>
+                    <option value="TR">🇹🇷 Турция</option>
+                    <option value="??">🏴󠁧󠁢󠁷󠁬󠁳󠁿 Уэльс</option>
+                    <option value="BE">🇧🇪 Бельгия</option>
+                    <option value="DK">🇩🇰 Дания</option>
+                    <option value="RU">🇷🇺 Россия</option>
+                    <option value="FI">🇫🇮 Финляндия</option>
+                    <option value="UA">🇺🇦 Украина</option>
+                    <option value="NL">🇳🇱 Нидерланды</option>
+                    <option value="AT">🇦🇹 Австрия</option>
+                    <option value="MK">🇲🇰 С.Македония</option>
+                    <option value="GB">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Англия</option>
+                    <option value="HR">🇭🇷 Хорватия</option>
+                    <option value="CZ">🇨🇿 Чехия</option>
+                    <option value="??">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Шотландия</option>
+                    <option value="ES">🇪🇸 Испания</option>
+                    <option value="PL">🇵🇱 Польша</option>
+                    <option value="SE">🇸🇪 Швеция</option>
+                    <option value="SK">🇸🇰 Словакия</option>
+                    <option value="DE">🇬🇬 Германия</option>
+                    <option value="PT">🇵🇹 Португалия</option>
+                    <option value="FR">🇫🇷 Франция</option>
+                    <option value="HU">🇭🇺 Венгрия</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Начало матча</label>
+                <div class="input-group date">
+                    <input type="text" class="form-control">
+                    <span class="input-group-text input-group-append input-group-addon">
+                        <i class="simple-icon-calendar"></i>
+                    </span>
+                </div>
+            </div>
+
+                <button type="submit" class="btn btn-primary mb-0">Создать матч</button>
+             </form>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+
+<!-- На этапе создания матча нельзя поставить результаты игры. Этот фунционал нужно вынести на страницу внесения результатов -->
 
      <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}

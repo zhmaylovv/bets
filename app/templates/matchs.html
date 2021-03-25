@@ -11,29 +11,69 @@
 
 {% block content%}
     {% if current_user.username == 'admin' %}
-    <a class="nav-item nav-link active" href="{{ url_for('matchadd') }}">Добавить матч <span class="sr-only">(current)</span></a>
-    {% for match in matchs %}
-
-<div><a class="nav-item nav-link active" href="{{ url_for('editmatchs', match_id = match.id) }}">
-    {{match.id}} {{match.team1}} - {{match.team2}}
-    {% if match.completed%}
-    <b>{{match.t1_res}} : {{match.t2_res}}</b> Матч завершен
-    {%else%} Начало {{match.timestamp}}
-    {% endif %}  </a></div>
-        {% endfor %}
-    {%else%}
-        {% for match in matchs %}
-<div><a class="nav-item nav-link active" href="{{ url_for('editbets', match_id = match.id) }}">{{match.id}} {{match.team1}} - {{match.team2}}
-    {% if match.completed%}
-    <b>{{match.t1_res}} : {{match.t2_res}}</b> Матч завершен
-    {%else%} Начало {{match.timestamp}}
-    {% endif %}  </a></div>
-        {% endfor %}
-
-    {% endif %}
-    <div class="col-md-3">
-
-        OLOLO
+    <div>
+        <p>Функционал администратороа</p>
+    <form style="padding-bottom: 20px;" action="{{ url_for('matchadd') }}">
+        <button type="submit" class="btn btn-secondary btn-lg mb-1">Добавить матч</button>
+    </form>
     </div>
+    {% endif %}
+        <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Матчи EURO2021</h5>
+                                <table  width="100%" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="5px;" scope="col">№</th>
+                                            <th scope="col">Команда 1</th>
+                                            <th scope="col">Команда 2</th>
+                                            <th scope="col">Начало</th>
+                                            <th scope="col">Мой прогноз</th>
+                                            <th scope="col">Резльтат</th>
+                                            <th scope="col">Статус</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                            {% if current_user.username == 'admin' %}
+                                        {% for match in matchs %}
+                                            <th scope="row">{{match.id}}</th>
+                                            <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team1}}</a></td>
+                                            <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
+                                            <td>{% if match.completed%}
+                                            Админ! Где начало матча?
+                                            {%else%} {{match.timestamp}}
+                                            {% endif %}</td>
+                                            <td>{{match.t1_pre}} : {{match.t2_pre}}</td>
+                                            <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
+                                            <td>{% if match.completed%} Матч завершен!
+                                            {%else%} <div class="glyph-icon simple-icon-control-play"></div>
+                                            {% endif %}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        {%else%}
+
+                                        {% for match in matchs %}
+                                            <th scope="row">{{match.id}}</th>
+                                            <td><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team1}}</a></td>
+                                            <td><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team2}}</a></td>
+                                            <td>{% if match.completed%}
+                                            {%else%} {{match.timestamp}}
+                                            {% endif %}</td>
+                                            <td>{{match.t1_pre}} : {{match.t2_pre}}</td>
+                                            <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
+                                            <td>{% if match.completed%} Матч завершен!
+                                            {%else%} <div class="glyph-icon simple-icon-control-play"></div>
+                                            {% endif %}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </tr> 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        </div>
 
 {% endblock %}

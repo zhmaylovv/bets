@@ -12,7 +12,6 @@ from datetime import datetime
 from app.func import result_calc
 
 
-@app.route('/')
 @app.route('/index')
 def index():
 
@@ -41,6 +40,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/')
 @app.route('/bets')
 @login_required
 def bets():

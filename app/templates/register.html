@@ -6,12 +6,57 @@
 {% endblock %}
 
 {% block content_title %}
-    Регистрируйся
+    Регистрация нового Нострадамуса
 {% endblock %}
 
 
 {% block content %}
-    <h1>Register</h1>
+
+
+                    <div class="card col-lg-6 col-md-12 mb-4">
+                        <div class="card-body">
+                            <h5 class="mb-4">Введите ваши данные</h5>
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="inlineFormInputName1">Имя и Фамилия</label>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName1" placeholder="Иван Петров" name="pablic-name">
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email
+                                        with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inlineFormInputName2">Username</label>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Иван Петров">
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email
+                                        with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email почта</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email
+                                        with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Пароль</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPasswordRep">Повтор пароля</label>
+                                    <input type="password" class="form-control" id="exampleInputPasswordRep" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                <label class="btn btn-outline-primary btn-upload" for="inputImage" title="Upload image file">
+                                <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+                                Выберете файл с аватаркой
+                                 </label>
+                                 <small id="emailHelp" class="form-text text-muted">Желательно использовать аватарку размером 1 к 1. То есть квадратную.</small>
+                                    </div>
+                                <button type="submit" class="btn btn-primary mb-0">Регистрация</button>
+                            </form>
+                        </div>
+                    </div>
+
+
+
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
