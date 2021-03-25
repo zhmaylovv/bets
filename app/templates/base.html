@@ -9,23 +9,23 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/font/iconsmind-s/css/iconsminds.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/font/simple-line-icons/css/simple-line-icons.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/font/iconsmind-s/css/iconsminds.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/font/simple-line-icons/css/simple-line-icons.css" />
 
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/bootstrap.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/bootstrap.rtl.only.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/fullcalendar.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/dataTables.bootstrap4.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/datatables.responsive.bootstrap4.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/select2.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/select2-bootstrap.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/glide.core.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/bootstrap-stars.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/nouislider.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/bootstrap-datepicker3.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/vendor/component-custom-switch.min.css" />
-    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/main.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/bootstrap.rtl.only.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/fullcalendar.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/datatables.responsive.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/select2.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/select2-bootstrap.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/glide.core.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/bootstrap-stars.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/nouislider.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/vendor/component-custom-switch.min.css" />
+    <link rel="stylesheet" href="https://starbets.herokuapp.com/static/css/main.css" />
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
@@ -181,7 +181,7 @@
                     aria-expanded="false">
                     <span class="name">{{ current_user.username }}</span>
                     <span>
-                        {% if current_user.is_anonymous %} <img style="object-fit: cover; width: 40px; height: 40px;" alt="This is anonymous picture" src="http://127.0.0.1:5000/static/a.jpg" />
+                        {% if current_user.is_anonymous %} <img style="object-fit: cover; width: 40px; height: 40px;" alt="This is anonymous picture" src="https://starbets.herokuapp.com/static/a.jpg" />
                         {% else %}
                         <img style="object-fit: cover; width: 40px; height: 40px;" alt="Profile picture" src="{{'static/'+current_user.avatar}}" />
                         {% endif %}
@@ -278,24 +278,24 @@
         </div>
     </footer>
 
-    <script src="http://127.0.0.1:5000/static/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/Chart.bundle.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/chartjs-plugin-datalabels.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/moment.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/fullcalendar.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/datatables.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/perfect-scrollbar.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/glide.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/progressbar.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/jquery.barrating.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/select2.full.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/nouislider.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/bootstrap-datepicker.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/Sortable.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/vendor/mousetrap.min.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/dore.script.js"></script>
-    <script src="http://127.0.0.1:5000/static/js/scripts.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/Chart.bundle.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/chartjs-plugin-datalabels.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/moment.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/fullcalendar.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/datatables.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/perfect-scrollbar.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/glide.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/progressbar.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/jquery.barrating.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/select2.full.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/nouislider.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/bootstrap-datepicker.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/Sortable.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/vendor/mousetrap.min.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/dore.script.js"></script>
+    <script src="https://starbets.herokuapp.com/static/js/scripts.js"></script>
 </body>
 
 </html>
