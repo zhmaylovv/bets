@@ -165,6 +165,7 @@ function loadStyle(href, callback) {
     }
   });
 
+
   $("#switchDark").on("change", function (event) {
     var mode = $(event.currentTarget)[0].checked ? "dark" : "light";
     if (mode == "dark") {
@@ -203,4 +204,9 @@ function loadStyle(href, callback) {
       }
     }
   });
+
+
+
 })(jQuery);
+
+

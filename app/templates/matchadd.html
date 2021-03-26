@@ -16,10 +16,10 @@
 <div class="card mb-4">
             <div class="card-body">
             <h5 class="mb-4">Добавить новый матч</h5>
-        <form>
-            <div class="form-group">
+        <form method="post">
+            <div class="form-group" >
                 <label>Команда 1</label>
-                <select class="form-control select2-single select2-hidden-accessible" data-width="100%" tabindex="-1" aria-hidden="true">
+                <select class="form-control select2-single select2-hidden-accessible" data-width="100%" tabindex="-1" aria-hidden="true" name="team1">
                     <option label="&nbsp;">&nbsp;</option>
                     <option value="IT">🇮🇹 Италия</option>
                     <option value="CH">🇸🇪 Швейцария</option>
@@ -47,9 +47,9 @@
                     <option value="HU">🇭🇺 Венгрия</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" >
                 <label>Команда 2</label>
-                <select class="form-control select2-single select2-hidden-accessible" data-width="100%" tabindex="-1" aria-hidden="true">
+                <select class="form-control select2-single select2-hidden-accessible" data-width="100%" tabindex="-1" aria-hidden="true" name="team2">
                     <option label="&nbsp;">&nbsp;</option>
                     <option value="IT">🇮🇹 Италия</option>
                     <option value="CH">🇸🇪 Швейцария</option>
@@ -77,15 +77,17 @@
                     <option value="HU">🇭🇺 Венгрия</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" >
                 <label>Начало матча</label>
-                <div class="input-group date">
-                    <input type="text" class="form-control">
+                <div class="input-group ">
+                    <input type="text" class="form-control" name="datetime">
                     <span class="input-group-text input-group-append input-group-addon">
                         <i class="simple-icon-calendar"></i>
                     </span>
                 </div>
             </div>
+
+
 
                 <button type="submit" class="btn btn-primary mb-0">Создать матч</button>
              </form>
@@ -95,52 +97,8 @@
                     </div>
 
 <!-- На этапе создания матча нельзя поставить результаты игры. Этот фунционал нужно вынести на страницу внесения результатов -->
+<!--
 
-     <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.team1.label }}<br>
-            {{ form.team1(size=32) }}<br>
-            {% for error in form.team1.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-         <p>
-            {{ form.team2.label }}<br>
-            {{ form.team2(size=32) }}<br>
-            {% for error in form.team2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-         <p>
-            {{ form.t1_res.label }}<br>
-            {{ form.t1_res(size=32) }}<br>
-            {% for error in form.t1_res.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-
-         <p>
-            {{ form.t2_res.label }}<br>
-            {{ form.t2_res(size=32) }}<br>
-            {% for error in form.t2_res.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-
-        <p>
-            {{ form.datetime.label }}<br>
-            {{ form.datetime}}<br>
-            {% for error in form.datetime.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-
-            {% endfor %}
-
-        </p>
-
-        <p>{{ form.submit() }}</p>
-    </form>
-
-
+-->
 
 {% endblock %}

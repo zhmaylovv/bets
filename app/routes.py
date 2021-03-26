@@ -147,33 +147,31 @@ def user(username):
 @app.route('/matchadd', methods=['GET', 'POST'])
 @login_required
 def matchadd():
-    if current_user.username != 'admin':
+    '''if current_user.username != 'admin':
         return redirect(url_for('matchs'))
     form = MatchEditForm()
-    if form.validate_on_submit():
-        match = Match(team1=form.team1.data, team2=form.team2.data, t1_res= form.t1_res.data,
-                      t2_res=form.t2_res.data, timestamp=form.datetime.data)
+    if form.validate_on_submit():'''
+    if request.method == 'POST':
+
+        match = Match(team1=request.form.get('team1'), team2=request.form.get('team2'), timestamp=request.form.get('datatime'), t1_res='',
+                      t2_res='',)
         db.session.add(match)
         db.session.commit()
 
         #добавили матч, нужно добавить всем ставки - 0-0
-        for user in User.query.all():
-            bet = Bets ( match_id=match.id ,user_id=user.id ,t1_pre=0 ,t2_pre=0,
-                        comment="Ставка сделана автоматически" )
-            db.session.add (bet)
-            db.session.commit ()
 
         flash('Матч добавлен')
         return redirect(url_for('matchs'))
 
-    return render_template('matchadd.html', form=form)
+    return render_template('matchadd.html') #form=form
 
 
 @app.route('/matchs', methods=['GET', 'POST'])
 @login_required
 def matchs():
     matchs = Match.query.all()
-    return render_template('matchs.html', matchs= matchs)
+    bets = Bets.query.filter_by(user_id=current_user.id).all()
+    return render_template('matchs.html', matchs=matchs, bets=bets)
 
 @app.route('/editmatchs/<match_id>', methods=['GET', 'POST'])
 @login_required
@@ -206,32 +204,38 @@ def editmatchs(match_id):
 @app.route('/editbets/<match_id>', methods=['GET', 'POST'])
 @login_required
 def editbets(match_id):
+
     form = BetsEditForm()
     match = Match.query.filter_by(id=match_id).first_or_404()
-    users = User.query.all()
-    all_bet = Bets.query.filter_by(match_id=match_id).all()
-    my_bet = Bets.query.filter_by(match_id=match_id, user_id=current_user.id).first()
+    if datetime.utcnow () < match.timestamp:
+        print(datetime.utcnow () > match.timestamp)
+        print (type( match.timestamp ))
+        users = User.query.all()
+        all_bet = Bets.query.filter_by(match_id=match_id).all()
+        my_bet = Bets.query.filter_by(match_id=match_id, user_id=current_user.id).first()
 
-    udic = {}
-    for i in users:
-        udic[i.id] = i.fio
+        udic = {}
+        for i in users:
+            udic[i.id] = i.fio
 
-    if form.validate_on_submit():
-        if my_bet is None:
-            my_bet = Bets(match_id= match_id, user_id= current_user.id, t1_pre=form.t1_pre.data, t2_pre=form.t2_pre.data,
-                          comment=form.comment.data)
-            db.session.add(my_bet)
-            db.session.commit()
+        if form.validate_on_submit():
+            if my_bet is None:
+                my_bet = Bets(match_id= match_id, user_id= current_user.id, t1_pre=form.t1_pre.data, t2_pre=form.t2_pre.data,
+                              comment=form.comment.data)
+                db.session.add(my_bet)
+                db.session.commit()
 
-        else:
-            my_bet.match_id = match_id
-            my_bet.user_id = current_user.id
-            my_bet.t1_pre = form.t1_pre.data
-            my_bet.t2_pre = form.t2_pre.data
-            my_bet.comment = form.comment.data
-            db.session.commit()
-        return redirect(url_for('matchs'))
+            else:
+                my_bet.match_id = match_id
+                my_bet.user_id = current_user.id
+                my_bet.t1_pre = form.t1_pre.data
+                my_bet.t2_pre = form.t2_pre.data
+                my_bet.comment = form.comment.data
+                db.session.commit()
+            return redirect(url_for('matchs'))
 
 
 
-    return render_template('editbets.html', form=form, match=match, all_bet=all_bet, my_bet=my_bet, udic= udic)
+        return render_template('editbets.html', form=form, match=match, all_bet=all_bet, my_bet=my_bet, udic= udic)
+    flash ( 'Ставки сделаны, ставок больше нет... на этот матч!' )
+    return redirect ( url_for ( 'matchs' ) )
