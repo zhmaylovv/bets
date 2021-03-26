@@ -54,7 +54,7 @@
                                             {%else%} <div class="glyph-icon simple-icon-control-play"></div>
                                             {% endif %}</td>
                                             {%for bet in bets if bet.match_id | int == match.id | int %}
-                                                    <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">ред.</span></a></td>
+                                                    <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
 
                                             {%else%}
                                                     <td style="background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
@@ -75,10 +75,10 @@
                                             {%else%} <div class="glyph-icon simple-icon-control-play"></div>
                                             {% endif %}</td>
                                             {%for bet in bets if bet.match_id | int == match.id | int %}
-                                                    <td style="background-color: #efefef;">{{bet.t1_pre}} : {{bet.t2_pre}} <div class="simple-icon-pencil"></div></td>
+                                                   <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
 
                                             {%else%}
-                                                    <td><a href="{{ url_for('editbets', match_id = match.id) }}">Сделать ставку</a></td>
+                                                    <td style="background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
                                             {% endfor %}
 
                                             </tr>
