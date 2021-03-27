@@ -9,7 +9,7 @@ from app import db
 from app.forms import RegistrationForm, MatchEditForm, BetsEditForm, EditUserForm
 from werkzeug.utils import secure_filename
 from datetime import datetime
-from app.func import result_calc
+from app.func import result_calc, set_auto_bet
 
 
 @app.route('/index')
@@ -44,17 +44,7 @@ def logout():
 @app.route('/bets')
 @login_required
 def bets():
-    '''
-    #запрос в базу все user_id, по ним фильтр выводим res_scor, в модалку надо будет передавать следующие данные :
-    #дата, команды, результат, предсказание?
-    #<span style="color:#dc8d32;" data-toggle="tooltip" data-placement="top"
-    #title="" data-original-title="Игра: Россия — Германия. Ставка: 1-1. Итог: 1-1 ">5</span>
-    #как хранить? КЭШ(с полным перерасчетом после закрытия каждого матча)? А сюда получаем только данные
-    #сделать отдельный модуль для расчета всего бекенда и ипортировать сюда
-    <p title="Россия- Германия ставка: 5-0 результат: 5-0">5</p>
-    '''
 
-    #собираем переменные:
     user_list = User.query.all()
     match_list = Match.query.all()
     bets_dict = {}
@@ -63,18 +53,18 @@ def bets():
     for user in user_list:
         user_id = user.id
         user_bets = Bets.query.filter_by(user_id=user_id).all()
+        bets_dict[user.username] = {}
         for bet in user_bets:
             match = Match.query.filter_by(id=bet.match_id).first_or_404()
             if match.completed:
                 res_dict[bet.res_scor] = str(match.team1) + "-" + str(match.team2) + " ставка: " \
                                      + str(bet.t1_pre) + "-" + str(bet.t2_pre) + " результат: " \
-                                     + str(match.t1_res) + "-" + str(match.t2_res)
+                                     + str(match.t1_res) + "-" + str(match.t2_res) + " | " + str(bet.comment)
+                bets_dict[user.username][match.id] = res_dict
 
-        bets_dict[user.username] = res_dict
+            res_dict = {}
 
-        res_dict = {}
-
-    return render_template( 'bets.html' ,bets_dict= bets_dict )
+    return render_template( 'bets.html' , bets_dict= bets_dict )
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -186,13 +176,24 @@ def editmatchs(match_id):
                           t2_res=form.t2_res.data, timestamp=form.datetime.data)'''
             edit.team1 = form.team1.data
             edit.team2 = form.team2.data
-            edit.t2_res = form.t2_res.data
-            edit.t1_res = form.t1_res.data
+            if form.t2_res.data != '' and form.t1_res.data != '': #вот такая кривенькая проверка на заполненность полей
+                try:
+                    edit.t2_res = int(form.t2_res.data)
+                    edit.t1_res = int(form.t1_res.data)
+                except ValueError:
+                    flash ( 'Результаты матча заполнены не корректно!' )
+                    return render_template ( 'editmatch.html' ,form=form ,edit=edit )
+                if edit.t2_res >= 0  and edit.t2_res >= 0:
+                    edit.completed = True
+            else:
+                edit.t2_res = form.t2_res.data
+                edit.t1_res = form.t1_res.data
+                edit.completed = False
             edit.timestamp = form.datetime.data
-            edit.completed = form.completed.data
             db.session.commit()
-            #расчет всех ставок для этого матча
-            if form.completed.data:
+            if edit.completed:
+
+                set_auto_bet (match_id)
                 result_calc(match_id)
                 pass
             return redirect(url_for('matchs'))
@@ -207,9 +208,8 @@ def editbets(match_id):
 
     form = BetsEditForm()
     match = Match.query.filter_by(id=match_id).first_or_404()
-    if datetime.utcnow () < match.timestamp:
-        print(datetime.utcnow () > match.timestamp)
-        print (type( match.timestamp ))
+    if datetime.utcnow () < match.timestamp and not match.completed:
+
         users = User.query.all()
         all_bet = Bets.query.filter_by(match_id=match_id).all()
         my_bet = Bets.query.filter_by(match_id=match_id, user_id=current_user.id).first()
