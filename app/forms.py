@@ -67,7 +67,7 @@ class MatchEditForm(FlaskForm):
     t1_res = StringField('Результат Комманды 1')
     t2_res = StringField('Результат Комманды 2')
     datetime = DateTimeField('Дата и время', validators=[DataRequired()], default= datetime.utcnow())
-    completed = BooleanField('Матч завершен?')
+
 
     submit = SubmitField('Сохранить')
 

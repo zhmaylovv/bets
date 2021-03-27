@@ -45,10 +45,7 @@
                                             <th scope="row">{{match.id}}</th>
                                             <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team1}}</a></td>
                                             <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
-                                            <td>{% if match.completed%}
-                                            Админ! Где начало матча?
-                                            {%else%} {{match.timestamp}}
-                                            {% endif %}</td>
+                                            <td>{{match.timestamp}}</td>
                                             <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
                                             <td>{% if match.completed%} Матч завершен!
                                             {%else%} <div class="glyph-icon simple-icon-control-play"></div>

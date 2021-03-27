@@ -11,6 +11,9 @@
 
 {% block content%}
 
+    {% for mesg in get_flashed_messages() %}
+     <div class="col-lg-4 alert alert-primary rounded" role="alert">{{ mesg }}</div>
+    {% endfor %}
 
      <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
@@ -53,12 +56,10 @@
             {% endfor %}
 
         </p>
-         <p>
-            {{ form.completed.label }}<br>
-            {{ form.completed }}<br>
 
 
-        </p>
+
+
 
         <p>{{ form.submit() }}</p>
     </form>
