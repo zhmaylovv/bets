@@ -175,16 +175,14 @@
                 </button>
 
             </div>
-
+               {% if current_user.is_anonymous %}{% else %}
             <div class="user d-inline-block">
                 <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <span class="name">{{ current_user.username }}</span>
-                    <span>
-                        {% if current_user.is_anonymous %} <img style="object-fit: cover; width: 40px; height: 40px;" alt="This is anonymous picture" src="https://starbets.herokuapp.com/static/a.jpg" />
-                        {% else %}
+                    <span>                        
                         <img style="object-fit: cover; width: 40px; height: 40px;" alt="Profile picture" src="{{'static/'+current_user.avatar}}" />
-                        {% endif %}
+                        
                     </span>
                 </button>
 
@@ -193,6 +191,7 @@
                     <a class="dropdown-item" href="{{ url_for('logout') }}">Выйти</a>
                 </div>
             </div>
+            {% endif %}
         </div>
     </nav>
     <div class="menu">
