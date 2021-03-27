@@ -11,9 +11,9 @@
 {% endblock %}
 
 {% block content%}
-{% for mesg in get_flashed_messages() %}
-      <p style="color: #ff0000;">{{ mesg }}</p>
-      {% endfor %}
+    {% for mesg in get_flashed_messages() %}
+     <div class="col-lg-4 alert alert-primary rounded" role="alert">{{ mesg }}</div>
+    {% endfor %}
     {% if current_user.username == 'admin' %}
     <div>
         <p>Функционал администратороа</p>
