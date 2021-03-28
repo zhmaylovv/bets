@@ -14,78 +14,137 @@
     {% for mesg in get_flashed_messages() %}
      <div class="col-lg-4 alert alert-primary rounded" role="alert">{{ mesg }}</div>
     {% endfor %}
+    <!-- Фунционал администратора -->
     {% if current_user.username == 'admin' %}
     <div>
-        <p>Функционал администратороа</p>
+        <p>Функционал администратора</p>
     <form style="padding-bottom: 20px;" action="{{ url_for('matchadd') }}">
         <button type="submit" class="btn btn-secondary btn-lg mb-1">Добавить матч</button>
     </form>
     </div>
     {% endif %}
-        <div class="col-lg-10 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Матчи EURO2021</h5>
-                                <table  width="100%" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th width="5px;" scope="col">№</th>
-                                            <th scope="col">Команда 1</th>
-                                            <th scope="col">Команда 2</th>
-                                            <th scope="col">Начало</th>
-                                            <th scope="col">Резльтат</th>
-                                            <th scope="col">Статус</th>
-                                            <th style="background-color: #efefef;" scope="col">Мой прогноз</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                            {% if current_user.username == 'admin' %}
-                                        {% for match in matchs %}
-                                            <th scope="row">{{match.id}}</th>
-                                            <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team1}}</a></td>
-                                            <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
-                                            <td>{{match.timestamp}}</td>
-                                            <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
-                                            <td>{% if match.completed%} Матч завершен!
-                                            {%else%} <div class="glyph-icon simple-icon-control-play"></div>
-                                            {% endif %}</td>
-                                            {%for bet in bets if bet.match_id | int == match.id | int %}
-                                                    <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
+    <!-- /Фунционал администратора -->
+    
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Активные матчи EURO2021</h5>
+                        <table  width="100%" class="table">
+                            <thead>
+                                <tr>
+                                    <th width="5px;" scope="col">№</th>
+                                    <th scope="col">Команда 1</th>
+                                    <th scope="col">Команда 2</th>
+                                    <th scope="col">Начало</th>
+                                    <th style="background-color: #efefef;" scope="col">Мой прогноз</th>
+                                    {% if current_user.username == 'admin' %}<th scope="col">Ред.</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                    {% if current_user.username == 'admin' %}
+                                {% for match in matchs %}
+                                    {% if match.completed%}
+                                    {%else%}
+                                        <th scope="row">{{match.id}}</th>
+                                        <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team1}}</a></td>
+                                        <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
+                                        <td>{{match.timestamp}}</td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                                <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
 
-                                            {%else%}
-                                                    <td style="background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
-                                            {% endfor %}
-                                            </tr>
-                                        {% endfor %}
                                         {%else%}
-
-                                        {% for match in matchs %}
-                                            <th scope="row">{{match.id}}</th>
-                                            <td><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team1}}</a></td>
-                                            <td><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team2}}</a></td>
-                                            <td>{% if match.completed%}
-                                            {%else%} {{match.timestamp}}
-                                            {% endif %}</td>
-                                            <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
-                                            <td>{% if match.completed%} Матч завершен!
-                                            {%else%} <div class="glyph-icon simple-icon-control-play"></div>
-                                            {% endif %}</td>
-                                            {%for bet in bets if bet.match_id | int == match.id | int %}
-                                                   <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
-
-                                            {%else%}
-                                                    <td style="background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
-                                            {% endfor %}
-
-                                            </tr>
+                                                <td style="background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
                                         {% endfor %}
+                                        {% if current_user.username == 'admin' %}<th scope="col"><a href="{{ url_for('editmatchs', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">ред.</span></a></th>
                                         {% endif %}
-                                    </tr> 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                    {%else%}
+                                {% for match in matchs %}
+                                    {% if match.completed%}
+                                    {%else%}
+                                        <th scope="row">{{match.id}}</th>
+                                        <td><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team1}}</a></td>
+                                        <td><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team2}}</a></td>
+                                        <td>{{match.timestamp}}</td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                                <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
+
+                                        {%else%}
+                                                <td style="background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
+                                        {% endfor %}
+                                        </tr>
+                                        {% endif %}
+                     {% endfor %}
+                     {% endif %}
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+            <div class="col-lg-6 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Завершенные матчи EURO2021</h5>
+                        <table  width="100%" class="table">
+                            <thead>
+                                <tr>
+                                    <th width="5px;" scope="col">№</th>
+                                    <th scope="col">Команда 1</th>
+                                    <th scope="col">Команда 2</th>
+                                    <th scope="col">Начало</th>
+                                    <th style="background-color: #efefef;" scope="col">Мой прогноз</th>
+                                    <th scope="col">Результат</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                    {% if current_user.username == 'admin' %}
+                                {% for match in matchs %}
+                                    {% if match.completed%}
+                                        <th scope="row">{{match.id}}</th>
+                                        <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team1}}</a></td>
+                                        <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
+                                        <td>{{match.timestamp}}</td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                                <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b></td>
+
+                                        {%else%}
+                                                <td style="background-color: #efefef;"><b>0:0 (авто)</b></td>
+                                        {% endfor %}
+                                        <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                    {%else%}
+                                {% for match in matchs %}
+                                    {% if match.completed%}
+                                        <th scope="row">{{match.id}}</th>
+                                        <td>{{match.team1}}</td>
+                                        <td>{{match.team2}}</td>
+                                        <td>{{match.timestamp}}</td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                                <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b></td>
+
+                                        {%else%}
+                                                <td style="background-color: #efefef;"><b>0:0 (авто)</b></td>
+                                        {% endfor %}
+                                        <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
+                                        </tr>
+                                        {% endif %}
+                     {% endfor %}
+                     {% endif %}
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>    
+    </div>
 
 {% endblock %}
