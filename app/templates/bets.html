@@ -47,54 +47,102 @@
             </div>
 </div-->
 <div class="row">
+    <div class="col-lg-9 col-md-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Турнирая таблица EURO2021</h5>
+                <table  width="100%" class="table">
+                    <thead>
+                        <tr>
+                            <th width="5px;" scope="col">№</th>
+                            <th width="20%;"scope="col">Имя</th>
+                            <th scope="col">Игры</th>
+                            <th width="15px;"scope="col">Очки</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+						
+						{%set count =[0]%}
+						{% for user, matchid in bets_dict.items() %}
+                            {% if count.append(count.pop() + 1) %}{% endif %}<tr>
+                            <th scope="row">{{count[0]}}</th>
+                            <td>{{user}}</td>
+                            <td>
+                            {%set res = [0]%}
+                            {%for matchidid, bets in matchid.items()%}
+                                {% for bet, info in bets.items() %}
+                                    {% if res.append(res.pop() + bet | int) %}{% endif %}
+                                    {%if bet|int() == 5 %}
+                                    <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%elif bet|int() == 4 %}
+                                    <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%elif bet|int() == 3 %}
+                                    <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%elif bet|int() == 2 %}
+                                    <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%else%}
+                                    <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%endif%}
+                                {% endfor %}
 
-<div class="col-lg-9 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Турнирая таблица EURO2021</h5>
-                            <table  width="100%" class="table">
-                                <thead>
-                                    <tr>
-                                        <th width="5px;" scope="col">№</th>
-                                        <th width="20%;"scope="col">Имя</th>
-                                        <th scope="col">Игры</th>
-                                        <th width="15px;"scope="col">Очки</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-									
-									{%set count =[0]%}
-									{% for user, matchid in bets_dict.items() %}
-                                        {% if count.append(count.pop() + 1) %}{% endif %}<tr>
-                                        <th scope="row">{{count[0]}}</th>
-                                        <td>{{user}}</td>
-                                        <td>
-                                        {%set res = [0]%}
-                                        {%for matchidid, bets in matchid.items()%}
-                                            {% for bet, info in bets.items() %}
-                                                {% if res.append(res.pop() + bet | int) %}{% endif %}
-                                                {%if bet|int() == 5 %}
-                                                <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                                {%elif bet|int() == 4 %}
-                                                <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                                {%elif bet|int() == 3 %}
-                                                <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                                {%elif bet|int() == 2 %}
-                                                <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                                {%else%}
-                                                <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                                {%endif%}
-                                            {% endfor %}
+                            {% endfor %}
+                            </td>
+                            <td>{{res[0]}}</td>
+                        </tr> {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+</div>
 
-                                        {% endfor %}
-                                        </td>
-                                        <td>{{res[0]}}</td>
+<div class="row">
+    <div class="col-lg-9 col-md-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Турнирая таблица EURO2021 (Сортировка)</h5>
+                <table  width="100%" class="data-table data-table-scrollable responsive nowrap"  data-order="[[ 3, &quot;desc&quot; ]]">
+                    <thead>
+                        <tr>
+                            <th width="5px;" scope="col">№</th>
+                            <th width="20%;"scope="col">Имя</th>
+                            <th scope="col">Игры</th>
+                            <th width="15px;"scope="col">Очки</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {%set count =[0]%}
+                        {% for user, matchid in bets_dict.items() %}
+                            {% if count.append(count.pop() + 1) %}{% endif %}<tr>
+                            <th scope="row">{{count[0]}}</th>
+                            <td>{{user}}</td>
+                            <td>
+                            {%set res = [0]%}
+                            {%for matchidid, bets in matchid.items()%}
+                                {% for bet, info in bets.items() %}
+                                    {% if res.append(res.pop() + bet | int) %}{% endif %}
+                                    {%if bet|int() == 5 %}
+                                    <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%elif bet|int() == 4 %}
+                                    <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%elif bet|int() == 3 %}
+                                    <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%elif bet|int() == 2 %}
+                                    <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%else%}
+                                    <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    {%endif%}
+                                {% endfor %}
 
-                                    </tr> {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-</div> 
+                            {% endfor %}
+                            </td>
+                            <td>{{res[0]}}</td>
+                        </tr> {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
 </div>
 {% endblock %}
