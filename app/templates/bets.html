@@ -1,5 +1,6 @@
 {% extends  'base.html' %}
 
+{% block active %}class="active"{% endblock %} 
 
 {% block title %}
     Bets
@@ -47,7 +48,7 @@
             </div>
 </div-->
 <div class="row">
-    <div class="col-lg-9 col-md-12 mb-4">
+    <div class="col-lg-6 col-md-6 mb-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Турнирая таблица EURO2021</h5>
@@ -123,19 +124,25 @@
                                 {% for bet, info in bets.items() %}
                                     {% if res.append(res.pop() + bet | int) %}{% endif %}
                                     {%if bet|int() == 5 %}
-                                    <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
                                     {%elif bet|int() == 4 %}
-                                    <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
                                     {%elif bet|int() == 3 %}
-                                    <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
                                     {%elif bet|int() == 2 %}
-                                    <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
                                     {%else%}
-                                    <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
+                                    <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
                                     {%endif%}
                                 {% endfor %}
-
                             {% endfor %}
+                                {#<!--Короче, вот как обращаться к переменным, но они будут работать только внутри того цикла который выше!
+                                    Возможно придется менять структуру цикла и всей переменной под новую таблицу...
+                                    {{info[1]['match.team1']}}, {{info[1]['match.team2']}}, {{info[1]['bet.t1_pre']}}, {{info[1]['bet.t2_pre']}},
+                                   {{info[1]['match.t1_res']}}, {{info[1]['match.t2_res']}}, {{info[1]['bet.comment']}}
+                               -->#}
+
+
                             </td>
                             <td>{{res[0]}}</td>
                         </tr> {% endfor %}

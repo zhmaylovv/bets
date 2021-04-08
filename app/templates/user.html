@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block activeacc %}class="active"{% endblock %}
+
 {% block content %}
     <p>
         <td><img src="{{ url_for('static', filename=user.avatar)}}" style="border-radius:50%;"></td>

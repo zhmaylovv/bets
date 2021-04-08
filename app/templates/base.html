@@ -210,18 +210,18 @@
                         </a>
                     </li>
                     {% else %}
-                   <li class="active">
+                   <li  {% block active %}{% endblock %}>
                         <a href="/">
                             <i class="iconsminds-trophy"></i>
                             <span>Результаты</span>
                         </a>
                     </li>
-                    <li>
+                    <li {% block activematch %}{% endblock %}>
                         <a href="{{ url_for('matchs') }}">
                             <i class="iconsminds-calendar-4"></i> Матчи
                         </a>
                     </li>                    
-                    <li>
+                    <li {% block activeacc %}{% endblock %}>
                         <a href="{{ url_for('user', username=current_user.username) }}">
                             <i class="iconsminds-male-female d-block"></i> Мой аккаунт
                         </a>

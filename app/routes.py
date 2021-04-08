@@ -49,17 +49,22 @@ def bets():
     match_list = Match.query.all()
     bets_dict = {}
     res_dict = {}
+
     count = 0
     for user in user_list:
         user_id = user.id
         user_bets = Bets.query.filter_by(user_id=user_id).all()
         bets_dict[user.username] = {}
+
         for bet in user_bets:
             match = Match.query.filter_by(id=bet.match_id).first_or_404()
+            data = {"match.team1": match.team1 ,"match.team2": match.team2 ,"bet.t1_pre": bet.t1_pre ,
+                    "bet.t2_pre": bet.t2_pre ,
+                    "match.t1_res": match.t1_res ,"match.t2_res": match.t2_res ,"bet.comment": bet.comment}
             if match.completed:
-                res_dict[bet.res_scor] = str(match.team1) + "-" + str(match.team2) + " ставка: " \
+                res_dict[bet.res_scor] = [str(match.team1) + "-" + str(match.team2) + " ставка: " \
                                      + str(bet.t1_pre) + "-" + str(bet.t2_pre) + " результат: " \
-                                     + str(match.t1_res) + "-" + str(match.t2_res) + " | " + str(bet.comment)
+                                     + str(match.t1_res) + "-" + str(match.t2_res) + " | " + str(bet.comment), data]
                 bets_dict[user.username][match.id] = res_dict
 
             res_dict = {}
