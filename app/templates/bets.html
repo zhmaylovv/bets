@@ -60,10 +60,10 @@
                         <tr>
                             <th width="5px;" scope="col">№</th>
                             <th width="20%;"scope="col">Имя</th>
-                            <th scope="col">Андрора</th>
-                            <th scope="col">Уругвай</th>
-                            <th scope="col">Россия</th>
-                            <th scope="col">Франция</th>
+                            {% for match, data in main_table_dict.items() %}
+                                <th scope="col">{{data.team1}}</th>
+                                <th scope="col">{{data.team2}}</th>
+                            {% endfor %}
                             <th width="15px;"scope="col">Очки</th>
                         </tr>
                     </thead>
@@ -71,38 +71,29 @@
                      <tr>
                             <th></th>
                             <td>Результат игры</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td>1</td>
+                            {% for match, data in main_table_dict.items() %}
+                                <td>{{data.t1_res}}</td>
+                                <td>{{data.t2_res}}</td>
+                            {% endfor %}
                             <td></td>
-                        </tr> 
-                     <tr>
-                            <th rowspan="3">1</th>
-                            <td rowspan="3">Антон</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td rowspan="3">5</td>
-                        </tr> 
-                     <tr>
-                     <tr>
-                            <td style="background-color: #129803;" colspan="2">3</td><td style="background-color: #2f76e2;"colspan="2">2</td>
-                        </tr> 
-                     <tr>
-                            <th rowspan="3">2</th>
-                            <td rowspan="3">Васян</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td rowspan="3">5</td>
-                        </tr> 
-                     <tr>
-                     <tr>
-                            <td style="background-color: #ff8f00;" colspan="2">5</td><td colspan="2">0</td>
-                        </tr> 
+                        </tr>
+                     {% for user in all_users %}
+                            <tr>
+                            <th rowspan="2">1</th>
+                            <td rowspan="2">{{user.fio}}</td>
+
+                            {% for match, data in main_table_dict.items() %}
+                                 <td>{{data["users"][user.id]["t1_pre"]}}</td>
+                                 <td>{{data["users"][user.id]["t2_pre"]}}</td>
+                            {% endfor %}
+                            </tr>
+                            <tr>
+                            {% for match, data in main_table_dict.items() %}
+                                <td style="background-color: #2f76e2; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}</td>
+                            {% endfor %}
+                                </tr>
+                            {% endfor %}
+
                     </tbody>
                 </table>
             </div>

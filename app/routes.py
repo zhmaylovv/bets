@@ -49,8 +49,30 @@ def bets():
     match_list = Match.query.all()
     bets_dict = {}
     res_dict = {}
-
     count = 0
+
+    all_matchs = Match.query.all ()
+    all_users = User.query.all ()
+    main_table_dict = {}
+    # main_table_dict = {"match": {team1: name, team2:name, t1_res: n, t2_res: n, users: {name: name, t1_pre: , t2_pre, score},} }
+    for match in all_matchs:
+        match_name = "matchs" + str ( match.id )
+        main_table_dict[match_name] = {}
+        main_table_dict[match_name]["team1"] = match.team1
+        main_table_dict[match_name]["team2"] = match.team2
+        main_table_dict[match_name]["t1_res"] = match.t1_res
+        main_table_dict[match_name]["t2_res"] = match.t2_res
+        main_table_dict[match_name]["users"] = {}
+        for user in all_users:
+            main_table_dict[match_name]["users"][user.id] = {}
+            bet_to_dict = Bets.query.filter_by ( match_id=match.id ,user_id=user.id ).first()
+            if bet_to_dict:
+                main_table_dict[match_name]["users"][user.id]["fio"] = user.fio
+                main_table_dict[match_name]["users"][user.id]["t1_pre"] = bet_to_dict.t1_pre
+                main_table_dict[match_name]["users"][user.id]["t2_pre"] = bet_to_dict.t2_pre
+                main_table_dict[match_name]["users"][user.id]["scor"] = bet_to_dict.res_scor
+
+
     for user in user_list:
         user_id = user.id
         user_bets = Bets.query.filter_by(user_id=user_id).all()
@@ -69,7 +91,7 @@ def bets():
 
             res_dict = {}
 
-    return render_template( 'bets.html' , bets_dict= bets_dict )
+    return render_template( 'bets.html' , bets_dict= bets_dict, main_table_dict = main_table_dict, all_users = all_users )
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
