@@ -50,19 +50,19 @@
 
 <!--Это тестовая таблица для бекэа-->
 
-<div class="row">
-    <div class="col-lg-6 col-md-6 mb-4">
+<div class="row flex-row flex-nowrap">
+    <div class="col-lg-12 col-md-12 mb-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Турнирая таблица EURO2021</h5>
-                <table border="3" width="100%" class="table">
+                <h5 class="card-title">Турнирая таблица EURO2021 Новая</h5>
+                <table border="3" width="100%" class="responsive nowrap">
                     <thead>
-                        <tr>
+                        <tr style="height: 116px;">
                             <th width="5px;" scope="col">№</th>
-                            <th width="20%;"scope="col">Имя</th>
+                            <th width="20px;"scope="col">Имя</th>
                             {% for match, data in main_table_dict.items() %}
-                                <th scope="col">{{data.team1}}</th>
-                                <th scope="col">{{data.team2}}</th>
+                                <th width="5px;" class="rotatable" scope="col">{{data.team1}}</th>
+                                <th style="border-right: 3px solid;" width="5px;" class="rotatable" scope="col">{{data.team2}}</th>
                             {% endfor %}
                             <th width="15px;"scope="col">Очки</th>
                         </tr>
@@ -72,8 +72,8 @@
                             <th></th>
                             <td>Результат игры</td>
                             {% for match, data in main_table_dict.items() %}
-                                <td>{{data.t1_res}}</td>
-                                <td>{{data.t2_res}}</td>
+                                <td width="5px;">{{data.t1_res}}</td>
+                                <td style="border-right: 3px solid;" width="5px;">{{data.t2_res}}</td>
                             {% endfor %}
                             <td></td>
                         </tr>
@@ -83,13 +83,13 @@
                             <td rowspan="2">{{user.fio}}</td>
 
                             {% for match, data in main_table_dict.items() %}
-                                 <td>{{data["users"][user.id]["t1_pre"]}}</td>
-                                 <td>{{data["users"][user.id]["t2_pre"]}}</td>
+                                 <td width="5px;">{{data["users"][user.id]["t1_pre"]}}</td>
+                                 <td style="border-right: 3px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
                             {% endfor %}
                             </tr>
                             <tr>
                             {% for match, data in main_table_dict.items() %}
-                                <td style="background-color: #2f76e2; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}</td>
+                                <td width="10px;" style="background-color: #2f76e2; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}</td>
                             {% endfor %}
                                 </tr>
                             {% endfor %}
