@@ -52,7 +52,7 @@ def bets():
     count = 0
 
     all_matchs = Match.query.all ()
-    all_users = User.query.all ()
+    all_users = User.query.order_by(User.score.desc()).all ()
     main_table_dict = {}
     # main_table_dict = {"match": {team1: name, team2:name, t1_res: n, t2_res: n, users: {name: name, t1_pre: , t2_pre, score},} }
     for match in all_matchs:

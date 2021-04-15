@@ -1,13 +1,13 @@
 {% extends  'base.html' %}
 
-{% block active %}class="active"{% endblock %} 
+{% block active %}class="active"{% endblock %}
 
 {% block title %}
-    Bets
+Bets
 {% endblock %}
 
 {% block content_title %}
-    Турнирная таблица
+Турнирная таблица
 {% endblock %}
 
 {% block content%}
@@ -57,59 +57,101 @@
                 <h5 class="card-title">Турнирая таблица EURO2021 Новая</h5>
                 <table border="3" width="100%" class="responsive nowrap">
                     <thead>
-                        <tr style="height: 100px;">
-                            <th width="30px" scope="col" style="background-color: #f3f3f3;">№</th>
-                            <th width="200px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;">Имя</th>
-                            <th width="30px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;">Очки</th>
-                            {% for match, data in main_table_dict.items() %}
-                                <th class="rotatable" scope="col"><div>{{data.team1}}</div></th>
-                                <th class="rotatable" style="border-right: 2px solid;" width="5px;" scope="col"><div>{{data.team2}}</div></th>
-                            {% endfor %}
-                        </tr>
+                    <tr style="height: 100px;">
+                        <th width="30px" scope="col" style="background-color: #f3f3f3;">№</th>
+                        <th width="200px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;">Имя
+                        </th>
+                        <th width="30px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;">Очки
+                        </th>
+                        {% for match, data in main_table_dict.items() %}
+                        <th class="rotatable" scope="col">
+                            <div>{{data.team1}}</div>
+                        </th>
+                        <th class="rotatable" style="border-right: 2px solid;" width="5px;" scope="col">
+                            <div>{{data.team2}}</div>
+                        </th>
+                        {% endfor %}
+                    </tr>
                     </thead>
                     <tbody style="text-align: center;">
-                     <tr>
-                            <th style="background-color: #c1f1ff; border-top: 3px solid; border-bottom: 3px solid;"></th>
-                            <td style="background-color: #c1f1ff; border-top: 3px solid; border-right: 2px solid; border-bottom: 3px solid;">Результат игры</td>
-                            <th style="background-color: #c1f1ff; border-top: 3px solid; border-right: 2px solid; border-bottom: 3px solid;"></th>
-                            {% for match, data in main_table_dict.items() %}
-                                <td style="background-color: #c1f1ff; border-top: 3px solid; border-bottom: 3px solid;">{{data.t1_res}}</td>
-                                <td style="background-color: #c1f1ff; border-top: 3px solid; border-right: 2px solid; border-bottom: 3px solid;">{{data.t2_res}}</td>
-                            {% endfor %}
-                            
-                        </tr>
-                     {% for user in all_users %}
-                            <tr>
-                            <th style="background-color: #f3f3f3; border-right: 2px solid; border-bottom: 2px solid;" rowspan="2">№</th>
-                            <td style="text-align: left; background-color: #f3f3f3; border-right: 2px solid; border-bottom: 2px solid;" rowspan="2">{{user.fio}}</td>
-                            <th rowspan="2" style="border-right: 2px solid;  text-align: center; border-bottom: 2px solid;">1</th>
-                            {% for match, data in main_table_dict.items() %}
-                                 <td >{{data["users"][user.id]["t1_pre"]}}</td>
-                                 <td style="border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
-                            {% endfor %}
-                            </tr>
-                            <tr>
-                            {% for match, data in main_table_dict.items() %}
-                            {%if data["users"][user.id]["scor"] == 5 %}
-                                    <td style="background-color: #ff8f00; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}</td>
-                                    {%elif data["users"][user.id]["scor"] == 4 %}
-                                    <td style="background-color: #00b3d2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}</td>
-                                    {%elif data["users"][user.id]["scor"] == 3 %}
-                                    <td style="background-color: #129803; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}</td>
-                                    {%elif data["users"][user.id]["scor"] == 2 %}
-                                    <td style="background-color: #2f76e2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}</td>
-                                    {%else%}
-                                    <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}</td>
-                            {%endif%}       
-                            {% endfor %}
-                                </tr>
-                            {% endfor %}
+                    <tr>
+                        <th style="background-color: #c1f1ff; border-top: 3px solid; border-bottom: 3px solid;"></th>
+                        <td style="background-color: #c1f1ff; border-top: 3px solid; border-right: 2px solid; border-bottom: 3px solid;">
+                            Результат игры
+                        </td>
+                        <th style="background-color: #c1f1ff; border-top: 3px solid; border-right: 2px solid; border-bottom: 3px solid;"></th>
+                        {% for match, data in main_table_dict.items() %}
+                        <td style="background-color: #c1f1ff; border-top: 3px solid; border-bottom: 3px solid;">
+                            {{data.t1_res}}
+                        </td>
+                        <td style="background-color: #c1f1ff; border-top: 3px solid; border-right: 2px solid; border-bottom: 3px solid;">
+                            {{data.t2_res}}
+                        </td>
+                        {% endfor %}
+
+
+                    </tr>
+                    {%set count =[0]%}
+                    {% for user in all_users %}
+                    {% if count.append(count.pop() + 1) %}{% endif %}
+                    <tr>
+                        {%if user.id == current_user.id%}
+                        <th style="background-color: gray; border-right: 2px solid; border-bottom: 2px solid;"
+                            rowspan="2">{{count[0]}}
+                        </th>
+
+                        <td style="text-align: left; background-color: gray; border-right: 2px solid; border-bottom: 2px solid;"
+                            rowspan="2"><img style="object-fit: cover; width: 40px; height: 40px; margin: 10px; border-radius: 30px;" src={{'static/'+user.avatar}} alt="" />{{user.fio}}
+                        </td>
+                        {%else%}
+
+                        <th style="background-color: #f3f3f3; border-right: 2px solid; border-bottom: 2px solid;"
+                            rowspan="2">{{count[0]}}
+                        </th>
+                        <td style="text-align: left; background-color: #f3f3f3; border-right: 2px solid; border-bottom: 2px solid;"
+                            rowspan="2"><img style="object-fit: cover; width: 40px; height: 40px; margin: 10px; border-radius: 30px;;" src={{'static/'+user.avatar}} alt="" />{{user.fio}}
+                        </td>
+                        {%endif%}
+                        <th rowspan="2" style="border-right: 2px solid;  text-align: center; border-bottom: 2px solid;">
+                            {{user.score}}
+                        </th>
+                        {% for match, data in main_table_dict.items() %}
+                        <td>{{data["users"][user.id]["t1_pre"]}}</td>
+                        <td style="border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for match, data in main_table_dict.items() %}
+                        {%if data["users"][user.id]["scor"] == 5 %}
+                        <td style="background-color: #ff8f00; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"
+                            colspan="2">{{data["users"][user.id]["scor"]}}
+                        </td>
+                        {%elif data["users"][user.id]["scor"] == 4 %}
+                        <td style="background-color: #00b3d2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"
+                            colspan="2">{{data["users"][user.id]["scor"]}}
+                        </td>
+                        {%elif data["users"][user.id]["scor"] == 3 %}
+                        <td style="background-color: #129803; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"
+                            colspan="2">{{data["users"][user.id]["scor"]}}
+                        </td>
+                        {%elif data["users"][user.id]["scor"] == 2 %}
+                        <td style="background-color: #2f76e2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"
+                            colspan="2">{{data["users"][user.id]["scor"]}}
+                        </td>
+                        {%else%}
+                        <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2">
+                            {{data["users"][user.id]["scor"]}}
+                        </td>
+                        {%endif%}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
 
                     </tbody>
                 </table>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 <!--.Полная таблица -->
 
@@ -118,49 +160,56 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Турнирая таблица EURO2021</h5>
-                <table  width="100%" class="table">
+                <table width="100%" class="table">
                     <thead>
-                        <tr>
-                            <th width="5px;" scope="col">№</th>
-                            <th width="20%;"scope="col">Имя</th>
-                            <th scope="col">Игры</th>
-                            <th width="15px;"scope="col">Очки</th>
-                        </tr>
+                    <tr>
+                        <th width="5px;" scope="col">№</th>
+                        <th width="20%;" scope="col">Имя</th>
+                        <th scope="col">Игры</th>
+                        <th width="15px;" scope="col">Очки</th>
+                    </tr>
                     </thead>
                     <tbody>
-						
-						{%set count =[0]%}
-						{% for user, matchid in bets_dict.items() %}
-                            {% if count.append(count.pop() + 1) %}{% endif %}<tr>
-                            <th scope="row">{{count[0]}}</th>
-                            <td>{{user}}</td>
-                            <td>
+
+                    {%set count =[0]%}
+                    {% for user, matchid in bets_dict.items() %}
+                    {% if count.append(count.pop() + 1) %}{% endif %}
+                    <tr>
+                        <th scope="row">{{count[0]}}</th>
+                        <td>{{user}}</td>
+                        <td>
                             {%set res = [0]%}
                             {%for matchidid, bets in matchid.items()%}
-                                {% for bet, info in bets.items() %}
-                                    {% if res.append(res.pop() + bet | int) %}{% endif %}
-                                    {%if bet|int() == 5 %}
-                                    <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                    {%elif bet|int() == 4 %}
-                                    <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                    {%elif bet|int() == 3 %}
-                                    <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                    {%elif bet|int() == 2 %}
-                                    <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                    {%else%}
-                                    <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{info}}"><b>{{bet}}</b></span>
-                                    {%endif%}
-                                {% endfor %}
+                            {% for bet, info in bets.items() %}
+                            {% if res.append(res.pop() + bet | int) %}{% endif %}
+                            {%if bet|int() == 5 %}
+                            <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info}}"><b>{{bet}}</b></span>
+                            {%elif bet|int() == 4 %}
+                            <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info}}"><b>{{bet}}</b></span>
+                            {%elif bet|int() == 3 %}
+                            <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info}}"><b>{{bet}}</b></span>
+                            {%elif bet|int() == 2 %}
+                            <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info}}"><b>{{bet}}</b></span>
+                            {%else%}
+                            <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info}}"><b>{{bet}}</b></span>
+                            {%endif%}
+                            {% endfor %}
 
                             {% endfor %}
-                            </td>
-                            <td>{{res[0]}}</td>
-                        </tr> {% endfor %}
+                        </td>
+                        <td>{{res[0]}}</td>
+                    </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 
 <div class="row">
@@ -168,55 +217,63 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Турнирая таблица EURO2021 (Сортировка)</h5>
-                <table  width="100%" class="data-table data-table-scrollable responsive nowrap"  data-order="[[ 3, &quot;desc&quot; ]]">
+                <table width="100%" class="data-table data-table-scrollable responsive nowrap"
+                       data-order="[[ 3, &quot;desc&quot; ]]">
                     <thead>
-                        <tr>
-                            <th width="5px;" scope="col">№</th>
-                            <th width="20%;"scope="col">Имя</th>
-                            <th scope="col">Игры</th>
-                            <th width="15px;"scope="col">Очки</th>
-                        </tr>
+                    <tr>
+                        <th width="5px;" scope="col">№</th>
+                        <th width="20%;" scope="col">Имя</th>
+                        <th scope="col">Игры</th>
+                        <th width="15px;" scope="col">Очки</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        
-                        {%set count =[0]%}
-                        {% for user, matchid in bets_dict.items() %}
-                            {% if count.append(count.pop() + 1) %}{% endif %}<tr>
-                            <th scope="row">{{count[0]}}</th>
-                            <td>{{user}}</td>
-                            <td>
+
+                    {%set count =[0]%}
+                    {% for user, matchid in bets_dict.items() %}
+                    {% if count.append(count.pop() + 1) %}{% endif %}
+                    <tr>
+                        <th scope="row">{{count[0]}}</th>
+                        <td>{{user}}</td>
+                        <td>
                             {%set res = [0]%}
                             {%for matchidid, bets in matchid.items()%}
-                                {% for bet, info in bets.items() %}
-                                    {% if res.append(res.pop() + bet | int) %}{% endif %}
-                                    {%if bet|int() == 5 %}
-                                    <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
-                                    {%elif bet|int() == 4 %}
-                                    <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
-                                    {%elif bet|int() == 3 %}
-                                    <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
-                                    {%elif bet|int() == 2 %}
-                                    <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
-                                    {%else%}
-                                    <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{info[0]}}"><b>{{bet}}</b></span>
-                                    {%endif%}
-                                {% endfor %}
+                            {% for bet, info in bets.items() %}
+                            {% if res.append(res.pop() + bet | int) %}{% endif %}
+                            {%if bet|int() == 5 %}
+                            <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
+                            {%elif bet|int() == 4 %}
+                            <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
+                            {%elif bet|int() == 3 %}
+                            <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
+                            {%elif bet|int() == 2 %}
+                            <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
+                            {%else%}
+                            <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top"
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
+                            {%endif%}
                             {% endfor %}
-                                {#<!--Короче, вот как обращаться к переменным, но они будут работать только внутри того цикла который выше!
+                            {% endfor %}
+                            {#<!--Короче, вот как обращаться к переменным, но они будут работать только внутри того цикла который выше!
                                     Возможно придется менять структуру цикла и всей переменной под новую таблицу...
                                     {{info[1]['match.team1']}}, {{info[1]['match.team2']}}, {{info[1]['bet.t1_pre']}}, {{info[1]['bet.t2_pre']}},
                                    {{info[1]['match.t1_res']}}, {{info[1]['match.t2_res']}}, {{info[1]['bet.comment']}}
-                               -->#}
+                               --> #}
 
 
-                            </td>
-                            <td>{{res[0]}}</td>
-                        </tr> {% endfor %}
+                        </td>
+                        <td>{{res[0]}}</td>
+                    </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 
 {% endblock %}
