@@ -58,3 +58,14 @@ def set_auto_bet (match_id):
             db.session.add (auto_bet)
             db.session.commit ()
     pass
+def score_for_users_calc ():
+    users = User.query.all ()
+    for user in users:
+        bets = Bets.query.filter_by (user_id=user.id ).all ()
+        count = 0
+        for bet in bets:
+            if type(bet.res_scor) == int:
+                count += bet.res_scor
+        user.score = count
+        db.session.commit()
+    pass
