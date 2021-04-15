@@ -17,6 +17,7 @@ class User(UserMixin, db.Model):
     avatar = db.Column(db.String(128))
     about_me = db.Column(db.String(140))
     fio = db.Column(db.String(140))
+    score = db.Column(db.Integer)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

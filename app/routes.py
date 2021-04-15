@@ -9,7 +9,7 @@ from app import db
 from app.forms import RegistrationForm, MatchEditForm, BetsEditForm, EditUserForm
 from werkzeug.utils import secure_filename
 from datetime import datetime
-from app.func import result_calc, set_auto_bet
+from app.func import result_calc, set_auto_bet, score_for_users_calc
 
 
 @app.route('/index')
@@ -222,6 +222,7 @@ def editmatchs(match_id):
 
                 set_auto_bet (match_id)
                 result_calc(match_id)
+                score_for_users_calc()
                 pass
             return redirect(url_for('matchs'))
         return render_template('editmatch.html', form=form, edit=edit)
