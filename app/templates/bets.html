@@ -184,19 +184,19 @@ Bets
                             {% if res.append(res.pop() + bet | int) %}{% endif %}
                             {%if bet|int() == 5 %}
                             <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info}}"><b>{{bet}}</b></span>
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
                             {%elif bet|int() == 4 %}
                             <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info}}"><b>{{bet}}</b></span>
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
                             {%elif bet|int() == 3 %}
                             <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info}}"><b>{{bet}}</b></span>
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
                             {%elif bet|int() == 2 %}
                             <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info}}"><b>{{bet}}</b></span>
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
                             {%else%}
                             <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info}}"><b>{{bet}}</b></span>
+                                  title="{{info[0]}}"><b>{{bet}}</b></span>
                             {%endif%}
                             {% endfor %}
 
