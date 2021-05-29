@@ -2,6 +2,7 @@ from datetime import datetime
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from sqlalchemy.orm import relationship, backref
 
 '''
 flask db migrate -m "users table"
@@ -47,6 +48,7 @@ class Bets(db.Model):
     comment = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     res_scor = db.Column(db.Integer)
+    # match = relationship ( "Match" ,back_populates="bets" )
 
     def __repr__(self):
         return '<Bets {}>'.format(self.id, self.match_id, self.user_id, self.t1_pre, self.t2_pre, self.comment, self.timestamp, self.res_scor)
@@ -59,6 +61,10 @@ class Match(db.Model):
     t2_res = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     completed = db.Column(db.Boolean, default=False)
+    bets = relationship (
+        "Bets" ,
+        backref="match" ,
+        cascade="all, delete")
 
     def __repr__(self):
         return '<Match {}>'.format(self.id, self.team1, self.team2, self.t1_res, self.t2_res, self.timestamp)

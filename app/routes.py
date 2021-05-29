@@ -93,31 +93,33 @@ def bets():
 
     return render_template( 'bets.html' , bets_dict= bets_dict, main_table_dict = main_table_dict, all_users = all_users )
 
+@login_required
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
+    # Убрал что бы залогенный админ мог видеть
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('index'))
     form = RegistrationForm()
+    if current_user.username == 'admin':
+        if form.validate_on_submit():
+            user = User(username=form.username.data, email=form.email.data, fio=form.fio.data)
+            user.set_password(form.password.data)
+            f = form.photo.data
+            filename = secure_filename(f.filename)
 
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, fio=form.fio.data)
-        user.set_password(form.password.data)
-        f = form.photo.data
-        filename = secure_filename(f.filename)
-
-        if form.photo.data.content_type.split('/')[0] != 'image':
-            flash('Image only plz')
-            return redirect(url_for('register'))
+            if form.photo.data.content_type.split('/')[0] != 'image':
+                flash('Image only plz')
+                return redirect(url_for('register'))
 
 
-        f.save(os.path.join(os.getcwd() + '/venv/app/static',  form.username.data + '.' + filename.split('.')[-1]))
-        user.avatar = (form.username.data + '.' + filename.split('.')[-1])
-        db.session.add(user)
-        db.session.commit()
-        flash('Congratulations, you are now a registered user! Please log in')
+            f.save(os.path.join(os.getcwd() + '/venv/app/static',  form.username.data + '.' + filename.split('.')[-1]))
+            user.avatar = (form.username.data + '.' + filename.split('.')[-1])
+            db.session.add(user)
+            db.session.commit()
+            flash('Congratulations, user added! Give him account info!')
 
-        return redirect(url_for('index'))
-    return render_template('register.html', title='Register', form=form)
+            return redirect(url_for('index'))
+        return render_template('register.html', title='Register', form=form)
 
 @app.route('/edituser/<username>', methods=['GET', 'POST'])
 @login_required
@@ -197,10 +199,15 @@ def editmatchs(match_id):
     if current_user.username == 'admin':
         edit = Match.query.filter_by(id=match_id).first_or_404()
         form = MatchEditForm()
-
         if form.validate_on_submit():
             '''match = Match(id= match_id, team1=form.team1.data, team2=form.team2.data, t1_res=form.t1_res.data,
                           t2_res=form.t2_res.data, timestamp=form.datetime.data)'''
+            if form.delete.data:
+                db.session.delete ( edit )
+                db.session.commit ()
+                score_for_users_calc ()
+                return redirect ( url_for ( 'matchs' ) )
+
             edit.team1 = form.team1.data
             edit.team2 = form.team2.data
             if form.t2_res.data != '' and form.t1_res.data != '': #вот такая кривенькая проверка на заполненность полей
@@ -217,6 +224,7 @@ def editmatchs(match_id):
                 edit.t1_res = form.t1_res.data
                 edit.completed = False
             edit.timestamp = form.datetime.data
+            print(edit.timestamp)
             db.session.commit()
             if edit.completed:
 

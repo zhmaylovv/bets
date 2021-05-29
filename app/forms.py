@@ -67,9 +67,9 @@ class MatchEditForm(FlaskForm):
     t1_res = StringField('Результат Комманды 1')
     t2_res = StringField('Результат Комманды 2')
     datetime = DateTimeField('Дата и время', validators=[DataRequired()], default= datetime.utcnow())
-
-
     submit = SubmitField('Сохранить')
+    delete = BooleanField( 'Удалить матч' )
+
 
 class BetsEditForm(FlaskForm):
 
