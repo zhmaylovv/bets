@@ -17,8 +17,7 @@ import base64
 
 @app.route('/index')
 def index():
-    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
-    return render_template('index.html', name= 'FLAAAASK', avatar=avatar)
+    return render_template('index.html', name= 'FLAAAASK')
 
 
 @app.route('/login', methods=['GET', 'POST'])
