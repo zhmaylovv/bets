@@ -100,14 +100,14 @@ Bets
                             rowspan="2">{{count[0]}}
                         </th>
 
-                        <td class="badge-theme-2" style="text-align: left; border-right: 2px solid; border-bottom: 2px solid;" rowspan="2"><img style="box-shadow: 0.4em 0.4em 11px rgba(122,122,122,0.5);  object-fit: cover; width: 40px; height: 40px; margin: 10px; border-radius: 30px;" src={{'static/'+user.avatar}} alt="" />{{user.fio}}<span style="padding-left: 5px; font-size: 9px;">(это ты!)</span>
+                        <td class="badge-theme-2" style="text-align: left; border-right: 2px solid; border-bottom: 2px solid;" rowspan="2"><img style="box-shadow: 0.4em 0.4em 11px rgba(122,122,122,0.5);  object-fit: cover; width: 40px; height: 40px; margin: 10px; border-radius: 30px;" src=data:;base64,{{user.avastr}} alt="" />{{user.fio}}<span style="padding-left: 5px; font-size: 9px;">(это ты!)</span>
                         </td>
                         {%else%}
 
                         <th style="background-color: #f3f3f3; border-right: 2px solid; border-bottom: 2px solid;"
                             rowspan="2">{{count[0]}}
                         </th>
-                        <td style="text-align: left; background-color: #f3f3f3; border-right: 2px solid; border-bottom: 2px solid;"rowspan="2"><img style="box-shadow: 0.4em 0.4em 11px rgba(122,122,122,0.5); object-fit: cover; width: 40px; height: 40px; margin: 10px; border-radius: 30px;;" src={{'static/'+user.avatar}} alt="" />{{user.fio}}
+                        <td style="text-align: left; background-color: #f3f3f3; border-right: 2px solid; border-bottom: 2px solid;"rowspan="2"><img style="box-shadow: 0.4em 0.4em 11px rgba(122,122,122,0.5); object-fit: cover; width: 40px; height: 40px; margin: 10px; border-radius: 30px;;" src=data:;base64,{{user.avastr}} alt="" />{{user.fio}}
                         </td>
                         {%endif%}
                         <th rowspan="2" style="border-right: 2px solid;  text-align: center; border-bottom: 2px solid;">

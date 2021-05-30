@@ -4,7 +4,7 @@
 
 {% block content %}
     <p>
-        <td><img src="{{ url_for('static', filename=user.avatar)}}" style="border-radius:50%;"></td>
+        <td><img src="data:;base64,{{userpic}}" style="border-radius:50%;"></td>
     </p>
     <h1>User: {{ user.username }}</h1>
 

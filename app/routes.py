@@ -10,12 +10,15 @@ from app.forms import RegistrationForm, MatchEditForm, BetsEditForm, EditUserFor
 from werkzeug.utils import secure_filename
 from datetime import datetime
 from app.func import result_calc, set_auto_bet, score_for_users_calc
+import base64
+
+
 
 
 @app.route('/index')
 def index():
-
-    return render_template('index.html', name= 'FLAAAASK')
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
+    return render_template('index.html', name= 'FLAAAASK', avatar=avatar)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -44,12 +47,17 @@ def logout():
 @app.route('/bets')
 @login_required
 def bets():
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
 
     user_list = User.query.all()
     match_list = Match.query.all()
     bets_dict = {}
     res_dict = {}
     count = 0
+
+    for user in user_list:
+        user.avastr =  base64.b64encode ( user.avatar ).decode ( 'ascii' )
+
 
     all_matchs = Match.query.all ()
     all_users = User.query.order_by(User.score.desc()).all ()
@@ -82,7 +90,7 @@ def bets():
             match = Match.query.filter_by(id=bet.match_id).first_or_404()
             data = {"match.team1": match.team1 ,"match.team2": match.team2 ,"bet.t1_pre": bet.t1_pre ,
                     "bet.t2_pre": bet.t2_pre ,
-                    "match.t1_res": match.t1_res ,"match.t2_res": match.t2_res ,"bet.comment": bet.comment}
+                    "match.t1_res": match.t1_res ,"match.t2_res": match.t2_res ,"bet.comment": bet.comment, "data" : match.timestamp}
             if match.completed:
                 res_dict[bet.res_scor] = [str(match.team1) + "-" + str(match.team2) + " ставка: " \
                                      + str(bet.t1_pre) + "-" + str(bet.t2_pre) + " результат: " \
@@ -91,11 +99,12 @@ def bets():
 
             res_dict = {}
 
-    return render_template( 'bets.html' , bets_dict= bets_dict, main_table_dict = main_table_dict, all_users = all_users )
+    return render_template( 'bets.html' , bets_dict= bets_dict, main_table_dict = main_table_dict, all_users = all_users,  avatar=avatar)
 
 @login_required
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     # Убрал что бы залогенный админ мог видеть
     # if current_user.is_authenticated:
     #     return redirect(url_for('index'))
@@ -105,30 +114,32 @@ def register():
             user = User(username=form.username.data, email=form.email.data, fio=form.fio.data)
             user.set_password(form.password.data)
             f = form.photo.data
-            filename = secure_filename(f.filename)
+
+            #filename = secure_filename(f.filename)
 
             if form.photo.data.content_type.split('/')[0] != 'image':
                 flash('Image only plz')
                 return redirect(url_for('register'))
 
 
-            f.save(os.path.join(os.getcwd() + '/venv/app/static',  form.username.data + '.' + filename.split('.')[-1]))
-            user.avatar = (form.username.data + '.' + filename.split('.')[-1])
+            #f.save(os.path.join(os.getcwd() + '/venv/app/static',  form.username.data + '.' + filename.split('.')[-1]))
+            user.avatar = f.stream.read()   #(form.username.data + '.' + filename.split('.')
             db.session.add(user)
             db.session.commit()
             flash('Congratulations, user added! Give him account info!')
 
             return redirect(url_for('index'))
-        return render_template('register.html', title='Register', form=form)
+        return render_template('register.html', title='Register', form=form, avatar=avatar)
 
 @app.route('/edituser/<username>', methods=['GET', 'POST'])
 @login_required
 def edituser(username):
+
     form = EditUserForm()
     user = User.query.filter_by(username=username).first_or_404()
     posts = [{'author': user, 'body': 'Test post #1'},
             {'author': user, 'body': 'Test post #2'}]
-    avatar = User.avatar
+    avatar = base64.b64encode ( user.avatar ).decode ( 'ascii' )
 
     if form.validate_on_submit():
         if form.password.data:
@@ -139,12 +150,11 @@ def edituser(username):
             user.fio=form.fio.data
         if form.photo.data:
             f = form.photo.data
-            filename = secure_filename(f.filename)
             if form.photo.data.content_type.split('/')[0] != 'image':
                 flash('Image only plz')
                 return redirect(url_for('edituser'))
-            f.save(os.path.join(os.getcwd() + '/venv/app/static', username + '.' + filename.split('.')[-1]))
-            user.avatar = (username + '.' + filename.split('.')[-1])
+
+            user.avatar = f.stream.read()
         db.session.commit()
         flash('Edit ok')
 
@@ -154,18 +164,20 @@ def edituser(username):
 @app.route('/user/<username>')
 @login_required
 def user(username):
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     user = User.query.filter_by(username=username).first_or_404()
-    avatar = User.avatar
+    userpic = base64.b64encode(user.avatar).decode('ascii')
     posts = [
         {'author': user, 'body': 'Test post #1'},
         {'author': user, 'body': 'Test post #2'}
     ]
-    return render_template('user.html', user=user, posts=posts, avatar= avatar)
+    return render_template('user.html', user=user, posts=posts, avatar= avatar, userpic=userpic)
 
 
 @app.route('/matchadd', methods=['GET', 'POST'])
 @login_required
 def matchadd():
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     '''if current_user.username != 'admin':
         return redirect(url_for('matchs'))
     form = MatchEditForm()
@@ -176,26 +188,24 @@ def matchadd():
                       t2_res='',)
         db.session.add(match)
         db.session.commit()
-
-        #добавили матч, нужно добавить всем ставки - 0-0
-
         flash('Матч добавлен')
         return redirect(url_for('matchs'))
 
-    return render_template('matchadd.html') #form=form
+    return render_template('matchadd.html', avatar=avatar) #form=form
 
 
 @app.route('/matchs', methods=['GET', 'POST'])
 @login_required
 def matchs():
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     matchs = Match.query.all()
     bets = Bets.query.filter_by(user_id=current_user.id).all()
-    return render_template('matchs.html', matchs=matchs, bets=bets)
+    return render_template('matchs.html', matchs=matchs, bets=bets, avatar=avatar)
 
 @app.route('/editmatchs/<match_id>', methods=['GET', 'POST'])
 @login_required
 def editmatchs(match_id):
-
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     if current_user.username == 'admin':
         edit = Match.query.filter_by(id=match_id).first_or_404()
         form = MatchEditForm()
@@ -233,7 +243,7 @@ def editmatchs(match_id):
                 score_for_users_calc()
                 pass
             return redirect(url_for('matchs'))
-        return render_template('editmatch.html', form=form, edit=edit)
+        return render_template('editmatch.html', form=form, edit=edit, avatar=avatar)
     else:
         return redirect(url_for('matchs'))
     return redirect(url_for('matchs'))
@@ -241,7 +251,7 @@ def editmatchs(match_id):
 @app.route('/editbets/<match_id>', methods=['GET', 'POST'])
 @login_required
 def editbets(match_id):
-
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     form = BetsEditForm()
     match = Match.query.filter_by(id=match_id).first_or_404()
     if datetime.utcnow () < match.timestamp and not match.completed:
@@ -272,6 +282,6 @@ def editbets(match_id):
 
 
 
-        return render_template('editbets.html', form=form, match=match, all_bet=all_bet, my_bet=my_bet, udic= udic)
+        return render_template('editbets.html', form=form, match=match, all_bet=all_bet, my_bet=my_bet, udic= udic, avatar=avatar)
     flash ( 'Ставки сделаны, ставок больше нет... на этот матч!' )
     return redirect ( url_for ( 'matchs' ) )

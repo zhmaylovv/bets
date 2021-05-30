@@ -63,13 +63,7 @@
 
     <div class="navbar-right">
         <div class="header-icons d-inline-block align-middle">
-            <div class="d-none d-md-inline-block align-text-bottom mr-3">
-                <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
-                     data-toggle="tooltip" data-placement="left" title="Dark Mode">
-                    <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
-                    <label class="custom-switch-btn" for="switchDark"></label>
-                </div>
-            </div>
+
             <!--Дополнительное меню сверху
             <div class="position-relative d-none d-sm-inline-block">
                 <button class="header-icon btn btn-empty" type="button" id="iconMenuButton" data-toggle="dropdown"
@@ -184,7 +178,7 @@
                 <span class="name">{{ current_user.username }}</span>
                 <span>
                         <img style="object-fit: cover; width: 40px; height: 40px;" alt="Profile picture"
-                             src="{{'static/'+current_user.avatar}}"/>
+                             src="data:;base64,{{avatar}}"/>
                         
                     </span>
             </button>
