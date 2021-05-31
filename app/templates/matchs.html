@@ -32,9 +32,9 @@
                                 <tr>
                                     <th width="5px;" scope="col">№</th>
                                     <th scope="col">Команда 1</th>
-                                    <th scope="col">Команда 2</th>
-                                    <th scope="col">Начало</th>
                                     <th style="background-color: #efefef;" scope="col">Мой прогноз</th>
+                                    <th scope="col">Команда 2</th>
+                                    <th scope="col">Начало</th> 
                                     {% if current_user.username == 'admin' %}<th scope="col">Ред.</th>
                                     {% endif %}
                                 </tr>
@@ -47,14 +47,14 @@
                                     {%else%}
                                         <th scope="row">{{match.id}}</th>
                                         <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team1}}</a></td>
-                                        <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
-                                        <td>{{match.timestamp}}</td>
                                         {%for bet in bets if bet.match_id | int == match.id | int %}
-                                                <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
+                                        <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
 
                                         {%else%}
                                                 <td style="background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
                                         {% endfor %}
+                                        <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
+                                        <td>{{match.timestamp}}</td>
                                         {% if current_user.username == 'admin' %}<th scope="col"><a href="{{ url_for('editmatchs', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">ред.</span></a></th>
                                         {% endif %}
                                         </tr>
