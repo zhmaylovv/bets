@@ -4,8 +4,9 @@
 
 {% block content %}
     <p>
-        <td><img src="data:;base64,{{userpic}}" style="border-radius:50%;"></td>
+        <td><img src="data:;base64,{{userpic}}" style="border-radius:50%; height: 200px;"></td>
     </p>
+    <!--
     <h1>User: {{ user.username }}</h1>
 
     <hr>
@@ -13,6 +14,6 @@
     <p>
     {{ post.author.username }} says: <b>{{ post.body }}</b>
     </p>
-    {% endfor %}
-    <a class="nav-item nav-link active" href="{{ url_for('edituser', username=current_user.username) }}" >{{ "edit user info" }}</a>
+    {% endfor %} -->
+    <a href="{{ url_for('edituser', username=current_user.username) }}" >><span class="btn btn btn-secondary btn-xs">Редактировать</span></a>
 {% endblock %}

@@ -54,7 +54,7 @@ Bets
     <div class="col-lg-12 col-md-12 mb-12">
         <div class="card">
             <div class="card-body table-responsive">
-                <h5 class="card-title">Турнирая таблица EURO2021 Новая</h5>
+                <h5 class="card-title">Общая таблица EURO2021</h5>
                 <table border="3" width="100%" class="responsive nowrap">
                     <thead>
                     <tr style="height: 10px;  text-align: center;">
@@ -214,70 +214,6 @@ Bets
                             {% endfor %}
 
                             {% endfor %}
-                        </td>
-                        <td>{{res[0]}}</td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-6 col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Турнирая таблица EURO2021 (Сортировка)</h5>
-                <table width="100%" class="data-table data-table-scrollable responsive nowrap"
-                       data-order="[[ 3, &quot;desc&quot; ]]">
-                    <thead>
-                    <tr>
-                        <th width="5px;" scope="col">№</th>
-                        <th width="20%;" scope="col">Имя</th>
-                        <th scope="col">Игры</th>
-                        <th width="15px;" scope="col">Очки</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    {%set count =[0]%}
-                    {% for user, matchid in bets_dict.items() %}
-                    {% if count.append(count.pop() + 1) %}{% endif %}
-                    <tr>
-                        <th scope="row">{{count[0]}}</th>
-                        <td>{{user}}</td>
-                        <td>
-                            {%set res = [0]%}
-                            {%for matchidid, bets in matchid.items()%}
-                            {% for bet, info in bets.items() %}
-                            {% if res.append(res.pop() + bet | int) %}{% endif %}
-                            {%if bet|int() == 5 %}
-                            <span style="cursor: pointer; color: #ff8f00;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info[0]}}"><b>{{bet}}</b></span>
-                            {%elif bet|int() == 4 %}
-                            <span style="cursor: pointer; color: #00b3d2;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info[0]}}"><b>{{bet}}</b></span>
-                            {%elif bet|int() == 3 %}
-                            <span style="cursor: pointer; color: #129803;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info[0]}}"><b>{{bet}}</b></span>
-                            {%elif bet|int() == 2 %}
-                            <span style="cursor: pointer; color: #2f76e2;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info[0]}}"><b>{{bet}}</b></span>
-                            {%else%}
-                            <span style="cursor: pointer;" data-toggle="tooltip" data-placement="top"
-                                  title="{{info[0]}}"><b>{{bet}}</b></span>
-                            {%endif%}
-                            {% endfor %}
-                            {% endfor %}
-                            {#<!--Короче, вот как обращаться к переменным, но они будут работать только внутри того цикла который выше!
-                                    Возможно придется менять структуру цикла и всей переменной под новую таблицу...
-                                    {{info[1]['match.team1']}}, {{info[1]['match.team2']}}, {{info[1]['bet.t1_pre']}}, {{info[1]['bet.t2_pre']}},
-                                   {{info[1]['match.t1_res']}}, {{info[1]['match.t2_res']}}, {{info[1]['bet.comment']}}
-                               --> #}
-
-
                         </td>
                         <td>{{res[0]}}</td>
                     </tr>
