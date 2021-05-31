@@ -3,11 +3,11 @@
 {% block activeacc %}class="active"{% endblock %}
 
 {% block content %}
+<h1>User: {{ user.username }}</h1>
     <p>
         <td><img src="data:;base64,{{userpic}}" style="border-radius:50%; height: 200px;"></td>
     </p>
     <!--
-    <h1>User: {{ user.username }}</h1>
 
     <hr>
     {% for post in posts %}
@@ -15,5 +15,5 @@
     {{ post.author.username }} says: <b>{{ post.body }}</b>
     </p>
     {% endfor %} -->
-    <a href="{{ url_for('edituser', username=current_user.username) }}" >><span class="btn btn btn-secondary btn-xs">Редактировать</span></a>
+    <a href="{{ url_for('edituser', username=current_user.username) }}" ><span class="btn btn btn-secondary btn-xs">Редактировать {{ user.username }}</span></a>
 {% endblock %}
