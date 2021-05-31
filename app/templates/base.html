@@ -251,6 +251,9 @@
 
             </div>
         </div>
+        {% for mesg in get_flashed_messages() %}
+            <div class="col-lg-4 alert alert-primary rounded" role="alert">{{ mesg }}</div>
+        {% endfor %}
         {% block content%}
         {% endblock %}
 

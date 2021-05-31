@@ -262,6 +262,7 @@ def editmatchs(match_id):
                 result_calc(match_id)
                 score_for_users_calc()
                 pass
+            flash ( 'Матч добавлен' )
             return redirect(url_for('matchs'))
         return render_template('editmatch.html', form=form, edit=edit, avatar=avatar)
     else:
@@ -298,6 +299,7 @@ def editbets(match_id):
                 my_bet.t2_pre = form.t2_pre.data
                 my_bet.comment = form.comment.data
                 db.session.commit()
+            flash ( 'Ставка сохранена!' )
             return redirect(url_for('matchs'))
 
 
