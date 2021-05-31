@@ -57,20 +57,39 @@ Bets
                 <h5 class="card-title">Турнирая таблица EURO2021 Новая</h5>
                 <table border="3" width="100%" class="responsive nowrap">
                     <thead>
+                    <tr style="height: 10px;  text-align: center;">
+                        <th width="30px" scope="col" style="background-color: #f3f3f3;"></th>
+                        <th width="200px" scope="col" style="min-width: 16em; background-color: #f3f3f3; border-right: 0px solid;">
+                        </th>
+                        <th width="30px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;">
+                        </th>
+
+                        {% for date, c in date_table.items() %}
+                        <th  scope="col"  colspan="{{c*2}}">
+                            <div>{{date}}</div>
+                        </th>
+
+                        {% endfor %}
+
+                    </tr>
                     <tr style="height: 100px;">
                         <th width="30px" scope="col" style="background-color: #f3f3f3;">№</th>
                         <th width="200px" scope="col" style="min-width: 16em; background-color: #f3f3f3; border-right: 2px solid;">Имя
                         </th>
                         <th width="30px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;">Очки
                         </th>
+
                         {% for match, data in main_table_dict.items() %}
+
                         <th class="rotatable" scope="col">
+
                             <div>{{data.team1}}</div>
                         </th>
                         <th class="rotatable" style="border-right: 2px solid;" width="5px;" scope="col">
                             <div>{{data.team2}}</div>
                         </th>
                         {% endfor %}
+
                     </tr>
                     </thead>
                     <tbody style="text-align: center;">

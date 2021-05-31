@@ -8,9 +8,10 @@ from werkzeug.urls import url_parse
 from app import db
 from app.forms import RegistrationForm, MatchEditForm, BetsEditForm, EditUserForm
 from werkzeug.utils import secure_filename
-from datetime import datetime
+from datetime import datetime, timedelta
 from app.func import result_calc, set_auto_bet, score_for_users_calc
 import base64
+from collections import Counter
 
 
 
@@ -47,22 +48,37 @@ def logout():
 @login_required
 def bets():
     avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
-
     user_list = User.query.all()
     match_list = Match.query.all()
     bets_dict = {}
     res_dict = {}
-    count = 0
 
     for user in user_list:
         user.avastr =  base64.b64encode ( user.avatar ).decode ( 'ascii' )
+    all_matchs = Match.query.all ()
+    main_table_dict = {}
+    counter_list = []
 
+    plus_15_min_time = datetime.utcnow() + timedelta(minutes=15)
+    for match in match_list:
+        if plus_15_min_time > match.timestamp:
+            match.completed = True
+            set_auto_bet ( match.id )
 
     all_matchs = Match.query.all ()
     all_users = User.query.order_by(User.score.desc()).all ()
-    main_table_dict = {}
+
+
     # main_table_dict = {"match": {team1: name, team2:name, t1_res: n, t2_res: n, users: {name: name, t1_pre: , t2_pre, score},} }
+
+    data_var = 0
+    var_count = 1
+    for match in match_list:
+        counter_list.append(match.timestamp.strftime("%d.%m.%Y"))
+    date_table = Counter(counter_list)
+
     for match in all_matchs:
+
         match_name = "matchs" + str ( match.id )
         main_table_dict[match_name] = {}
         main_table_dict[match_name]["team1"] = match.team1
@@ -77,7 +93,12 @@ def bets():
                 main_table_dict[match_name]["users"][user.id]["fio"] = user.fio
                 main_table_dict[match_name]["users"][user.id]["t1_pre"] = bet_to_dict.t1_pre
                 main_table_dict[match_name]["users"][user.id]["t2_pre"] = bet_to_dict.t2_pre
-                main_table_dict[match_name]["users"][user.id]["scor"] = bet_to_dict.res_scor
+                if bet_to_dict.res_scor != None:
+                    main_table_dict[match_name]["users"][user.id]["scor"] = bet_to_dict.res_scor
+                else:
+                    main_table_dict[match_name]["users"][user.id]["scor"] = "Матч не завершен!"
+                    main_table_dict[match_name]["t1_res"] = ""
+                    main_table_dict[match_name]["t2_res"] = ""
 
 
     for user in user_list:
@@ -98,7 +119,8 @@ def bets():
 
             res_dict = {}
 
-    return render_template( 'bets.html' , bets_dict= bets_dict, main_table_dict = main_table_dict, all_users = all_users,  avatar=avatar)
+    return render_template( 'bets.html' , bets_dict= bets_dict, main_table_dict = main_table_dict,
+                            all_users = all_users,  avatar=avatar, date_table = date_table)
 
 @login_required
 @app.route('/register', methods=['GET', 'POST'])
@@ -183,8 +205,8 @@ def matchadd():
     if form.validate_on_submit():'''
     if request.method == 'POST':
 
-        match = Match(team1=request.form.get('team1'), team2=request.form.get('team2'), timestamp=request.form.get('datatime'), t1_res='',
-                      t2_res='',)
+        match = Match(team1=request.form.get('team1'), team2=request.form.get('team2'), timestamp=request.form.get('datetime'), t1_res='',
+                      t2_res='')
         db.session.add(match)
         db.session.commit()
         flash('Матч добавлен')
@@ -233,7 +255,6 @@ def editmatchs(match_id):
                 edit.t1_res = form.t1_res.data
                 edit.completed = False
             edit.timestamp = form.datetime.data
-            print(edit.timestamp)
             db.session.commit()
             if edit.completed:
 
