@@ -59,7 +59,7 @@ def bets():
     main_table_dict = {}
     counter_list = []
 
-    plus_15_min_time = datetime.utcnow() + timedelta(minutes=15)
+    plus_15_min_time = datetime.utcnow() + timedelta(minutes=15) + timedelta(hours=3)
     for match in match_list:
         if plus_15_min_time > match.timestamp:
             match.completed = True
@@ -156,6 +156,12 @@ def register():
             user.avatar = f.stream.read()   #(form.username.data + '.' + filename.split('.')
             db.session.add(user)
             db.session.commit()
+            for match in Match.query.all():
+                if match.completed:
+                    set_auto_bet(match.id)
+                    result_calc(match.id)
+            score_for_users_calc()
+
             flash('Congratulations, user added! Give him account info!')
 
             return redirect(url_for('index'))
@@ -284,7 +290,7 @@ def editbets(match_id):
     avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     form = BetsEditForm()
     match = Match.query.filter_by(id=match_id).first_or_404()
-    if datetime.utcnow () < match.timestamp and not match.completed:
+    if datetime.utcnow + timedelta(hours=3) () < match.timestamp and not match.completed:
 
         users = User.query.all()
         all_bet = Bets.query.filter_by(match_id=match_id).all()
