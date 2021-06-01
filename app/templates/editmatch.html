@@ -30,7 +30,7 @@
     </p>
     <p>
         {{ form.t1_res.label }}<br>
-        {{ form.t1_res(size=32, value=edit.t1_res) }}<br>
+        {{ form.t1_res(size=32) }}<br>
         {% for error in form.t1_res.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
@@ -38,7 +38,7 @@
 
     <p>
         {{ form.t2_res.label }}<br>
-        {{ form.t2_res(size=32, value=edit.t2_res) }}<br>
+        {{ form.t2_res(size=32,) }}<br>
         {% for error in form.t2_res.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
