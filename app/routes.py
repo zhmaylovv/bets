@@ -270,7 +270,7 @@ def editbets(match_id):
     avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     form = BetsEditForm()
     match = Match.query.filter_by(id=match_id).first_or_404()
-    if datetime.utcnow + timedelta(hours=3) () < match.timestamp and not match.completed:
+    if datetime.utcnow() + timedelta(hours=3) < match.timestamp and not match.completed:
 
         users = User.query.all()
         all_bet = Bets.query.filter_by(match_id=match_id).all()
