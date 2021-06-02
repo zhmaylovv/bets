@@ -60,7 +60,7 @@ class Match(db.Model):
 
 class Bets(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    match_id = db.Column(db.String(140), db.ForeignKey("match.id"))
+    match_id = db.Column(db.Integer, db.ForeignKey("match.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     #user_fio = db.Column(db.String, db.ForeignKey('user.fio'))
     t1_pre = db.Column(db.Integer, default=0)
