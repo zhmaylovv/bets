@@ -111,10 +111,10 @@ def bets():
     return render_template( 'bets.html' ,  main_table_dict = main_table_dict,
                             all_users = all_users,  avatar=avatar, date_table=date_table)
 
-@login_required
+#@login_required
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
+    avatar = ""#base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     # Убрал что бы залогенный админ мог видеть
     # if current_user.is_authenticated:
     #     return redirect(url_for('index'))
