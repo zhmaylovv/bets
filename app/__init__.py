@@ -17,7 +17,7 @@ from app.models import User
 # try:
 #     user_list = User.query.order_by(User.score.desc()).all ()
 # except
-db.create_all ()
+#     db.create_all ()
 # if len(user_list) < 1:
 #     admin = User(username="admin", email="14hp@ngs.ru", fio="Администратор")
 #     admin.set_password("admin")
