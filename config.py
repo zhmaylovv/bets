@@ -16,7 +16,7 @@ class Config(object):
     POSTGRES = {
         'user': 'uyrgxyycveriot' ,
         'pw': '199c91ab798dd97d8cf6d05425423e6ba3e87ffb108445bf43e252951d15f597' ,
-        'db': 'my_database' ,
+        'db': 'dai11i8vman5e' ,
         'host': 'ec2-34-250-16-127.eu-west-1.compute.amazonaws.com' ,
         'port': '5432' ,
     }
