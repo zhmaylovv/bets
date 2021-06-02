@@ -39,20 +39,7 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post {}>'.format(self.body)
 
-class Bets(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    match_id = db.Column(db.String(140), db.ForeignKey('match.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    #user_fio = db.Column(db.String, db.ForeignKey('user.fio'))
-    t1_pre = db.Column(db.Integer, default=0)
-    t2_pre = db.Column(db.Integer, default=0)
-    comment = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    res_scor = db.Column(db.Integer)
-    # match = relationship ( "Match" ,back_populates="bets" )
 
-    def __repr__(self):
-        return '<Bets {}>'.format(self.id, self.match_id, self.user_id, self.t1_pre, self.t2_pre, self.comment, self.timestamp, self.res_scor)
 
 class Match(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -69,6 +56,22 @@ class Match(db.Model):
 
     def __repr__(self):
         return '<Match {}>'.format(self.id, self.team1, self.team2, self.t1_res, self.t2_res, self.timestamp)
+
+
+class Bets(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    match_id = db.Column(db.String(140), db.ForeignKey("match.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    #user_fio = db.Column(db.String, db.ForeignKey('user.fio'))
+    t1_pre = db.Column(db.Integer, default=0)
+    t2_pre = db.Column(db.Integer, default=0)
+    comment = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    res_scor = db.Column(db.Integer)
+    # match = relationship ( "Match" ,back_populates="bets" )
+
+    def __repr__(self):
+        return '<Bets {}>'.format(self.id, self.match_id, self.user_id, self.t1_pre, self.t2_pre, self.comment, self.timestamp, self.res_scor)
 
 @login.user_loader
 def load_user(id):
