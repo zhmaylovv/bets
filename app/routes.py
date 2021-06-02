@@ -48,14 +48,15 @@ def logout():
 @login_required
 def bets():
     avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
-    user_list = User.query.all()
+    user_list = User.query.order_by(User.score.desc()).all ()
     match_list = Match.query.all()
+
     bets_dict = {}
     res_dict = {}
 
     for user in user_list:
         user.avastr =  base64.b64encode ( user.avatar ).decode ( 'ascii' )
-    all_matchs = Match.query.all ()
+    all_matchs = match_list
     main_table_dict = {}
     counter_list = []
 
@@ -65,10 +66,8 @@ def bets():
             match.completed = True
             set_auto_bet ( match.id )
 
-    all_matchs = Match.query.all ()
-    all_users = User.query.order_by(User.score.desc()).all ()
-
-
+    all_matchs =  match_list
+    all_users = user_list
     # main_table_dict = {"match": {team1: name, team2:name, t1_res: n, t2_res: n, users: {name: name, t1_pre: , t2_pre, score},} }
 
     data_var = 0
@@ -76,7 +75,7 @@ def bets():
     for match in match_list:
         counter_list.append(match.timestamp.strftime("%d.%m.%Y"))
     date_table = Counter(counter_list)
-
+    bets_list = Bets.query.order_by ( Bets.match_id ).all ()
     for match in all_matchs:
 
         match_name = "matchs" + str ( match.id )
@@ -89,47 +88,28 @@ def bets():
         main_table_dict[match_name]["users"] = {}
         for user in all_users:
             main_table_dict[match_name]["users"][user.id] = {}
-            bet_to_dict = Bets.query.filter_by ( match_id=match.id ,user_id=user.id ).first()
-            if bet_to_dict and match.completed:
-                main_table_dict[match_name]["users"][user.id]["fio"] = user.fio
-                main_table_dict[match_name]["users"][user.id]["t1_pre"] = bet_to_dict.t1_pre
-                main_table_dict[match_name]["users"][user.id]["t2_pre"] = bet_to_dict.t2_pre
-                if bet_to_dict.res_scor != None:
-                    main_table_dict[match_name]["users"][user.id]["scor"] = bet_to_dict.res_scor
+            #bet_to_dict = Bets.query.filter_by ( match_id=match.id, user_id=user.id ).first()
+            #bet_to_dict = {}
+            for bet_to_dict in bets_list:
+                if bet_to_dict.match_id == match.id and bet_to_dict.user_id == user.id:
+                    if match.completed:
+                        main_table_dict[match_name]["users"][user.id]["fio"] = user.fio
+                        main_table_dict[match_name]["users"][user.id]["t1_pre"] = bet_to_dict.t1_pre
+                        main_table_dict[match_name]["users"][user.id]["t2_pre"] = bet_to_dict.t2_pre
+                        if bet_to_dict.res_scor != None:
+                            main_table_dict[match_name]["users"][user.id]["scor"] = bet_to_dict.res_scor
 
-                else:
-                    main_table_dict[match_name]["users"][user.id]["scor"] = "Игра!"
-                    main_table_dict[match_name]["t1_res"] = ""
-                    main_table_dict[match_name]["t2_res"] = ""
+                        else:
+                            main_table_dict[match_name]["users"][user.id]["scor"] = "Игра!"
+                            main_table_dict[match_name]["t1_res"] = ""
+                            main_table_dict[match_name]["t2_res"] = ""
+                    break
 
 
-    for user in all_users:
-        user_id = user.id
-        user_bets = Bets.query.filter_by(user_id=user_id).order_by(Bets.match_id).all()
-        bets_dict[user.fio] = {}
 
-        for bet in user_bets:
-            match = Match.query.filter_by(id=bet.match_id).first_or_404()
-            data = {"match.team1": match.team1 ,"match.team2": match.team2 ,"bet.t1_pre": bet.t1_pre ,
-                    "bet.t2_pre": bet.t2_pre ,
-                    "match.t1_res": match.t1_res ,"match.t2_res": match.t2_res ,"bet.comment": bet.comment, "data" : match.timestamp}
-            if match.completed:
-                if bet.res_scor == None:
-                    res_dict[u"\u26BD"] = [str ( match.team1 ) + "-" + str ( match.team2 ) + " ставка: " \
-                                              + str ( bet.t1_pre ) + "-" + str ( bet.t2_pre ) + " результат: " \
-                                              + str ( match.t1_res ) + "-" + str ( match.t2_res ) + " | " + str (
-                        bet.comment ) ,data]
-                    bets_dict[user.fio][match.id] = res_dict
-                else:
-                    res_dict[bet.res_scor] = [str(match.team1) + "-" + str(match.team2) + " ставка: " \
-                                         + str(bet.t1_pre) + "-" + str(bet.t2_pre) + " результат: " \
-                                         + str(match.t1_res) + "-" + str(match.t2_res) + " | " + str(bet.comment), data]
-                    bets_dict[user.fio][match.id] = res_dict
 
-            res_dict = {}
-
-    return render_template( 'bets.html' , bets_dict= bets_dict, main_table_dict = main_table_dict,
-                            all_users = all_users,  avatar=avatar, date_table = date_table)
+    return render_template( 'bets.html' ,  main_table_dict = main_table_dict,
+                            all_users = all_users,  avatar=avatar, date_table=date_table)
 
 @login_required
 @app.route('/register', methods=['GET', 'POST'])
@@ -322,3 +302,73 @@ def editbets(match_id):
         return render_template('editbets.html', form=form, match=match, all_bet=all_bet, my_bet=my_bet, udic= udic, avatar=avatar)
     flash ( 'Ставки сделаны, ставок больше нет... на этот матч!' )
     return redirect ( url_for ( 'matchs' ) )
+
+
+@app.route('/bets2')
+@login_required
+def bets2():
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
+    user_list = User.query.order_by(User.score.desc()).all ()
+    match_list = Match.query.all()
+
+    bets_dict = {}
+    res_dict = {}
+
+    for user in user_list:
+        user.avastr =  base64.b64encode ( user.avatar ).decode ( 'ascii' )
+    all_matchs = match_list
+    main_table_dict = {}
+    counter_list = []
+
+    plus_15_min_time = datetime.utcnow() + timedelta(minutes=15) + timedelta(hours=3)
+    for match in match_list:
+        if plus_15_min_time > match.timestamp:
+            match.completed = True
+            set_auto_bet ( match.id )
+
+    all_matchs =  match_list
+    all_users = user_list
+
+    data_var = 0
+    var_count = 1
+    for match in match_list:
+        counter_list.append(match.timestamp.strftime("%d.%m.%Y"))
+    date_table = Counter(counter_list)
+    bets_list = Bets.query.order_by ( Bets.match_id ).all ()
+
+    for user in all_users:
+        user_id = user.id
+        #user_bets = Bets.query.filter_by(user_id=user_id).order_by(Bets.match_id).all()
+        user_bets = []
+        for bet in bets_list:
+            if bet.user_id == user.id:
+                user_bets.append(bet)
+        bets_dict[user.fio] = {}
+
+        for bet in user_bets:
+            match_s = None
+            for match in match_list:
+                if match.id == bet.match_id:
+                    match_s = match
+                    break
+
+            #match_s = Match.query.filter_by(id=bet.match_id).first_or_404()
+            data = {"match.team1": match_s.team1 ,"match.team2": match_s.team2 ,"bet.t1_pre": bet.t1_pre ,
+                    "bet.t2_pre": bet.t2_pre ,
+                    "match.t1_res": match_s.t1_res ,"match.t2_res": match_s.t2_res ,"bet.comment": bet.comment, "data" : match_s.timestamp}
+            if match_s.completed:
+                if bet.res_scor == None:
+                    res_dict[u"\u26BD"] = [str ( match_s.team1 ) + "-" + str ( match_s.team2 ) + " ставка: " \
+                                              + str ( bet.t1_pre ) + "-" + str ( bet.t2_pre ) + " результат: " \
+                                              + str ( match_s.t1_res ) + "-" + str ( match_s.t2_res ) + " | " + str (
+                        bet.comment ) ,data]
+                    bets_dict[user.fio][match_s.id] = res_dict
+                else:
+                    res_dict[bet.res_scor] = [str(match_s.team1) + "-" + str(match_s.team2) + " ставка: " \
+                                         + str(bet.t1_pre) + "-" + str(bet.t2_pre) + " результат: " \
+                                         + str(match_s.t1_res) + "-" + str(match_s.t2_res) + " | " + str(bet.comment), data]
+                    bets_dict[user.fio][match_s.id] = res_dict
+
+            res_dict = {}
+
+    return render_template( 'bets2.html' , bets_dict= bets_dict, all_users = all_users,  avatar=avatar, date_table = date_table)
