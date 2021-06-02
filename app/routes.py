@@ -119,33 +119,33 @@ def register():
     # if current_user.is_authenticated:
     #     return redirect(url_for('index'))
     form = RegistrationForm()
-    if current_user.username == 'admin':
-        if form.validate_on_submit():
-            user = User(username=form.username.data, email=form.email.data, fio=form.fio.data)
-            user.set_password(form.password.data)
-            f = form.photo.data
+    #if current_user.username == 'admin':
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data, fio=form.fio.data)
+        user.set_password(form.password.data)
+        f = form.photo.data
 
-            #filename = secure_filename(f.filename)
+        #filename = secure_filename(f.filename)
 
-            if form.photo.data.content_type.split('/')[0] != 'image':
-                flash('Image only plz')
-                return redirect(url_for('register'))
+        if form.photo.data.content_type.split('/')[0] != 'image':
+            flash('Image only plz')
+            return redirect(url_for('register'))
 
 
-            #f.save(os.path.join(os.getcwd() + '/venv/app/static',  form.username.data + '.' + filename.split('.')[-1]))
-            user.avatar = f.stream.read()   #(form.username.data + '.' + filename.split('.')
-            db.session.add(user)
-            db.session.commit()
-            for match in Match.query.all():
-                if match.completed:
-                    set_auto_bet(match.id)
-                    result_calc(match.id)
-            score_for_users_calc()
+        #f.save(os.path.join(os.getcwd() + '/venv/app/static',  form.username.data + '.' + filename.split('.')[-1]))
+        user.avatar = f.stream.read()   #(form.username.data + '.' + filename.split('.')
+        db.session.add(user)
+        db.session.commit()
+        for match in Match.query.all():
+            if match.completed:
+                set_auto_bet(match.id)
+                result_calc(match.id)
+        score_for_users_calc()
 
-            flash('Congratulations, user added! Give him account info!')
+        flash('Congratulations, user added! Give him account info!')
 
-            return redirect(url_for('index'))
-        return render_template('register.html', title='Register', form=form, avatar=avatar)
+        return redirect(url_for('index'))
+    return render_template('register.html', title='Register', form=form, avatar=avatar)
 
 @app.route('/edituser/<username>', methods=['GET', 'POST'])
 @login_required
