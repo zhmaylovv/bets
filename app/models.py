@@ -57,7 +57,6 @@ class Match(db.Model):
     def __repr__(self):
         return '<Match {}>'.format(self.id, self.team1, self.team2, self.t1_res, self.t2_res, self.timestamp)
 
-
 class Bets(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     match_id = db.Column(db.Integer, db.ForeignKey("match.id"))
