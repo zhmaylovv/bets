@@ -200,8 +200,8 @@ def matchadd():
     if form.validate_on_submit():'''
     if request.method == 'POST':
 
-        match = Match(team1=request.form.get('team1'), team2=request.form.get('team2'), timestamp=request.form.get('datetime'), t1_res='',
-                      t2_res='')
+        match = Match(team1=request.form.get('team1'), team2=request.form.get('team2'), timestamp=request.form.get('datetime'), t1_res=0,
+                      t2_res=0)
         db.session.add(match)
         db.session.commit()
         flash('Матч добавлен')
