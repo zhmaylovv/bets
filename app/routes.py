@@ -49,7 +49,7 @@ def logout():
 def bets():
     avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     user_list = User.query.order_by(User.score.desc()).all ()
-    match_list = Match.query.all()
+    match_list = Match.query.order_by(Match.id).all ()
 
     bets_dict = {}
     res_dict = {}
