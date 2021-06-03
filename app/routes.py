@@ -246,8 +246,8 @@ def editmatchs(match_id):
                 if edit.t2_res >= 0  and edit.t2_res >= 0:
                     edit.completed = True
             else:
-                edit.t2_res = form.t2_res.data
-                edit.t1_res = form.t1_res.data
+                edit.t2_res = 0
+                edit.t1_res = 0
                 edit.completed = False
             edit.timestamp = form.datetime.data
             db.session.commit()
