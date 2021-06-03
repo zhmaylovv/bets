@@ -18,21 +18,21 @@
         {{ form.team1.label }}<br>
         {{ form.team1(size=32, value=edit.team1) }}<br>
         {% for error in form.team1.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
         {% endfor %}
     </p>
     <p>
         {{ form.team2.label }}<br>
         {{ form.team2(size=32, value=edit.team2) }}<br>
         {% for error in form.team2.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
         {% endfor %}
     </p>
     <p>
         {{ form.t1_res.label }}<br>
         {{ form.t1_res(size=32) }}<br>
         {% for error in form.t1_res.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
         {% endfor %}
     </p>
 
@@ -40,7 +40,7 @@
         {{ form.t2_res.label }}<br>
         {{ form.t2_res(size=32,) }}<br>
         {% for error in form.t2_res.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
         {% endfor %}
     </p>
 
@@ -48,7 +48,7 @@
         {{ form.datetime.label }}<br>
         {{ form.datetime (value=edit.timestamp)}}<br>
         {% for error in form.datetime.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
 
         {% endfor %}
 
