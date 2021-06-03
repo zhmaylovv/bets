@@ -23,7 +23,7 @@
     <!-- /Фунционал администратора -->
     
     <div class="row">
-        <div class="col-lg-6 col-md-6 mb-4">
+        <div class="col-lg-6 col-md-12 mb-12">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Мои прогнозы</h5>
@@ -32,7 +32,7 @@
                                 <tr>
                                     <th width="5px;" scope="col">№</th>
                                     <th style="text-align: right;" scope="col">Команда 1</th>
-                                    <th style="background-color: #efefef;" scope="col">Мой прогноз</th>
+                                    <th style="text-align: center; background-color: #efefef;" scope="col">Мой прогноз</th>
                                     <th style="text-align: left;"scope="col">Команда 2</th>
                                     <th scope="col">Начало</th> 
                                     {% if current_user.username == 'admin' %}<th scope="col">Ред.</th>
@@ -48,10 +48,10 @@
                                         <th scope="row">{{match.id}}</th>
                                         <td style="text-align: right;"><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team1}}</a></td>
                                         {%for bet in bets if bet.match_id | int == match.id | int %}
-                                        <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
+                                        <td style="text-align: center; background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><i class="iconsminds-pen-2"></i></a></td>
 
                                         {%else%}
-                                                <td style="background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
+                                                <td style="text-align: center; background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
                                         {% endfor %}
                                         <td style="text-align: left;"><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
                                         <td>{{match.timestamp}}</td>
@@ -67,10 +67,10 @@
                                         <th scope="row">{{match.id}}</th>
                                         <td style="text-align: right;"><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team1}}</a></td>
                                         {%for bet in bets if bet.match_id | int == match.id | int %}
-                                                <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">Изменить</span></a></td>
+                                                <td style="text-align: center; background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><i class="iconsminds-pen-2"></i></a></td>
 
                                         {%else%}
-                                                <td style="background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
+                                                <td style="text-align: center; background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
                                         {% endfor %}
                                         <td style="text-align: left;"><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team2}}</a></td>
                                         <td>{{match.timestamp}}</td>
@@ -84,7 +84,7 @@
                 </div>
             </div>
         </div>
-            <div class="col-lg-6 col-md-6 mb-4">
+            <div class="col-lg-6 col-md-12 mb-12">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Завершенные матчи EURO2021</h5>
