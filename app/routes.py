@@ -133,19 +133,13 @@ def register():
             user = User(username=form.username.data, email=form.email.data, fio=form.fio.data)
             user.set_password(form.password.data)
             f = form.photo.data
-
-            #filename = secure_filename(f.filename)
             try:
                 if form.photo.data.content_type.split('/')[0] != 'image':
-
-                    flash('Small image only plz')
+                    flash('Image only plz')
                 user.avatar = f.stream.read ()
             except:
-                with open ( os.path.join(os.getcwd() + '/venv/app/static/' + 'avadefalt.jpeg') ,"rb" ) as f:
+                with open ( os.path.join(os.getcwd() + '/static/' + 'avadefalt.jpeg') ,"rb" ) as f:
                     user.avatar = f.read()
-
-            #f.save(os.path.join(os.getcwd() + '/venv/app/static',  form.username.data + '.' + filename.split('.')[-1]))
-               #(form.username.data + '.' + filename.split('.')
             db.session.add(user)
             db.session.commit()
             for match in Match.query.all():
