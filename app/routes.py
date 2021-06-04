@@ -138,7 +138,7 @@ def register():
                     flash('Image only plz')
                 user.avatar = f.stream.read ()
             except:
-                with open ('/static/avadefalt.jpeg' ,"rb" ) as f:
+                with open ('app/static/avadefalt.jpeg' ,"rb" ) as f:
                     user.avatar = f.read()
             db.session.add(user)
             db.session.commit()
