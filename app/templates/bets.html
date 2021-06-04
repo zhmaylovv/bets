@@ -65,10 +65,15 @@ Bets
                         </th>
 
                         {% for date, c in date_table.items() %}
+                        {% if date == today_date%}
+                        <th class="badge-theme-2"  scope="col" colspan="{{c*2}}">
+                            <div>{{date}}</div>
+                        </th>
+                        {% else%}
                         <th  scope="col"  colspan="{{c*2}}">
                             <div>{{date}}</div>
                         </th>
-
+                        {%endif%}
                         {% endfor %}
 
                     </tr>

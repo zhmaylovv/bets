@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 from app import app
 from flask import render_template, flash, redirect, url_for, request
@@ -49,7 +50,7 @@ def logout():
 def bets():
     avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     user_list = User.query.order_by(User.score.desc()).all ()
-    match_list = Match.query.order_by(Match.id).all ()
+    match_list = Match.query.order_by(Match.timestamp).all ()
 
     bets_dict = {}
     res_dict = {}
@@ -65,6 +66,8 @@ def bets():
         if plus_15_min_time > match.timestamp:
             match.completed = True
             set_auto_bet ( match.id )
+    today_date = ( plus_15_min_time.strftime("%d.%m.%Y"))
+
 
     all_matchs =  match_list
     all_users = user_list
@@ -76,10 +79,16 @@ def bets():
         counter_list.append(match.timestamp.strftime("%d.%m.%Y"))
     date_table = Counter(counter_list)
     bets_list = Bets.query.order_by ( Bets.match_id ).all ()
+
+
     for match in all_matchs:
 
         match_name = "matchs" + str ( match.id )
         main_table_dict[match_name] = {}
+        if plus_15_min_time.strftime("%d.%m.%Y") == match.timestamp.strftime("%d.%m.%Y"):
+            main_table_dict[match_name]["today"] = True
+        else:
+            main_table_dict[match_name]["today"] = False
         main_table_dict[match_name]["team1"] = match.team1
         main_table_dict[match_name]["team2"] = match.team2
         if match.completed:
@@ -109,7 +118,7 @@ def bets():
 
 
     return render_template( 'bets.html' ,  main_table_dict = main_table_dict,
-                            all_users = all_users,  avatar=avatar, date_table=date_table)
+                            all_users = all_users,  avatar=avatar, date_table=date_table, today_date=today_date)
 
 @login_required
 @app.route('/register', methods=['GET', 'POST'])
@@ -126,14 +135,17 @@ def register():
             f = form.photo.data
 
             #filename = secure_filename(f.filename)
+            try:
+                if form.photo.data.content_type.split('/')[0] != 'image':
 
-            if form.photo.data.content_type.split('/')[0] != 'image':
-                flash('Image only plz')
-                return redirect(url_for('register'))
-
+                    flash('Small image only plz')
+                user.avatar = f.stream.read ()
+            except:
+                with open ( os.path.join(os.getcwd() + '/venv/app/static/' + 'avadefalt.jpeg') ,"rb" ) as f:
+                    user.avatar = f.read()
 
             #f.save(os.path.join(os.getcwd() + '/venv/app/static',  form.username.data + '.' + filename.split('.')[-1]))
-            user.avatar = f.stream.read()   #(form.username.data + '.' + filename.split('.')
+               #(form.username.data + '.' + filename.split('.')
             db.session.add(user)
             db.session.commit()
             for match in Match.query.all():
@@ -166,14 +178,14 @@ def edituser(username):
             user.fio=form.fio.data
         if form.photo.data:
             f = form.photo.data
-            if form.photo.data.content_type.split('/')[0] != 'image':
-                flash('Image only plz')
+            if form.photo.data.content_type.split('/')[0] != 'image' and form.photo.data.content_length > 1024:
+
+                flash('Small image only plz')
                 return redirect(url_for('edituser'))
 
             user.avatar = f.stream.read()
         db.session.commit()
         flash('Edit ok')
-
         return redirect(url_for('index'))
     return render_template('edituser.html', user=user, posts=posts, avatar= avatar, form=form)
 
@@ -372,3 +384,21 @@ def bets2():
             res_dict = {}
 
     return render_template( 'bets2.html' , bets_dict= bets_dict, all_users = all_users,  avatar=avatar, date_table = date_table)
+
+@app.route('/user/list')
+@login_required
+def user_list():
+    user_list = User.query.all ()
+    user_dict = {}
+    for user in user_list:
+        user_dict[user.id] = user.username
+    return user_dict
+
+@app.route('/user/del/<user_id>')
+@login_required
+def user_del(user_id):
+    if current_user.username == 'admin' and user_id != 1:
+        user = User.query.filter_by( id=user_id ).first ()
+        db.session.delete ( user )
+        db.session.commit ()
+        return "Пользователь удален"

@@ -24,7 +24,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    photo = FileField('Выберите фото', validators=[FileRequired()] )
+    photo = FileField('Выберите фото' )
 
     submit = SubmitField('Register')
 
