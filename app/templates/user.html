@@ -3,17 +3,13 @@
 {% block activeacc %}class="active"{% endblock %}
 
 {% block content %}
-<h1>Игрок: {{ user.username }}</h1>
+<h1>Игрок: {{ user.fio }}</h1>
     <p>
         <td><img src="data:;base64,{{userpic}}" style="border-radius:50%; height: 200px;"></td>
     </p>
-    <!--
+<p> ID : {{ user.id }}</p>
+<p>Login : {{user.username}}</p>
+<p>Email: {{user.email}}</p>
 
-    <hr>
-    {% for post in posts %}
-    <p>
-    {{ post.author.username }} says: <b>{{ post.body }}</b>
-    </p>
-    {% endfor %} -->
     <a href="{{ url_for('edituser', username=current_user.username) }}" ><span class="btn btn btn-secondary btn-xs">Редактировать {{ user.username }}</span></a>
 {% endblock %}

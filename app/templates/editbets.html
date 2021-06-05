@@ -2,50 +2,49 @@
 
 
 {% block title %}
-    Bets
+Bets
 {% endblock %}
 
 {% block content_title %}
-    Список ставок
+Список ставок
 {% endblock %}
 
 {% block content%}
+<form action="" method="post" novalidate>
+{{ form.hidden_tag() }}
+<table style="height: 219px; width: 30%; border-collapse: collapse; border-style: none;" border="0">
+<tbody>
+<tr style="height: 17px;">
+<td style="width: 100%; height: 17px; text-align: center;" colspan="3">Прогноз на матч</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 45%; text-align: center; height: 18px;">{{match.team1}}</td>
+<td style="width: 10%; text-align: center; height: 18px;">vs</td>
+<td style="width: 45%; text-align: center; height: 18px;">{{match.team2}}</td>
+</tr>
+<tr style="height: 36px;">
+<td style="width: 45%; text-align: center; height: 36px;">{{ form.t1_pre(size=10, value=my_bet.t1_pre) }}</td>
+<td style="width: 10%; text-align: center; height: 36px;">&nbsp;</td>
+<td style="width: 45%; height: 36px; text-align: center;">{{ form.t2_pre(size=10, value=my_bet.t2_pre) }}</td>
+</tr>
+<tr style="height: 18px;">
+<td style="height: 18px; text-align: center; width: 100%;" colspan="3">
+<p>Комментарий к ставке:</p>
+<p>{{ form.comment(size=500, value=my_bet.comment) }}</p>
+</td>
+</tr>
+<tr style="height: 18px;">
+<td style="text-align: center; width: 100%; height: 18px;" colspan="3">{{ form.submit() }}</td>
+</tr>
+<tr style="height: 112px;">
+<td style="width: 100%; text-align: center; height: 112px;" colspan="3">
+<p>Комментарий к ставке быдет виден во всплывающем меню главной таблицы</p>
+<p>Ты всегда сможешь сказать- ВОТ! ЯЖЕГОВОРИЛ!!!!</p>
+<p><img style="border-radius: 5%; height: 500px;" src="app/static/avadefalt.jpeg" /></p>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
 
-	<form action="" method="post" novalidate>
-		{{ form.hidden_tag() }}
-	<table border="0" cellpadding="1" cellspacing="1" style="width:100%">
-		<tbody>
-			<tr>
-				<td style="text-align:center">Прогноз на матч <br>{{match.team1}} vs {{match.team2}}</td>
-			</tr>
-		</tbody>
-	</table>
-
-	<table border="0" cellpadding="1" cellspacing="1" style="width:100%">
-		<tbody>
-			<tr>
-				<td style="text-align:center">{{ form.t1_pre(size=10, value=my_bet.t1_pre) }}</td>
-				<td style="text-align:center">{{ form.t2_pre(size=10, value=my_bet.t2_pre) }}</td>
-			</tr>
-
-		</tbody>
-
-	</table>
-	<table border="0" cellpadding="1" cellspacing="1" style="width:100%">
-		<tbody>
-			<tr>
-				<td style="text-align:center"> {{ form.comment(value=my_bet.comment) }}   </td>
-			</tr>
-		</tbody>
-	</table>
-	<p>{{ form.submit() }}</p>
-	<p>&nbsp;</p>
-
-	</form>
-<!--
-<h1> Прогнозы других игроков:</h1>
-{% for albet in all_bet %}
-
-<p>{{udic[albet.user_id]}} {{albet.t1_pre}} : {{albet.t2_pre}} {{albet.comment}}</p>
-{% endfor %} -->
 {% endblock %}

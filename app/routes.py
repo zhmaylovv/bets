@@ -61,7 +61,7 @@ def bets():
     main_table_dict = {}
     counter_list = []
 
-    plus_15_min_time = datetime.utcnow() + timedelta(minutes=15) + timedelta(hours=3)
+    plus_15_min_time = datetime.utcnow() + timedelta(hours=4)
     for match in match_list:
         if plus_15_min_time > match.timestamp:
             match.completed = True
@@ -105,6 +105,7 @@ def bets():
                         main_table_dict[match_name]["users"][user.id]["fio"] = user.fio
                         main_table_dict[match_name]["users"][user.id]["t1_pre"] = bet_to_dict.t1_pre
                         main_table_dict[match_name]["users"][user.id]["t2_pre"] = bet_to_dict.t2_pre
+                        main_table_dict[match_name]["users"][user.id]["comment"] = bet_to_dict.comment
                         if bet_to_dict.res_scor != None:
                             main_table_dict[match_name]["users"][user.id]["scor"] = bet_to_dict.res_scor
 
@@ -263,7 +264,7 @@ def editmatchs(match_id):
                 result_calc(match_id)
                 score_for_users_calc()
                 pass
-            flash ( 'Матч добавлен' )
+            flash ( 'Матч изменен' )
             return redirect(url_for('matchs'))
         return render_template('editmatch.html', form=form, edit=edit, avatar=avatar)
     else:

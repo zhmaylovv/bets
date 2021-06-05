@@ -146,19 +146,23 @@ Bets
                     <tr>
                         {% for match, data in main_table_dict.items() %}
                         {%if data["users"][user.id]["scor"] == 5 %}
-                        <td style="background-color: #ff8f00; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}
+                        <td style="background-color: #ff8f00; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                            title="{{data['users'][user.id]['comment']}}"> {{data["users"][user.id]["scor"]}}
                         </td>
                         {%elif data["users"][user.id]["scor"] == 4 %}
-                        <td style="background-color: #00b3d2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}
+                        <td style="background-color: #00b3d2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                            title="{{data['users'][user.id]['comment']}}">{{data["users"][user.id]["scor"]}}
                         </td>
                         {%elif data["users"][user.id]["scor"] == 3 %}
-                        <td style="background-color: #129803; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}
+                        <td style="background-color: #129803; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                        title="{{data['users'][user.id]['comment']}}">{{data["users"][user.id]["scor"]}}
                         </td>
                         {%elif data["users"][user.id]["scor"] == 2 %}
-                        <td style="background-color: #2f76e2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">{{data["users"][user.id]["scor"]}}
+                        <td style="background-color: #2f76e2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                        title="{{data['users'][user.id]['comment']}}">{{data["users"][user.id]["scor"]}}
                         </td>
                         {%else%}
-                        <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2">
+                        <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">
                             {{data["users"][user.id]["scor"]}}
                         </td>
                         {%endif%}
