@@ -118,7 +118,19 @@
                                         {% endfor %}
                                         <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
                                         {%for bet in bets if bet.match_id | int == match.id | int %}
-                                                <td><b>{{bet.res_scor}}</b></td>
+                                                <td>
+                                                    {%if bet.res_scor == 5 %}
+                                                    <b><span class="circle_five">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 4 %}
+                                                    <b><span class="circle_four">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 3 %}
+                                                    <b><span class="circle_three">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 2 %}
+                                                    <b><span class="circle_two">{{bet.res_scor}}</span></b>
+                                                    {%else%}
+                                                    <b>{{bet.res_scor}}</b>
+                                                    {%endif%}
+                                                </td>
                                         {% endfor %}
                                         </tr>
                                         {% endif %}
@@ -138,7 +150,19 @@
                                         {% endfor %}
                                         <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
                                         {%for bet in bets if bet.match_id | int == match.id | int %}
-                                                <td><b>{{bet.res_scor}}</b></td>
+                                                <td>
+                                                    {%if bet.res_scor == 5 %}
+                                                    <b><span class="circle_five">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 4 %}
+                                                    <b><span class="circle_four">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 3 %}
+                                                    <b><span class="circle_three">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 2 %}
+                                                    <b><span class="circle_two">{{bet.res_scor}}</span></b>
+                                                    {%else%}
+                                                    <b>{{bet.res_scor}}</b>
+                                                    {%endif%}
+                                                </td>
                                         {% endfor %}
                                         </tr>
                                         {% endif %}
