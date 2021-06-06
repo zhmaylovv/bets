@@ -58,19 +58,17 @@ Bets
                 <table border="3" width="100%" class="responsive nowrap">
                     <thead>
                     <tr style="height: 10px;  text-align: center;">
-                        <th width="30px" scope="col" style="background-color: #f3f3f3;"></th>
-                        <th width="200px" scope="col" style="min-width: 16em; background-color: #f3f3f3; border-right: 0px solid;">
-                        </th>
-                        <th width="30px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;">
-                        </th>
+                        <th width="30px" scope="col" style="background-color: #f3f3f3;" rowspan="2">№</th>
+                        <th width="200px" scope="col" style="min-width: 16em; background-color: #f3f3f3; border-right: 2px solid; border-left: 2px solid;" rowspan="2"> Имя</th>
+                        <th width="30px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;" rowspan="2">Очки</th>
 
                         {% for date, c in date_table.items() %}
                         {% if date == today_date%}
-                        <th class="badge-theme-2"  scope="col" colspan="{{c*2}}">
+                        <th class="badge-theme-2" style="border-left: 2px solid" scope="col" colspan="{{c*2}}">
                             <div>{{date}}</div>
                         </th>
                         {% else%}
-                        <th  scope="col"  colspan="{{c*2}}">
+                        <th style="background-color: #f3f3f3; border-left: 2px solid" scope="col" colspan="{{c*2}}">
                             <div>{{date}}</div>
                         </th>
                         {%endif%}
@@ -78,11 +76,6 @@ Bets
 
                     </tr>
                     <tr style="height: 100px;">
-                        <th width="30px" scope="col" style="background-color: #f3f3f3;">№</th>
-                        <th width="200px" scope="col" style="min-width: 16em; background-color: #f3f3f3; border-right: 2px solid;">Имя
-                        </th>
-                        <th width="30px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;">Очки
-                        </th>
 
                         {% for match, data in main_table_dict.items() %}
 
@@ -99,11 +92,7 @@ Bets
                     </thead>
                     <tbody style="text-align: center;">
                     <tr>
-                        <th style="background-color: #c1f1ff; border-top: 3px solid; border-bottom: 3px solid;"></th>
-                        <td style="background-color: #c1f1ff; border-top: 3px solid; border-right: 2px solid; border-bottom: 3px solid;">
-                            Результат игры
-                        </td>
-                        <th style="background-color: #c1f1ff; border-top: 3px solid; border-right: 2px solid; border-bottom: 3px solid;"></th>
+                        <th style="background-color: #c1f1ff; border-top: 3px solid; border-bottom: 3px solid;" colspan="3"> Результат игры</th>
                         {% for match, data in main_table_dict.items() %}
                         <td style="background-color: #c1f1ff; border-top: 3px solid; border-bottom: 3px solid;">
                             {{data.t1_res}}
@@ -139,27 +128,27 @@ Bets
                             {{user.score}}
                         </th>
                         {% for match, data in main_table_dict.items() %}
-                        <td>{{data["users"][user.id]["t1_pre"]}}</td>
-                        <td style="border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
+                        <td style="border-bottom: 1px dashed;">{{data["users"][user.id]["t1_pre"]}}</td>
+                        <td style="border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         {% for match, data in main_table_dict.items() %}
                         {%if data["users"][user.id]["scor"] == 5 %}
-                        <td style="background-color: #ff8f00; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
-                            title="{{data['users'][user.id]['comment']}}"> {{data["users"][user.id]["scor"]}}
+                        <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2"
+                            title="{{data['users'][user.id]['comment']}}"><span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
                         </td>
                         {%elif data["users"][user.id]["scor"] == 4 %}
-                        <td style="background-color: #00b3d2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
-                            title="{{data['users'][user.id]['comment']}}">{{data["users"][user.id]["scor"]}}
+                        <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                            title="{{data['users'][user.id]['comment']}}"><span class="circle_four">{{data["users"][user.id]["scor"]}}</span>
                         </td>
                         {%elif data["users"][user.id]["scor"] == 3 %}
-                        <td style="background-color: #129803; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
-                        title="{{data['users'][user.id]['comment']}}">{{data["users"][user.id]["scor"]}}
+                        <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                        title="{{data['users'][user.id]['comment']}}"><span class="circle_three">{{data["users"][user.id]["scor"]}}</span>
                         </td>
                         {%elif data["users"][user.id]["scor"] == 2 %}
-                        <td style="background-color: #2f76e2; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
-                        title="{{data['users'][user.id]['comment']}}">{{data["users"][user.id]["scor"]}}
+                        <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                        title="{{data['users'][user.id]['comment']}}"><span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
                         </td>
                         {%else%}
                         <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">

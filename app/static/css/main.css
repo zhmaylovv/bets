@@ -100,3 +100,56 @@ body.show-spinner::after {
   margin: 10px; 
   border-radius: 30px;
 }
+
+.circle_five {
+    border-radius: 50%;
+    font-size: 13px;
+    color: #fff;
+    text-align: center;
+    background: #ff7800;
+    padding: 3px 8px 2px 8px;
+    cursor: default;
+    box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
+}
+
+  .circle_four {
+      border-radius: 50%;
+      font-size: 13px;
+      color: #fff;
+      text-align: center;
+      background: #158fa2;
+      padding: 3px 8px 2px 8px;
+      cursor: default;
+      box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
+  }
+
+  .circle_three {
+      border-radius: 50%;
+      font-size: 13px;
+      color: #fff;
+      text-align: center;
+      background: #129803;
+      padding: 3px 8px 2px 8px;
+      cursor: default;
+      box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
+  }
+
+ .circle_two {
+      border-radius: 50%;
+      font-size: 13px;
+      color: #fff;
+      text-align: center;
+      background: #2f76e2;
+      padding: 3px 8px 2px 8px;
+      cursor: default;
+      box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
+  }
+
+
+.maintable__igb {
+  border-bottom: 1px solid white;
+  
+}
+
+}
+
