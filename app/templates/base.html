@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>
         {% block title %}
-        {% endblock %} | Starbets
+        {% endblock %} | ПРОГНОЗОВ.RU
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -13,20 +13,20 @@
     <link rel="stylesheet"
           href="http://2021.prognosov.ru//static/font/simple-line-icons/css/simple-line-icons.css"/>
 
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/bootstrap.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/bootstrap.rtl.only.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/fullcalendar.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/dataTables.bootstrap4.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/datatables.responsive.bootstrap4.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/select2.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/select2-bootstrap.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/perfect-scrollbar.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/glide.core.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/bootstrap-stars.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/nouislider.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/bootstrap-datepicker3.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/vendor/component-custom-switch.min.css"/>
-    <link rel="stylesheet" href="http://2021.prognosov.ru//static/css/main.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/bootstrap.rtl.only.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/datatables.responsive.bootstrap4.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/select2.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/select2-bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/perfect-scrollbar.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/glide.core.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/bootstrap-stars.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/nouislider.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/bootstrap-datepicker3.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/vendor/component-custom-switch.min.css"/>
+    <link rel="stylesheet" href="http://2021.prognosov.ru/static/css/main.css"/>
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
@@ -217,7 +217,7 @@
                         <i class="iconsminds-male-female d-block"></i> Мой аккаунт
                     </a>
                 </li>
-                <li>
+                <li {% block activeadd %}{% endblock %}>
                     {% if current_user.username == 'admin' %}
                     <a href="{{ url_for('register') }}">
                         <i class="simple-icon-user-follow"></i> Добавить
@@ -278,24 +278,24 @@
     </div>
 </footer>
 
-<script src="http://2021.prognosov.ru//static/js/vendor/jquery-3.3.1.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/bootstrap.bundle.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/Chart.bundle.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/chartjs-plugin-datalabels.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/moment.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/fullcalendar.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/datatables.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/perfect-scrollbar.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/glide.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/progressbar.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/jquery.barrating.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/select2.full.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/nouislider.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/bootstrap-datepicker.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/Sortable.js"></script>
-<script src="http://2021.prognosov.ru//static/js/vendor/mousetrap.min.js"></script>
-<script src="http://2021.prognosov.ru//static/js/dore.script.js"></script>
-<script src="http://2021.prognosov.ru//static/js/scripts.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/bootstrap.bundle.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/moment.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/fullcalendar.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/datatables.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/perfect-scrollbar.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/glide.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/jquery.barrating.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/select2.full.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/bootstrap-datepicker.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/Sortable.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/mousetrap.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/dore.script.js"></script>
+<script src="http://2021.prognosov.ru/static/js/scripts.js"></script>
+<!--script src="http://2021.prognosov.ru/static/js/vendor/progressbar.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/nouislider.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/Chart.bundle.min.js"></script>
+<script src="http://2021.prognosov.ru/static/js/vendor/chartjs-plugin-datalabels.js"></script-->
 </body>
 
 </html>

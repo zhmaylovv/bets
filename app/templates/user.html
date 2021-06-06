@@ -2,14 +2,29 @@
 
 {% block activeacc %}class="active"{% endblock %}
 
-{% block content %}
-<h1>Игрок: {{ user.fio }}</h1>
-    <p>
-        <td><img src="data:;base64,{{userpic}}" style="border-radius:50%; height: 200px;"></td>
-    </p>
-<p> ID : {{ user.id }}</p>
-<p>Login : {{user.username}}</p>
-<p>Email: {{user.email}}</p>
+{% block title %}
+Мой аккаунт
+{% endblock %}
 
-    <a href="{{ url_for('edituser', username=current_user.username) }}" ><span class="btn btn btn-secondary btn-xs">Редактировать {{ user.username }}</span></a>
+{% block content_title %}
+Мой аккаунт
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-6 col-sm-6 col-lg-4 col-12 mb-4">
+	<div class="card ">
+	    <div class="card-body">
+	        <div class="text-center">
+	            <img alt="Profile" src="data:;base64,{{userpic}}" class="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail">
+	            <p class="list-item-heading mb-1">{{ user.fio }}</p>
+	            <p class="mb-4 text-muted text-small">Логин: {{ user.username }}<br>Email: {{user.email}}</p>
+  				<a href="{{ url_for('edituser', username=current_user.username) }}" ><span class="btn btn btn-secondary btn-xs">Изменить профиль</span></a>
+	        </div>
+	    </div>
+	</div>
+</div>
+
+
+
 {% endblock %}

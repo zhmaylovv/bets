@@ -2,23 +2,37 @@
 
 
 {% block title %}
-    Регистрация
+    Редактирование пользователя
 {% endblock %}
 
 {% block content_title %}
-    Регистрируйся
+    Редактирование профиля
 {% endblock %}
 
 
 {% block content %}
-    <h1>Register</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        <p>
+
+<div style="float: left;">
+<img style="object-fit: cover; width: 180px; height: 180px; border-radius: 250px; padding-right: 10px;" alt="Profile picture" src="data:;base64,{{avatar}}"/>
+</div>
+<div>
+            <p>
+                Выберете файл аватара. Не больше 2мб.
+            </p>
+            <p>
+                {{ form.photo }}
+                {% for error in form.photo.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+             </p>
+</div>
+
+        <p style="clear: both;">
 			{{username}}
             <br>
             <br>
-
 
         </p>
         <p>
@@ -30,7 +44,7 @@
         </p>
         <p>
             {{ form.email.label }}<br>
-            {{ form.email(size=64, value=user.email) }}<br>
+            {{ form.email(size=32, value=user.email) }}<br>
             {% for error in form.email.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
@@ -48,12 +62,7 @@
             {% for error in form.password2.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-            <p>
-            {{ form.photo }}
-            {% for error in form.photo.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-    </p>
+
 
         </p>
         <p>{{ form.submit() }}</p>

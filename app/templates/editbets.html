@@ -2,11 +2,11 @@
 
 
 {% block title %}
-Bets
+Прогноз на матч
 {% endblock %}
 
 {% block content_title %}
-Список ставок
+Прогноз на матч {{match.team1}} — {{match.team2}}
 {% endblock %}
 
 {% block content%}
@@ -15,7 +15,7 @@ Bets
 <table style="height: 219px; width: 30%; border-collapse: collapse; border-style: none;" border="0">
 <tbody>
 <tr style="height: 17px;">
-<td style="width: 100%; height: 17px; text-align: center;" colspan="3">Прогноз на матч</td>
+<td style="width: 100%; height: 17px; text-align: center;" colspan="3">Прогноз на матч:</td>
 </tr>
 <tr style="height: 18px;">
 <td style="width: 45%; text-align: center; height: 18px;">{{match.team1}}</td>
@@ -29,8 +29,8 @@ Bets
 </tr>
 <tr style="height: 18px;">
 <td style="height: 18px; text-align: center; width: 100%;" colspan="3">
-<p>Комментарий к ставке:</p>
-<p>{{ form.comment(size=500, value=my_bet.comment) }}</p>
+<!--p>Комментарий к ставке:</p>
+<p>{{ form.comment(size=500, value=my_bet.comment) }}</p-->
 </td>
 </tr>
 <tr style="height: 18px;">
@@ -38,9 +38,6 @@ Bets
 </tr>
 <tr style="height: 112px;">
 <td style="width: 100%; text-align: center; height: 112px;" colspan="3">
-<p>Комментарий к ставке быдет виден во всплывающем меню главной таблицы</p>
-<p>Ты всегда сможешь сказать- ВОТ! ЯЖЕГОВОРИЛ!!!!</p>
-<p><img style="border-radius: 5%; height: 500px;" src="http://2021.prognosov.ru//static/comment.png" /></p>
 </td>
 </tr>
 </tbody>
