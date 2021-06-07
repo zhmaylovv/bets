@@ -100,19 +100,22 @@ def bets():
             #bet_to_dict = Bets.query.filter_by ( match_id=match.id, user_id=user.id ).first()
             #bet_to_dict = {}
             for bet_to_dict in bets_list:
+                user_flag =False
                 if bet_to_dict.match_id == match.id and bet_to_dict.user_id == user.id:
-                    if match.completed:
+                    if match.completed or user == current_user:
                         main_table_dict[match_name]["users"][user.id]["fio"] = user.fio
                         main_table_dict[match_name]["users"][user.id]["t1_pre"] = bet_to_dict.t1_pre
                         main_table_dict[match_name]["users"][user.id]["t2_pre"] = bet_to_dict.t2_pre
                         main_table_dict[match_name]["users"][user.id]["comment"] = bet_to_dict.comment
+                        user_flag = True
                         if bet_to_dict.res_scor != None:
                             main_table_dict[match_name]["users"][user.id]["scor"] = bet_to_dict.res_scor
-
                         else:
                             main_table_dict[match_name]["users"][user.id]["scor"] = "Игра!"
                             main_table_dict[match_name]["t1_res"] = ""
                             main_table_dict[match_name]["t2_res"] = ""
+                        if not match.completed and user_flag:
+                            main_table_dict[match_name]["users"][user.id]["scor"] = ""
                     break
 
 
