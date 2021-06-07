@@ -112,9 +112,10 @@ def bets():
                             main_table_dict[match_name]["users"][user.id]["scor"] = "Игра!"
                             main_table_dict[match_name]["t1_res"] = ""
                             main_table_dict[match_name]["t2_res"] = ""
-                if not match.completed and user == current_user:
-                    main_table_dict[match_name]["users"][user.id]["scor"] = "LINK"
-                    main_table_dict[match_name]["users"][user.id]["match_id"] = match.id
+                    if not match.completed and user == current_user:
+                        main_table_dict[match_name]["users"][user.id]["scor"] = "LINK"
+                        main_table_dict[match_name]["users"][user.id]["match_id"] = match.id
+
 
                     break
 
