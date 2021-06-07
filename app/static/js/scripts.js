@@ -38,7 +38,7 @@ function loadStyle(href, callback) {
   }
 
   var themeColorsDom = /*html*/`
-  <div class="theme-colors">
+  <!--div class="theme-colors">
     <div class="p-4">
     <p class="text-muted mb-2">Light Theme</p>
     <div class="d-flex flex-row justify-content-between mb-3">
@@ -94,7 +94,7 @@ function loadStyle(href, callback) {
   </div>
 </div>
 <a href="#" class="theme-button"> <i class="simple-icon-magic-wand"></i> </a>
-</div>
+</div-->
 `;
 
   $("body").append(themeColorsDom);
