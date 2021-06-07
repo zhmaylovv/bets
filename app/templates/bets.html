@@ -64,7 +64,7 @@
                         {% for date, c in date_table.items() %}
                         {% if date == today_date%}
 
-                        <th class="badge-theme-2" style="border-left: 2px solid" scope="col" colspan="{{c*2}}">
+                        <th style="background-color: #fdf4d2!important; color: #000; border-left: 2px solid" scope="col" colspan="{{c*2}}">
                             <div>{{date}}</div>
                         </th>
                         {% else%}
@@ -79,10 +79,10 @@
 
                         {% for match, data in main_table_dict.items() %}
                         {%if data["today"] == True%}
-                        <th class="rotatable badge-theme-2" scope="col">
+                        <th class="rotatable" style="background-color: #fdf4d2!important; color: #000;" scope="col">
                             <div>{{data.team1}}</div>
                         </th>
-                        <th class="rotatable badge-theme-2" style="border-right: 2px solid;" width="5px;" scope="col">
+                        <th class="rotatable" style="background-color: #fdf4d2!important; color: #000; border-right: 2px solid;" width="5px;" scope="col">
                             <div>{{data.team2}}</div>
                         </th>
                         {% else%}
@@ -116,11 +116,11 @@
                     {% if count.append(count.pop() + 1) %}{% endif %}
                     <tr>
                         {%if user.id == current_user.id%}
-                        <th class="badge-theme-2" style="border-right: 2px solid; border-bottom: 2px solid;"
+                        <th style="background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid;"
                             rowspan="2">{{count[0]}}
                         </th>
 
-                        <td class="badge-theme-2 maintable__userfio" rowspan="2"><img class="maintable__avatar" src=data:;base64,{{user.avastr}} alt="Аватар {{user.fio}}" />{{user.fio}}<span style="padding-left: 5px; font-size: 9px;">(это ты!)</span>
+                        <td style="background-color: #fdf4d2!important; color: #000;" class="maintable__userfio" rowspan="2"><img class="maintable__avatar" src=data:;base64,{{user.avastr}} alt="Аватар {{user.fio}}" />{{user.fio}}<span style="padding-left: 5px; font-size: 9px;">(это ты!)</span>
                         </td>
                         {%else%}
 
@@ -136,8 +136,8 @@
                         </th>
                         {% for match, data in main_table_dict.items() %}
                         {%if data["today"] == True%}
-                        <td class="badge-theme-2" style="border-bottom: 1px dashed;">{{data["users"][user.id]["t1_pre"]}}</td>
-                        <td class="badge-theme-2" style="border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
+                        <td  style="background-color: #fdf4d2!important; color: #000;border-bottom: 1px dashed;">{{data["users"][user.id]["t1_pre"]}}</td>
+                        <td  style="background-color: #fdf4d2!important; color: #000;border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
                         {%else%}
                         <td style="border-bottom: 1px dashed;">{{data["users"][user.id]["t1_pre"]}}</td>
                         <td style="border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
@@ -148,29 +148,29 @@
                         {% for match, data in main_table_dict.items() %}
                     {%if data["today"] == True%}
                         {%if data["users"][user.id]["scor"] == 5 %}
-                        <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2"
+                        <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2"
                             title="{{data['users'][user.id]['comment']}}"><span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
                         </td>
                         {%elif data["users"][user.id]["scor"] == 4 %}
-                        <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                        <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
                             title="{{data['users'][user.id]['comment']}}"><span class="circle_four">{{data["users"][user.id]["scor"]}}</span>
                         </td>
                         {%elif data["users"][user.id]["scor"] == 3 %}
-                        <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                        <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
                         title="{{data['users'][user.id]['comment']}}"><span class="circle_three">{{data["users"][user.id]["scor"]}}</span>
                         </td>
                         {%elif data["users"][user.id]["scor"] == 2 %}
-                        <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                        <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
                         title="{{data['users'][user.id]['comment']}}"><span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
                         </td>
                         {%elif data["users"][user.id]["scor"] == "LINK" %}
-                                    <td class="badge-theme-2" style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"
+                                    <td style="background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"
                                     title="{{data['users'][user.id]['comment']}}">
                                     <a href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
-                                            class="iconsminds-pen-2"></i></a>
+                                            class="iconsminds-soccer-ball"></i></a>
                                     </td>
                         {%else%}
-                        <td class="badge-theme-2" style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">
+                        <td style="background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">
                             {{data["users"][user.id]["scor"]}}
                         </td>
                         {%endif%}
@@ -195,7 +195,7 @@
                                     <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"
                                     title="{{data['users'][user.id]['comment']}}">
                                     <a href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
-                                            class="iconsminds-pen-2"></i></a>
+                                            class="iconsminds-soccer-ball"></i></a>
                                     </td>
                         {%else%}
                         <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">
