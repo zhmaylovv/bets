@@ -13,11 +13,11 @@
 .section_rotate-alert {
     flex-direction: row;
     width: 100%;
-    height: 100vh;
+    height: 97vh;
     background-color: #f8f8f8 !important;
     background-size: cover;
     z-index: 1;
-    /* background-repeat: no-repeat; */
+    margin-top: -23px;
 }
 }
 .section_rotate-alert, .section_rotate-alert-instagram {
