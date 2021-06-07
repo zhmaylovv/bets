@@ -64,6 +64,7 @@
 
                         {% for date, c in date_table.items() %}
                         {% if date == today_date%}
+
                         <th class="badge-theme-2" style="border-left: 2px solid" scope="col" colspan="{{c*2}}">
                             <div>{{date}}</div>
                         </th>
@@ -78,14 +79,21 @@
                     <tr style="height: 100px;">
 
                         {% for match, data in main_table_dict.items() %}
-
-                        <th class="rotatable" scope="col">
-
+                        {%if data["today"] == True%} 
+                        <th class="rotatable badge-theme-2" scope="col">
+                            <div>{{data.team1}}</div>
+                        </th>
+                        <th class="rotatable badge-theme-2" style="border-right: 2px solid;" width="5px;" scope="col">
+                            <div>{{data.team2}}</div>
+                        </th>
+                        {% else%}
+                         <th class="rotatable" scope="col">
                             <div>{{data.team1}}</div>
                         </th>
                         <th class="rotatable" style="border-right: 2px solid;" width="5px;" scope="col">
                             <div>{{data.team2}}</div>
                         </th>
+                        {%endif%}
                         {% endfor %}
 
                     </tr>
@@ -128,12 +136,40 @@
                             {{user.score}}
                         </th>
                         {% for match, data in main_table_dict.items() %}
+                        {%if data["today"] == True%} 
+                        <td class="badge-theme-2" style="border-bottom: 1px dashed;">{{data["users"][user.id]["t1_pre"]}}</td>
+                        <td class="badge-theme-2" style="border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
+                        {%else%}
                         <td style="border-bottom: 1px dashed;">{{data["users"][user.id]["t1_pre"]}}</td>
                         <td style="border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
+                        {% endif %}
                         {% endfor %}
                     </tr>
                     <tr>
                         {% for match, data in main_table_dict.items() %}
+                    {%if data["today"] == True%} 
+                        {%if data["users"][user.id]["scor"] == 5 %}
+                        <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2"
+                            title="{{data['users'][user.id]['comment']}}"><span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
+                        </td>
+                        {%elif data["users"][user.id]["scor"] == 4 %}
+                        <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                            title="{{data['users'][user.id]['comment']}}"><span class="circle_four">{{data["users"][user.id]["scor"]}}</span>
+                        </td>
+                        {%elif data["users"][user.id]["scor"] == 3 %}
+                        <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                        title="{{data['users'][user.id]['comment']}}"><span class="circle_three">{{data["users"][user.id]["scor"]}}</span>
+                        </td>
+                        {%elif data["users"][user.id]["scor"] == 2 %}
+                        <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                        title="{{data['users'][user.id]['comment']}}"><span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
+                        </td>
+                        {%else%}
+                        <td class="badge-theme-2" style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">
+                            {{data["users"][user.id]["scor"]}}
+                        </td>
+                        {%endif%}
+                    {%else%}
                         {%if data["users"][user.id]["scor"] == 5 %}
                         <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2"
                             title="{{data['users'][user.id]['comment']}}"><span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
@@ -155,6 +191,9 @@
                             {{data["users"][user.id]["scor"]}}
                         </td>
                         {%endif%}
+                    {%endif%}
+
+
                         {% endfor %}
                     </tr>
                     {% endfor %}
