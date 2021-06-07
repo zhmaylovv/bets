@@ -31,6 +31,12 @@
 
 <body id="app-container" class="menu-default show-spinner">
 
+        <section class="section_rotate-alert">
+            <div>
+                <span>Пожалуйста, переверните телефон, чтобы открыть сайт</span> 
+                <img src="/_nuxt/img/9eaba59.svg" alt="">
+            </div>
+        </section>
 
 <nav class="navbar fixed-top">
     <div class="d-flex align-items-center navbar-left">
@@ -173,12 +179,6 @@
 
         </div>
 
-        <section class="section_rotate-alert">
-            <div>
-                <span>Пожалуйста, переверните телефон, чтобы открыть сайт</span> 
-                <img src="/_nuxt/img/9eaba59.svg" alt="">
-            </div>
-        </section>
 
         {% if current_user.is_anonymous %}{% else %}
         <div class="user d-inline-block">
