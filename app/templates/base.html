@@ -30,6 +30,8 @@
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
+
+
 <nav class="navbar fixed-top">
     <div class="d-flex align-items-center navbar-left">
         <a href="#" class="menu-button d-none d-md-block">
@@ -170,6 +172,14 @@
             </button>
 
         </div>
+
+        <section class="section_rotate-alert">
+            <div>
+                <span>Пожалуйста, переверните телефон, чтобы открыть сайт</span> 
+                <img src="/_nuxt/img/9eaba59.svg" alt="">
+            </div>
+        </section>
+
         {% if current_user.is_anonymous %}{% else %}
         <div class="user d-inline-block">
             <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
