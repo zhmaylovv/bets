@@ -34,7 +34,6 @@
                                 </div>
                             </div>
             </div>
-
                         			<div class="col-md-6 col-sm-6 col-lg-3 col-12 mb-4">
                             <div class="card ">
                                 <div class="card-body">
@@ -79,7 +78,7 @@
                     <tr style="height: 100px;">
 
                         {% for match, data in main_table_dict.items() %}
-                        {%if data["today"] == True%} 
+                        {%if data["today"] == True%}
                         <th class="rotatable badge-theme-2" scope="col">
                             <div>{{data.team1}}</div>
                         </th>
@@ -136,7 +135,7 @@
                             {{user.score}}
                         </th>
                         {% for match, data in main_table_dict.items() %}
-                        {%if data["today"] == True%} 
+                        {%if data["today"] == True%}
                         <td class="badge-theme-2" style="border-bottom: 1px dashed;">{{data["users"][user.id]["t1_pre"]}}</td>
                         <td class="badge-theme-2" style="border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
                         {%else%}
@@ -147,7 +146,7 @@
                     </tr>
                     <tr>
                         {% for match, data in main_table_dict.items() %}
-                    {%if data["today"] == True%} 
+                    {%if data["today"] == True%}
                         {%if data["users"][user.id]["scor"] == 5 %}
                         <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2"
                             title="{{data['users'][user.id]['comment']}}"><span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
@@ -164,6 +163,12 @@
                         <td class="badge-theme-2" style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
                         title="{{data['users'][user.id]['comment']}}"><span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
                         </td>
+                        {%elif data["users"][user.id]["scor"] == "LINK" %}
+                                    <td class="badge-theme-2" style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"
+                                    title="{{data['users'][user.id]['comment']}}">
+                                    <a href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
+                                            class="iconsminds-pen-2"></i></a>
+                                    </td>
                         {%else%}
                         <td class="badge-theme-2" style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">
                             {{data["users"][user.id]["scor"]}}
@@ -186,6 +191,12 @@
                         <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
                         title="{{data['users'][user.id]['comment']}}"><span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
                         </td>
+                        {%elif data["users"][user.id]["scor"] == "LINK" %}
+                                    <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"
+                                    title="{{data['users'][user.id]['comment']}}">
+                                    <a href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
+                                            class="iconsminds-pen-2"></i></a>
+                                    </td>
                         {%else%}
                         <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">
                             {{data["users"][user.id]["scor"]}}
