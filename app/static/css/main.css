@@ -151,21 +151,5 @@ body.show-spinner::after {
   
 }
 
-@media screen and (max-width: 576px)
-.section_rotate-alert {
-    flex-direction: row;
-    width: 100%;
-    height: 100vh;
-    background-color: green;
-    /*background-image: url(https://o2-club.ru/_nuxt/img/fe5893e.jpg);*/
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.section_rotate-alert {
-    display: none;
-}
-
-
 }
 
