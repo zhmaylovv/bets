@@ -13,13 +13,15 @@ login.login_view = 'login'
 
 from app import routes, models
 from app.models import User
-#db.create_all()
-# try:
-#     user_list = User.query.order_by(User.score.desc()).all ()
-# except
-#     db.create_all ()
-# if len(user_list) < 1:
-#     admin = User(username="admin", email="14hp@ngs.ru", fio="Администратор")
-#     admin.set_password("admin")
-#     db.session.add ( admin )
-#     db.session.commit()
+
+try:
+    user_list = User.query.all()
+except:
+    db.create_all ()
+try:
+    admin = User(id=1, username="admin", email="change@email.ru", fio="Администратор")
+    admin.set_password("admin")
+    db.session.add ( admin )
+    db.session.commit()
+except:
+    pass
