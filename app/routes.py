@@ -19,7 +19,8 @@ from collections import Counter
 
 @app.route('/index')
 def index():
-    return render_template('index.html', name= 'FLAAAASK')
+    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
+    return render_template('index.html', avatar= avatar)
 
 
 @app.route('/login', methods=['GET', 'POST'])
