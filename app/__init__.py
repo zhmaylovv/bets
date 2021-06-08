@@ -21,6 +21,8 @@ except:
 try:
     admin = User(id=1, username="admin", email="change@email.ru", fio="Администратор")
     admin.set_password("admin")
+    with open ( 'app/static/admin.jpg' ,"rb" ) as f:
+        admin.avatar = f.read ()
     db.session.add ( admin )
     db.session.commit()
 except:
