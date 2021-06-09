@@ -169,7 +169,7 @@ def edituser(username):
 
     if form.validate_on_submit():
         if form.password.data:
-            user.set_password=form.password.data
+            user.set_password(form.password.data)
         if form.email.data:
             user.email=form.email.data
         if form.fio.data:
