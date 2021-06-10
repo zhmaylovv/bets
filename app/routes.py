@@ -224,7 +224,7 @@ def matchadd():
 @login_required
 def matchs():
     avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
-    matchs = Match.query.all()
+    matchs = Match.query.order_by(Match.timestamp).all ()
     bets = Bets.query.filter_by(user_id=current_user.id).all()
     return render_template('matchs.html', matchs=matchs, bets=bets, avatar=avatar)
 
