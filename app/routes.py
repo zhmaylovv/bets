@@ -102,6 +102,8 @@ def bets():
             #bet_to_dict = {}
             for bet_to_dict in bets_list:
                 if bet_to_dict.match_id == match.id and bet_to_dict.user_id == user.id:
+                    main_table_dict[match_name]["users"][user.id]["t1_pre"] = "CHECK"
+                    main_table_dict[match_name]["users"][user.id]["t2_pre"] = "CHECK"
                     if match.completed or user == current_user:
                         main_table_dict[match_name]["users"][user.id]["fio"] = user.fio
                         main_table_dict[match_name]["users"][user.id]["t1_pre"] = bet_to_dict.t1_pre
