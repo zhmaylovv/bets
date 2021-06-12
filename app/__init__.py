@@ -13,7 +13,7 @@ login.login_view = 'login'
 
 from app import routes, models
 from app.models import User
-
+'''
 try:
     user_list = User.query.all()
 except:
@@ -27,3 +27,4 @@ try:
     db.session.commit()
 except:
     pass
+'''
