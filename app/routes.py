@@ -317,9 +317,7 @@ def editbets(match_id):
 
 
 @app.route('/bets2')
-@login_required
 def bets2():
-    avatar = base64.b64encode ( current_user.avatar ).decode ( 'ascii' )
     user_list = User.query.order_by(User.score.desc()).all ()
     match_list = Match.query.all()
 
@@ -383,7 +381,7 @@ def bets2():
 
             res_dict = {}
 
-    return render_template( 'bets2.html' , bets_dict= bets_dict, all_users = all_users,  avatar=avatar, date_table = date_table)
+    return render_template( 'bets2.html' , bets_dict= bets_dict, all_users = all_users, date_table = date_table)
 
 @app.route('/user/list')
 @login_required
