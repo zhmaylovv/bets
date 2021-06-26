@@ -80,7 +80,7 @@ def bets():
         counter_list.append(match.timestamp.strftime("%d.%m.%Y"))
     date_table = Counter(counter_list)
     bets_list = Bets.query.order_by ( Bets.match_id ).all ()
-
+    pof_dict={}
 
     for match in all_matchs:
 
@@ -115,6 +115,17 @@ def bets():
                             main_table_dict[match_name]["users"][user.id]["scor"] = "Игра!"
                             main_table_dict[match_name]["t1_res"] = ""
                             main_table_dict[match_name]["t2_res"] = ""
+
+                        if match.team1.endswith('.'):
+
+                            try:
+                                pof_dict[user.id] += bet_to_dict.res_scor
+                            except:
+                                pof_dict[user.id] = bet_to_dict.res_scor
+
+
+
+
                 if match.completed == False and user == current_user:
                     main_table_dict[match_name]["users"][user.id]["scor"] = "LINK"
                     main_table_dict[match_name]["users"][user.id]["match_id"] = match.id
@@ -124,7 +135,7 @@ def bets():
 
 
     return render_template( 'bets.html' ,  main_table_dict = main_table_dict,
-                            all_users = all_users,  avatar=avatar, date_table=date_table, today_date=today_date)
+                            all_users = all_users,  avatar=avatar, date_table=date_table, today_date=today_date, pof_dict=pof_dict)
 
 @login_required
 @app.route('/register', methods=['GET', 'POST'])

@@ -132,7 +132,7 @@
                         </td>
                         {%endif%}
                         <th rowspan="2" style="border-right: 2px solid;  text-align: center; border-bottom: 2px solid;">
-                            {{user.score}}
+                            {{user.score}}({{pof_dict[user.id]}})
                         </th>
                         {% for match, data in main_table_dict.items() %}
                         {%if data["today"] == True%}
