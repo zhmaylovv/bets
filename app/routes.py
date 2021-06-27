@@ -119,9 +119,12 @@ def bets():
                         if match.team1.endswith('.'):
 
                             try:
-                                pof_dict[user.id] += bet_to_dict.res_scor
+                                if bet_to_dict.res_scor != None:
+                                    pof_dict[user.id] += bet_to_dict.res_scor
+
                             except:
-                                pof_dict[user.id] = bet_to_dict.res_scor
+                                if bet_to_dict.res_scor != None:
+                                    pof_dict[user.id] = bet_to_dict.res_scor
 
 
 
