@@ -194,8 +194,8 @@ def edituser(username):
             f = form.photo.data
             ava = f.stream.read()
             if ava.__sizeof__() > 512000:
-                flash('Small image only plz')
-                return redirect(url_for('edituser', username))
+                flash('Выбранная картинка слишком большая! Максимальный размер 512кб ')
+                return redirect(url_for('index'))
 
             user.avatar = ava
         db.session.commit()
