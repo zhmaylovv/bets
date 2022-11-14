@@ -192,7 +192,7 @@ def edituser(username):
             user.fio=form.fio.data
         if form.photo.data:
             f = form.photo.data
-            print("PHOTOT" + form.photo.data.content_length)
+            print("PHOTOT" + str(form.photo.data.content_length))
             if form.photo.data.content_length > 1024:
                 flash('Small image only plz')
                 return redirect(url_for('edituser'))
