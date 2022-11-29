@@ -180,11 +180,18 @@
                                 title="{{data['users'][user.id]['comment']}}"><span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
                                 </td>
                             {%elif data["users"][user.id]["scor"] == "LINK" %}
+			    		 {% if data['users'][user.id]['comment']|length > 0 %}
+			                    <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: cover; background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center; cursor: pointer;" colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                                            <a style="background-color: #ffc710; color: black; border-radius: 6px; padding: 1px 6px 1px 6px;" href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
+                                                    class="iconsminds-pen-2"></i></a>
+                                            </td>
+			    		 {%else%}
                                             <td style="background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"
                                             title="{{data['users'][user.id]['comment']}}">
                                             <a style="background-color: #ffc710; color: black; border-radius: 6px; padding: 1px 6px 1px 6px;" href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
                                                     class="iconsminds-pen-2"></i></a>
                                             </td>
+			    		 {%endif%}
                             {%else%}
 		<!--Комментарий для Антона что ОНО ТУТА-->
                                 {% if data['users'][user.id]['comment']|length > 0 %}
