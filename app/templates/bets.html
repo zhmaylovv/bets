@@ -188,7 +188,7 @@
                             {%else%}
 		<!--Комментарий для Антона что ОНО ТУТА-->
                                 {% if data['users'][user.id]['comment']|length > 0 %}
-                                    <td class="usermsg" style="background-color: #d3cbaf!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center; cursor: pointer;" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                                    <td class="usermsg" style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: cover; background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center; cursor: pointer;" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
                                        {{data["users"][user.id]["scor"]}}
                                     </td>
                                 {%else%}
