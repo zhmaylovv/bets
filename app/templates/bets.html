@@ -163,22 +163,45 @@
                     {%if data["today"] == True%}
 
                             {%if data["users"][user.id]["scor"] == 5 %}
-
-                                <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2"
+			     {% if data['users'][user.id]['comment']|length > 0 %}
+                                <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: cover; background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center; cursor: pointer;" colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                                    <span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+			    {%else%}
+			          <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2"
                                     title="{{data['users'][user.id]['comment']}}"><span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
                                 </td>
+			    {%endif%}
                             {%elif data["users"][user.id]["scor"] == 4 %}
-                                <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+			    {% if data['users'][user.id]['comment']|length > 0 %}
+                                <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: cover; background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center; cursor: pointer;"colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                                   <span class="circle_four">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+				{%else%}
+			            <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
                                     title="{{data['users'][user.id]['comment']}}"><span class="circle_four">{{data["users"][user.id]["scor"]}}</span>
                                 </td>
+			     {%endif%}
                             {%elif data["users"][user.id]["scor"] == 3 %}
-                                <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+			     {% if data['users'][user.id]['comment']|length > 0 %}
+                                <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: cover; background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center; cursor: pointer;"colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+					<span class="circle_three">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+			    {%else%}
+			        <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
                                 title="{{data['users'][user.id]['comment']}}"><span class="circle_three">{{data["users"][user.id]["scor"]}}</span>
                                 </td>
+
+			    {%endif%}
                             {%elif data["users"][user.id]["scor"] == 2 %}
-                                <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
-                                title="{{data['users'][user.id]['comment']}}"><span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
+			    	{% if data['users'][user.id]['comment']|length > 0 %}
+			            <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: cover; background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center; cursor: pointer;"colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+					    <span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
+			    	{%else%}
+                             	   <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                	                title="{{data['users'][user.id]['comment']}}"><span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
                                 </td>
+			    {%endif%}
                             {%elif data["users"][user.id]["scor"] == "LINK" %}
 			    		 {% if data['users'][user.id]['comment']|length > 0 %}
 			                    <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: cover; background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center; cursor: pointer;" colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
