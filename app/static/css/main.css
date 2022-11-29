@@ -155,18 +155,9 @@ body.show-spinner::after {
 
 
 .usermsg {
-    position: relative;
+    background-image: url(/static/msg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.usermsg:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-	width: 0; 
-	height: 0; 
-  display: block;
-	border-left: 20px solid transparent;
-	border-bottom: 20px solid transparent;
-  border-top: 20px solid #f00;
-}
