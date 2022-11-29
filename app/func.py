@@ -54,7 +54,7 @@ def set_auto_bet (match_id):
 
         if not bet_exist:
             auto_bet = Bets ( match_id=match_id , user_id=user.id ,t1_pre=0,
-                            t2_pre=0, comment="Ставка сделана автоматически!")
+                            t2_pre=0, comment="")
             db.session.add (auto_bet)
             db.session.commit ()
     pass
