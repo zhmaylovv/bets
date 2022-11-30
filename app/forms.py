@@ -75,6 +75,6 @@ class BetsEditForm(FlaskForm):
 
     t1_pre = StringField('Результат Комманды 1', validators=[DataRequired()], default='0')
     t2_pre = StringField('Результат Комманды 2', validators=[DataRequired()], default='0')
-    comment = TextAreaField('Комментарий к матчу', validators=[Length(max=500)])
+    comment = StringField('Комментарий к матчу', validators=[Length(max=500)])
 
     submit = SubmitField('Сохранить')
