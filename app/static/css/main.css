@@ -89,17 +89,25 @@ body.show-spinner::after {
     border-right: 2px solid;
     border-bottom: 2px solid;
     white-space: nowrap;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .maintable__avatar{
-  box-shadow: 0.4em 0.4em 11px rgba(122,122,122,0.5); 
-  object-fit: cover; 
-  width: 40px; 
-  height: 40px; 
-  margin: 10px; 
+  box-shadow: 0.4em 0.4em 11px rgba(122,122,122,0.5);
+  object-fit: cover;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
   border-radius: 30px;
+  transition: 1s; /* Время эффекта */
+  z-index:99999;
+
 }
+
+.maintable__avatar:hover {
+  transform: scale(3.2); /* Увеличиваем масштаб */
+  overflow: visible;
+   }
 
 .circle_five {
     border-radius: 50%;
