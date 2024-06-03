@@ -128,7 +128,7 @@ function loadStyle(href, callback) {
   $(".radius-radio[data-radius='" + radius + "']").attr("checked", true);
   $("#switchDark").attr("checked", theme.indexOf("dark") > 0 ? true : false);
 
-  loadStyle("http://lc2023.prognosov.ru/static/css/" + theme, onStyleComplete);
+  loadStyle("https://euro-2024-b3d99aafb511.herokuapp.com/static/css/" + theme, onStyleComplete);
   function onStyleComplete() {
     setTimeout(onStyleCompleteDelayed, 300);
   }
