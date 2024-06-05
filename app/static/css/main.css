@@ -111,47 +111,55 @@ body.show-spinner::after {
 
 .circle_five {
     border-radius: 50%;
-    font-size: 13px;
+    font-size: 14px;
     color: #fff;
     text-align: center;
-    background: #ff7800;
-    padding: 3px 8px 2px 8px;
+    background: linear-gradient(145deg, #ff9e33, #ff7800);
+    padding: 4px 9px;
     cursor: default;
-    box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 2px 2px rgba(255, 255, 255, 0.3);
+    border: 1px solid #cc6200;
+    font-weight: bold;
 }
 
-  .circle_four {
-      border-radius: 50%;
-      font-size: 13px;
-      color: #fff;
-      text-align: center;
-      background: #158fa2;
-      padding: 3px 8px 2px 8px;
-      cursor: default;
-      box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
-  }
+.circle_four {
+    border-radius: 50%;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(145deg, #1db0c1, #158fa2);
+    padding: 4px 9px;
+    cursor: default;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 2px 2px rgba(255, 255, 255, 0.3);
+    border: 1px solid #116f80;
+    font-weight: bold;
+}
 
-  .circle_three {
-      border-radius: 50%;
-      font-size: 13px;
-      color: #fff;
-      text-align: center;
-      background: #129803;
-      padding: 3px 8px 2px 8px;
-      cursor: default;
-      box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
-  }
+.circle_three {
+    border-radius: 50%;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(145deg, #1ec10a, #129803);
+    padding: 4px 9px;
+    cursor: default;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 2px 2px rgba(255, 255, 255, 0.3);
+    border: 1px solid #0b7501;
+    font-weight: bold;
+}
 
- .circle_two {
-      border-radius: 50%;
-      font-size: 13px;
-      color: #fff;
-      text-align: center;
-      background: #2f76e2;
-      padding: 3px 8px 2px 8px;
-      cursor: default;
-      box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
-  }
+.circle_two {
+    border-radius: 50%;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(145deg, #4a90e2, #2f76e2);
+    padding: 4px 9px;
+    cursor: default;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 2px 2px rgba(255, 255, 255, 0.3);
+    border: 1px solid #1e5bbf;
+    font-weight: bold;
+}
 
 
 .maintable__igb {
