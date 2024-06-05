@@ -12,57 +12,56 @@
 {% block content%}
 
 
-     <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.team1.label }}<br>
-            {{ form.team1(size=32, value=edit.team1) }}<br>
-            {% for error in form.team1.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-         <p>
-            {{ form.team2.label }}<br>
-            {{ form.team2(size=32, value=edit.team2) }}<br>
-            {% for error in form.team2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-         <p>
-            {{ form.t1_res.label }}<br>
-            {{ form.t1_res(size=32, value=edit.t1_res) }}<br>
-            {% for error in form.t1_res.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.team1.label }}<br>
+        {{ form.team1(size=32, value=edit.team1) }}<br>
+        {% for error in form.team1.errors %}
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.team2.label }}<br>
+        {{ form.team2(size=32, value=edit.team2) }}<br>
+        {% for error in form.team2.errors %}
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.t1_res.label }}<br>
+        {{ form.t1_res(size=32) }}<br>
+        {% for error in form.t1_res.errors %}
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
+        {% endfor %}
+    </p>
 
-         <p>
-            {{ form.t2_res.label }}<br>
-            {{ form.t2_res(size=32, value=edit.t2_res) }}<br>
-            {% for error in form.t2_res.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+    <p>
+        {{ form.t2_res.label }}<br>
+        {{ form.t2_res(size=32,) }}<br>
+        {% for error in form.t2_res.errors %}
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
+        {% endfor %}
+    </p>
 
-        <p>
-            {{ form.datetime.label }}<br>
-            {{ form.datetime (value=edit.timestamp)}}<br>
-            {% for error in form.datetime.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+    <p>
+        {{ form.datetime.label }}<br>
+        {{ form.datetime (value=edit.timestamp)}}<br>
+        {% for error in form.datetime.errors %}
+        <div class="alert alert-danger rounded" role="alert">[{{ error }}]</div>
 
-            {% endfor %}
+        {% endfor %}
 
-        </p>
-         <p>
-            {{ form.completed.label }}<br>
-            {{ form.completed }}<br>
+    </p>
 
-
-        </p>
-
-        <p>{{ form.submit() }}</p>
-    </form>
-
+    <p>
+    Удалить матч и все ставки на него
+    {{ form.delete() }}
+    </p>
+    <p style="font-size:20px;"><b>Внимание!</b> Это не твой прогноз! Это редактирование матча!</p>
+    <p>{{ form.submit() }}</p>
+   
+</form>
 
 
 {% endblock %}

@@ -1,27 +1,310 @@
 {% extends  'base.html' %}
 
+{% block active %}class="active"{% endblock %}
 
 {% block title %}
-    Bets
+Турнирная таблица
 {% endblock %}
 
 {% block content_title %}
-    Список ставок
+Турнирная таблица
 {% endblock %}
 
 {% block content%}
+<!--div class="row">
+			<div class="col-md-6 col-sm-6 col-lg-3 col-12 mb-4">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <p class="mb-4 text-muted text-small">Первое место</p>
+                                        <img class="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail" style="object-fit: cover; width: 100px; height: 100px;" alt="This is anonymous picture" src="https://starbets.herokuapp.com/static/a.jpg" />
+                                        <p class="list-item-heading mb-1">Антон Вольных</p>
+                                    </div>
+                                </div>
+                            </div>
+            </div>
+            			<div class="col-md-6 col-sm-6 col-lg-3 col-12 mb-4">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <p class="mb-4 text-muted text-small">Второе место</p>
+                                        <img class="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail" style="object-fit: cover; width: 100px; height: 100px;" alt="This is anonymous picture" src="https://starbets.herokuapp.com/static/admin.jpg" />
+                                        <p class="list-item-heading mb-1">Лесли Хэдланд</p>
+                                    </div>
+                                </div>
+                            </div>
+            </div>
+                        			<div class="col-md-6 col-sm-6 col-lg-3 col-12 mb-4">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <p class="mb-4 text-muted text-small">Третье место</p>
+                                        <img class="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail" style="object-fit: cover; width: 100px; height: 100px;" alt="This is anonymous picture" src="https://starbets.herokuapp.com/static/kk.jpg" />
+                                        <p class="list-item-heading mb-1">Светка и собака</p>
+                                    </div>
+                                </div>
+                            </div>
+            </div>
+</div-->
 
-<h1> Выши ставки ГОСПОДА</h1>
+<!--Полная таблица -->
 
-{% for user, bets in bets_dict.items() %}
-<div class="col-md-3">
+<div style="padding-bottom: 30px; " class="row">
+    <div class="col-lg-12 col-md-12 mb-12">
+        <div class="card">
+            <div class="card-body table-responsive">
+                <h5 class="card-title">Общая таблица </h5>
+                <table border="3" width="100%" class="responsive nowrap">
+                    <thead>
+                    <tr style="height: 10px;  text-align: center;">
+                        <th width="30px" scope="col" style="background-color: #f3f3f3;" rowspan="2">№</th>
+                        <th width="200px" scope="col" style="min-width: 16em; background-color: #f3f3f3; border-right: 2px solid; border-left: 2px solid;" rowspan="2"> Имя</th>
+                        <th width="30px" scope="col" style="background-color: #f3f3f3; border-right: 2px solid;" rowspan="2">Очки</th>
 
-{{user}} :
-    {% for bet in bets%}
-    {{bet.t1_pre}}:{{bet.t2_pre}}
-    {% endfor %}
-    ,
+                        {% for date, c in date_table.items() %}
+                        {% if date == today_date%}
+
+                        <th style="background-color: #fdf4d2!important; color: #000; border-left: 2px solid" scope="col" colspan="{{c*2}}">
+                            <div>{{date}}</div>
+                        </th>
+                        {% else%}
+                        <th style="background-color: #f3f3f3; border-left: 2px solid" scope="col" colspan="{{c*2}}">
+                            <div>{{date}}</div>
+                        </th>
+                        {%endif%}
+                        {% endfor %}
+
+                    </tr>
+                    <tr style="height: 100px;">
+
+                        {% for match, data in main_table_dict.items() %}
+                        {%if data["today"] == True%}
+                        <th class="rotatable" style="background-color: #fdf4d2!important; color: #000;" scope="col">
+                            <div>{{data.team1}}</div>
+                        </th>
+                        <th class="rotatable" style="background-color: #fdf4d2!important; color: #000; border-right: 2px solid;" width="5px;" scope="col">
+                            <div>{{data.team2}}</div>
+                        </th>
+                        {% else%}
+                         <th class="rotatable" scope="col">
+                            <div>{{data.team1}}</div>
+                        </th>
+                        <th class="rotatable" style="border-right: 2px solid;" width="5px;" scope="col">
+                            <div>{{data.team2}}</div>
+                        </th>
+                        {%endif%}
+                        {% endfor %}
+
+                    </tr>
+                    </thead>
+                    <tbody style="text-align: center;">
+                    <tr>
+                        <th style="background-color: #c1f1ff; border-top: 3px solid; border-bottom: 3px solid;" colspan="3"> Результат игры</th>
+                        {% for match, data in main_table_dict.items() %}
+                        <td style="background-color: #c1f1ff; border-top: 3px solid; border-bottom: 3px solid;">
+                            {{data.t1_res}}
+                        </td>
+                        <td style="background-color: #c1f1ff; border-top: 3px solid; border-right: 2px solid; border-bottom: 3px solid;">
+                            {{data.t2_res}}
+                        </td>
+                        {% endfor %}
+
+
+                    </tr>
+                    {%set count =[0]%}
+                    {% for user in all_users %}
+                    {% if count.append(count.pop() + 1) %}{% endif %}
+                    <tr>
+                        {%if user.id == current_user.id%}
+                        <th style="background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid;"
+                            rowspan="2">{{count[0]}}
+                        </th>
+
+                        <td style="background-color: #fdf4d2!important; color: #000;" class="maintable__userfio" rowspan="2"><img class="maintable__avatar" src=data:;base64,{{user.avastr}} alt="Аватар {{user.fio}}" />{{user.fio}}<span style="padding-left: 5px; font-size: 9px;">(это ты!)</span>
+                        </td>
+                        {%else%}
+
+                        <th style="background-color: #f3f3f3; border-right: 2px solid; border-bottom: 2px solid;"
+                            rowspan="2">{{count[0]}}
+                        </th>
+                        <td class="maintable__userfio" rowspan="2">
+                            <img class="maintable__avatar" src=data:;base64,{{user.avastr}} alt="Аватар {{user.fio}}" />{{user.fio}}
+                        </td>
+                        {%endif%}
+                        <th rowspan="2" style="border-right: 2px solid;  text-align: center; border-bottom: 2px solid;">
+<!--   убрали скобки
+{{user.score}}
+-->			
+			{{user.score}}({{pof_dict[user.id]}})
+                        </th>
+                        {% for match, data in main_table_dict.items() %}
+                        {%if data["today"] == True%}
+                        {% if data["users"][user.id]["t1_pre"] == "CHECK" %}
+                        <td  style="background-color: #fdf4d2!important; color: #000;border-bottom: 1px dashed;"><i class="glyph-icon simple-icon-check"></i></td>
+                        <td  style="background-color: #fdf4d2!important; color: #000;border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;"><i class="glyph-icon simple-icon-check"></i></td>
+                        {%else%}
+                        <td  style="background-color: #fdf4d2!important; color: #000;border-bottom: 1px dashed;">{{data["users"][user.id]["t1_pre"]}}</td>
+                        <td  style="background-color: #fdf4d2!important; color: #000;border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
+                        {% endif %}
+                        {%else%}
+                        {% if data["users"][user.id]["t1_pre"] == "CHECK" %}
+                        <td style="border-bottom: 1px dashed; height: 27px;"><i class="glyph-icon simple-icon-check"></i></td>
+                        <td style="border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;"><i class="glyph-icon simple-icon-check"></i></td>
+                        {%else%}
+                        <td style="border-bottom: 1px dashed; height: 27px;">{{data["users"][user.id]["t1_pre"]}}</td>
+                        <td style="border-bottom: 1px dashed; border-left: 1px dashed; border-right: 2px solid;" width="5px;">{{data["users"][user.id]["t2_pre"]}}</td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for match, data in main_table_dict.items() %}
+<!--                        Проверка даты на сегодня-->
+                    {%if data["today"] == True%}
+
+                            {%if data["users"][user.id]["scor"] == 5 %}
+			     {% if data['users'][user.id]['comment']|length > 0 %}
+                                <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center; cursor: pointer;" colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                                    <span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+			    {%else%}
+			          <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2"
+                                    title="{{data['users'][user.id]['comment']}}"><span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+			    {%endif%}
+                            {%elif data["users"][user.id]["scor"] == 4 %}
+			    {% if data['users'][user.id]['comment']|length > 0 %}
+                                <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center; cursor: pointer;"colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                                   <span class="circle_four">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+				{%else%}
+			            <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                                    title="{{data['users'][user.id]['comment']}}"><span class="circle_four">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+			     {%endif%}
+                            {%elif data["users"][user.id]["scor"] == 3 %}
+			     {% if data['users'][user.id]['comment']|length > 0 %}
+                                <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center; cursor: pointer;"colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+					<span class="circle_three">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+			    {%else%}
+			        <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                                title="{{data['users'][user.id]['comment']}}"><span class="circle_three">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+
+			    {%endif%}
+                            {%elif data["users"][user.id]["scor"] == 2 %}
+			    	{% if data['users'][user.id]['comment']|length > 0 %}
+			            <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center; cursor: pointer;"colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+					    <span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
+			    	{%else%}
+                             	   <td style="background-color: #fdf4d2!important; color: #000; border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2"
+                	                title="{{data['users'][user.id]['comment']}}"><span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
+                                </td>
+			    {%endif%}
+                            {%elif data["users"][user.id]["scor"] == "LINK" %}
+			    		 {% if data['users'][user.id]['comment']|length > 0 %}
+			                    <td style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center; cursor: pointer;" colspan="2" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                                            <a style="background-color: #ffc710; color: black; border-radius: 6px; padding: 1px 6px 1px 6px;" href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
+                                                    class="iconsminds-pen-2"></i></a>
+                                            </td>
+			    		 {%else%}
+                                            <td style="background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"
+                                            title="{{data['users'][user.id]['comment']}}">
+                                            <a style="background-color: #ffc710; color: black; border-radius: 6px; padding: 1px 6px 1px 6px;" href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
+                                                    class="iconsminds-pen-2"></i></a>
+                                            </td>
+			    		 {%endif%}
+                            {%else%}
+		<!--Комментарий для Антона что ОНО ТУТА-->
+                                {% if data['users'][user.id]['comment']|length > 0 %}
+                                    <td class="usermsg" style="background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center; cursor: pointer;" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                                       {{data["users"][user.id]["scor"]}}
+                                    </td>
+                                {%else%}
+                                    <td style="background-color: #fdf4d2!important; color: #000; border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">
+                                        {{data["users"][user.id]["scor"]}}
+                                    </td>
+                                {%endif%}
+                            {%endif%}
+                    {%else%}
+<!--                        Если дата не сегодня-->
+                        {%if data["users"][user.id]["scor"] == 5 %}
+			  {% if data['users'][user.id]['comment']|length > 0 %}
+                    	    <td  style="cursor: pointer; background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; border-bottom: 2px solid; border-right: 2px solid; text-align: center;" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+				<span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
+                            </td>
+			  {%else%}
+			        <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;" colspan="2">
+				<span class="circle_five">{{data["users"][user.id]["scor"]}}</span>
+			  {%endif%}
+                        {%elif data["users"][user.id]["scor"] == 4 %}
+			 {% if data['users'][user.id]['comment']|length > 0 %}
+                        	<td style="cursor: pointer; background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; border-bottom: 2px solid; border-right: 2px solid; text-align: center;" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+				<span class="circle_four">{{data["users"][user.id]["scor"]}}</span>
+                       		 </td>
+			  {%else%}
+			     <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">
+		              <span class="circle_four">{{data["users"][user.id]["scor"]}}</span>
+                       	      </td>
+			  {%endif%}  
+                        {%elif data["users"][user.id]["scor"] == 3 %}
+			     {% if data['users'][user.id]['comment']|length > 0 %}   
+                       		 <td style="cursor: pointer; background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; border-bottom: 2px solid; border-right: 2px solid; text-align: center;" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                       		 <span class="circle_three">{{data["users"][user.id]["scor"]}}</span>
+                       		 </td>
+			     {%else%}
+			         <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">
+                       		 <span class="circle_three">{{data["users"][user.id]["scor"]}}</span>
+                       		 </td>
+			    {%endif%}  
+                        {%elif data["users"][user.id]["scor"] == 2 %}
+			     {% if data['users'][user.id]['comment']|length > 0 %}  
+                       		 <td style="cursor: pointer; background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; border-bottom: 2px solid; border-right: 2px solid; text-align: center;" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+					 <span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
+                      		  </td>
+			     {%else%}
+			           <td style="border-bottom: 2px solid; border-right: 2px solid; text-align: center;"colspan="2">
+					 <span class="circle_two">{{data["users"][user.id]["scor"]}}</span>
+                      		  </td>
+			    {%endif%}  
+                        {%elif data["users"][user.id]["scor"] == "LINK" %}
+			    	{% if data['users'][user.id]['comment']|length > 0 %}  
+                                    <td style="cursor: pointer; background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; border-right: 2px solid; border-bottom: 2px solid; text-align: center;" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                                    <a style="background-color: #fdde77; color: black; border-radius: 6px; padding: 1px 6px 1px 6px;" href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
+                                            class="iconsminds-pen-2"></i></a>
+                                    </td>
+			     {%else%}
+			            <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2">
+                                    <a style="background-color: #fdde77; color: black; border-radius: 6px; padding: 1px 6px 1px 6px;" href="{{ '/editbets/'}}{{data['users'][user.id]['match_id']}}"><i
+                                            class="iconsminds-pen-2"></i></a>
+                                    </td>
+			    {%endif%}  
+                        {%else%}
+			    {% if data['users'][user.id]['comment']|length > 0 %} 
+                        <td style="cursor: pointer; background-image: url(/static/msg.png); background-position: center; background-repeat: no-repeat; background-size: contain; border-right: 2px solid; border-bottom: 2px solid; text-align: center;" data-toggle="tooltip" data-placement="top" colspan="2" title="{{user.fio}}: {{data['users'][user.id]['comment']}}">
+                            {{data["users"][user.id]["scor"]}}
+                        </td>
+			    {%else%}
+			     <td style="border-right: 2px solid; border-bottom: 2px solid; text-align: center;" colspan="2"title="{{data['users'][user.id]['comment']}}">
+                            {{data["users"][user.id]["scor"]}}
+                        </td>
+			    {%endif%}  
+                        {%endif%}
+                    {%endif%}
+
+
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-<br>
-{% endfor %}
+<!--.Полная таблица -->
+
+
 {% endblock %}

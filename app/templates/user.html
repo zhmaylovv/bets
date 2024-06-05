@@ -1,16 +1,30 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <p>
-        <td><img src="{{ url_for('static', filename=user.avatar)}}" style="border-radius:50%;"></td>
-    </p>
-    <h1>User: {{ user.username }}</h1>
+{% block activeacc %}class="active"{% endblock %}
 
-    <hr>
-    {% for post in posts %}
-    <p>
-    {{ post.author.username }} says: <b>{{ post.body }}</b>
-    </p>
-    {% endfor %}
-    <a class="nav-item nav-link active" href="{{ url_for('edituser', username=current_user.username) }}" >{{ "edit user info" }}</a>
+{% block title %}
+Мой аккаунт
+{% endblock %}
+
+{% block content_title %}
+Мой аккаунт
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-6 col-sm-6 col-lg-4 col-12 mb-4">
+	<div class="card ">
+	    <div class="card-body">
+	        <div class="text-center">
+	            <img alt="Profile" src="data:;base64,{{userpic}}" style="object-fit: cover;width: 100px; height: 100px;" class="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail">
+	            <p class="list-item-heading mb-1">{{ user.fio }}</p>
+	            <p class="mb-4 text-muted text-small"><!--Email: {{user.email}}<br-->Логин: {{ user.username }}</p>
+  				<a href="{{ url_for('edituser', username=current_user.username) }}" ><span class="btn btn btn-secondary btn-xs">Изменить профиль</span></a>
+	        </div>
+	    </div>
+	</div>
+</div>
+
+
+
 {% endblock %}

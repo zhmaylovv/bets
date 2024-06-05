@@ -1,0 +1,186 @@
+html {
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden !important;
+}
+
+body.show-spinner>main {
+  overflow: hidden !important;
+}
+
+/* Hide everything under body tag */
+body.show-spinner>* {
+  opacity: 0;
+}
+
+/* Spinner */
+body.show-spinner::after {
+  content: " ";
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  border-top-color: rgba(0, 0, 0, 0.3);
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+  left: calc(50% - 15px);
+  top: calc(50% - 15px);
+  position: fixed;
+  z-index: 1;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.rotatable{
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  width: 2em;
+  min-width: 2em;
+  background-color: #f3f3f3;
+
+}
+
+.rotatable div{
+     -moz-transform: rotate(-90.0deg);  /* FF3.5+ */
+       -o-transform: rotate(-90.0deg);  /* Opera 10.5 */
+  -webkit-transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
+             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+         margin-left: -10em;
+         margin-right: -10em;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+::-webkit-scrollbar:vertical {
+    width: 12px;
+}
+::-webkit-scrollbar:horizontal {
+    height: 12px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.maintable__userfio{
+    text-align: left;
+    background-color: #f3f3f3;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    white-space: nowrap;
+    /* overflow: hidden; */
+}
+
+.maintable__avatar{
+  box-shadow: 0.4em 0.4em 11px rgba(122,122,122,0.5);
+  object-fit: cover;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  border-radius: 30px;
+  transition: 1s; /* Время эффекта */
+  z-index:99999;
+
+}
+
+.maintable__avatar:hover {
+  transform: scale(3.2); /* Увеличиваем масштаб */
+  overflow: visible;
+   }
+
+.circle_five {
+    border-radius: 50%;
+    font-size: 13px;
+    color: #fff;
+    text-align: center;
+    background: #ff7800;
+    padding: 3px 8px 2px 8px;
+    cursor: default;
+    box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
+}
+
+  .circle_four {
+      border-radius: 50%;
+      font-size: 13px;
+      color: #fff;
+      text-align: center;
+      background: #158fa2;
+      padding: 3px 8px 2px 8px;
+      cursor: default;
+      box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
+  }
+
+  .circle_three {
+      border-radius: 50%;
+      font-size: 13px;
+      color: #fff;
+      text-align: center;
+      background: #129803;
+      padding: 3px 8px 2px 8px;
+      cursor: default;
+      box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
+  }
+
+ .circle_two {
+      border-radius: 50%;
+      font-size: 13px;
+      color: #fff;
+      text-align: center;
+      background: #2f76e2;
+      padding: 3px 8px 2px 8px;
+      cursor: default;
+      box-shadow: 0.1em 0.1em 1px rgb(122 122 122 / 65%);
+  }
+
+
+.maintable__igb {
+  border-bottom: 1px solid white;
+  }
+}
+
+.usermsg {
+    position: relative;
+}
+
+.usermsg:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+	width: 0; 
+	height: 0; 
+  display: block;
+	border-left: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+  border-top: 20px solid #f00;
+}
+
+
+.usermsg {
+    background-image: url(/static/msg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+

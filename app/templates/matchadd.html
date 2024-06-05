@@ -2,61 +2,48 @@
 
 
 {% block title %}
-    Матчи
+    Добавление матча
 {% endblock %}
 
 {% block content_title %}
-    Список матчей
+    Добавление матча
 {% endblock %}
 
 {% block content%}
- <h1> Добавление матча </h1>
 
-     <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.team1.label }}<br>
-            {{ form.team1(size=32) }}<br>
-            {% for error in form.team1.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-         <p>
-            {{ form.team2.label }}<br>
-            {{ form.team2(size=32) }}<br>
-            {% for error in form.team2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-         <p>
-            {{ form.t1_res.label }}<br>
-            {{ form.t1_res(size=32) }}<br>
-            {% for error in form.t1_res.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-
-         <p>
-            {{ form.t2_res.label }}<br>
-            {{ form.t2_res(size=32) }}<br>
-            {% for error in form.t2_res.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-
-        <p>
-            {{ form.datetime.label }}<br>
-            {{ form.datetime}}<br>
-            {% for error in form.datetime.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-
-            {% endfor %}
-
-        </p>
-
-        <p>{{ form.submit() }}</p>
-    </form>
+<div class="row">
+<div class="col-lg-6 col-md-12 mb-4">
+<div class="card mb-4">
+            <div class="card-body">
+            <h5 class="mb-4">Добавить новый матч</h5>
+        <form method="post">
+            <div class="form-group" >
+                <label>Команда 1</label>
+                <input type="text" class="form-control" tabindex="1" name="team1">
+            </div>
+            <div class="form-group" >
+                <label>Команда 2</label>
+                <input type="text" class="form-control" tabindex="2" name="team2">
+            </div>
+            <div class="form-group" >
+                <label>Начало матча (Формат: 2021-05-31 16:42:40)</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" tabindex="3" name="datetime">
+                </div>
+            </div>
 
 
+
+                <button type="submit" class="btn btn-primary mb-0" tabindex="4">Добавить матч</button>
+             </form>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+
+<!-- На этапе создания матча нельзя поставить результаты игры. Этот фунционал нужно вынести на страницу внесения результатов -->
+<!--
+
+-->
 
 {% endblock %}

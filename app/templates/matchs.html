@@ -1,5 +1,6 @@
 {% extends  'base.html' %}
 
+{% block activematch %}class="active"{% endblock %}
 
 {% block title %}
     Матчи
@@ -10,30 +11,169 @@
 {% endblock %}
 
 {% block content%}
+    <!-- Фунционал администратора -->
     {% if current_user.username == 'admin' %}
-    <a class="nav-item nav-link active" href="{{ url_for('matchadd') }}">Добавить матч <span class="sr-only">(current)</span></a>
-    {% for match in matchs %}
-
-<div><a class="nav-item nav-link active" href="{{ url_for('editmatchs', match_id = match.id) }}">
-    {{match.id}} {{match.team1}} - {{match.team2}}
-    {% if match.completed%}
-    <b>{{match.t1_res}} : {{match.t2_res}}</b> Матч завершен
-    {%else%} Начало {{match.timestamp}}
-    {% endif %}  </a></div>
-        {% endfor %}
-    {%else%}
-        {% for match in matchs %}
-<div><a class="nav-item nav-link active" href="{{ url_for('editbets', match_id = match.id) }}">{{match.id}} {{match.team1}} - {{match.team2}}
-    {% if match.completed%}
-    <b>{{match.t1_res}} : {{match.t2_res}}</b> Матч завершен
-    {%else%} Начало {{match.timestamp}}
-    {% endif %}  </a></div>
-        {% endfor %}
-
+    <div>
+        <p>Функционал администратора</p>
+    <form style="padding-bottom: 20px;" action="{{ url_for('matchadd') }}">
+        <button type="submit" class="btn btn-secondary btn-lg mb-1">Добавить матч</button>
+    </form>
+    </div>
     {% endif %}
-    <div class="col-md-3">
+    <!-- /Фунционал администратора -->
+    
+    <div class="row">
+        <div class="col-lg-6 col-md-12 mb-12" style="padding-bottom: 30px;">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Мои прогнозы</h5>
+                        <table  width="100%" class="table">
+                            <thead>
+                                <tr>
+                                    <th width="5px;" scope="col">№</th>
+                                    <th style="text-align: right;" scope="col">Команда 1</th>
+                                    <th style="text-align: center; background-color: #efefef;" scope="col">Мой прогноз</th>
+                                    <th style="text-align: left;"scope="col">Команда 2</th>
+                                    <th scope="col">Начало</th> 
+                                    {% if current_user.username == 'admin' %}<th scope="col">Ред.</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                    {% if current_user.username == 'admin' %}
+                                {% for match in matchs %}
+                                    {% if match.completed%}
+                                    {%else%}
+                                        <th scope="row">{{match.id}}</th>
+                                        <td style="text-align: right;"><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team1}}</a></td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                        <td style="text-align: center; background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><i class="iconsminds-pen-2"></i></a></td>
 
-        OLOLO
+                                        {%else%}
+                                                <td style="text-align: center; background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
+                                        {% endfor %}
+                                        <td style="text-align: left;"><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
+                                        <td>{{match.timestamp}}</td>
+                                        {% if current_user.username == 'admin' %}<th scope="col"><a href="{{ url_for('editmatchs', match_id = match.id) }}"><span class="btn btn btn-outline-secondary btn-xs">ред.</span></a></th>
+                                        {% endif %}
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                    {%else%}
+                                {% for match in matchs %}
+                                    {% if match.completed%}
+                                    {%else%}
+                                        <th scope="row">{{match.id}}</th>
+                                        <td style="text-align: right;"><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team1}}</a></td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                                <td style="text-align: center; background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b> <a href="{{ url_for('editbets', match_id = match.id) }}"><i class="iconsminds-pen-2"></i></a></td>
+
+                                        {%else%}
+                                                <td style="text-align: center; background-color: #efefef;"><b><a href="{{ url_for('editbets', match_id = match.id) }}"><span class="btn btn btn-secondary btn-xs">Мой прогноз</span></a></td>
+                                        {% endfor %}
+                                        <td style="text-align: left;"><a href="{{ url_for('editbets', match_id = match.id) }}">{{match.team2}}</a></td>
+                                        <td>{{match.timestamp}}</td>
+                                        </tr>
+                                        {% endif %}
+                     {% endfor %}
+                     {% endif %}
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+            <div class="col-lg-6 col-md-12 mb-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Завершенные матчи </h5>
+                        <table  width="100%" class="table">
+                            <thead>
+                                <tr>
+                                    <th width="5px;" scope="col">№</th>
+                                    <th scope="col">Команда 1</th>
+                                    <th scope="col">Команда 2</th>
+                                    <th scope="col">Начало</th>
+                                    <th style="background-color: #efefef;" scope="col">Мой прогноз</th>
+                                    <th scope="col">Результат</th>
+                                    <th scope="col">Мои очки</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                    {% if current_user.username == 'admin' %}
+                                {% for match in matchs %}
+                                    {% if match.completed%}
+                                        <th scope="row">{{match.id}}</th>
+                                        <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team1}}</a></td>
+                                        <td><a href="{{ url_for('editmatchs', match_id = match.id) }}">{{match.team2}}</a></td>
+                                        <td>{{match.timestamp}}</td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                                <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b></td>
+
+                                        {%else%}
+                                                <td style="background-color: #efefef;"><b>0:0 (авто)</b></td>
+                                        {% endfor %}
+                                        <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                                <td>
+                                                    {%if bet.res_scor == 5 %}
+                                                    <b><span class="circle_five">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 4 %}
+                                                    <b><span class="circle_four">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 3 %}
+                                                    <b><span class="circle_three">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 2 %}
+                                                    <b><span class="circle_two">{{bet.res_scor}}</span></b>
+                                                    {%else%}
+                                                    <b>{{bet.res_scor}}</b>
+                                                    {%endif%}
+                                                </td>
+                                        {% endfor %}
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                    {%else%}
+                                {% for match in matchs %}
+                                    {% if match.completed%}
+                                        <th scope="row">{{match.id}}</th>
+                                        <td>{{match.team1}}</td>
+                                        <td>{{match.team2}}</td>
+                                        <td>{{match.timestamp}}</td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                                <td style="background-color: #efefef;"><b>{{bet.t1_pre}} : {{bet.t2_pre}}</b></td>
+
+                                        {%else%}
+                                                <td style="background-color: #efefef;"><b>0:0 (авто)</b></td>
+                                        {% endfor %}
+                                        <td><b>{{match.t1_res}} : {{match.t2_res}}</b></td>
+                                        {%for bet in bets if bet.match_id | int == match.id | int %}
+                                                <td>
+                                                    {%if bet.res_scor == 5 %}
+                                                    <b><span class="circle_five">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 4 %}
+                                                    <b><span class="circle_four">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 3 %}
+                                                    <b><span class="circle_three">{{bet.res_scor}}</span></b>
+                                                    {%elif bet.res_scor == 2 %}
+                                                    <b><span class="circle_two">{{bet.res_scor}}</span></b>
+                                                    {%else%}
+                                                    <b>{{bet.res_scor}}</b>
+                                                    {%endif%}
+                                                </td>
+                                        {% endfor %}
+                                        </tr>
+                                        {% endif %}
+                     {% endfor %}
+                     {% endif %}
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>    
     </div>
 
 {% endblock %}

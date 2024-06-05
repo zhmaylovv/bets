@@ -24,7 +24,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    photo = FileField('Выберите фото', validators=[FileRequired()] )
+    photo = FileField('Выберите фото')
 
     submit = SubmitField('Register')
 
@@ -64,17 +64,17 @@ class MatchEditForm(FlaskForm):
 
     team1 = StringField('Комманда 1', validators=[DataRequired()])
     team2 = StringField('Комманда 2', validators=[DataRequired()])
-    t1_res = StringField('Результат Комманды 1', validators=[DataRequired()], default='0')
-    t2_res = StringField('Результат Комманды 2', validators=[DataRequired()], default='0')
+    t1_res = StringField('Результат Комманды 1')
+    t2_res = StringField('Результат Комманды 2')
     datetime = DateTimeField('Дата и время', validators=[DataRequired()], default= datetime.utcnow())
-    completed = BooleanField('Матч завершен?')
-
     submit = SubmitField('Сохранить')
+    delete = BooleanField( 'Удалить матч' )
+
 
 class BetsEditForm(FlaskForm):
 
     t1_pre = StringField('Результат Комманды 1', validators=[DataRequired()], default='0')
     t2_pre = StringField('Результат Комманды 2', validators=[DataRequired()], default='0')
-    comment = TextAreaField('Комментарий к матчу', validators=[Length(max=140)])
+    comment = StringField('Комментарий к матчу', validators=[Length(max=500)])
 
     submit = SubmitField('Сохранить')
